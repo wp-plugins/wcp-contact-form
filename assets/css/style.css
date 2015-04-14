@@ -1,0 +1,21 @@
+/*--------------------------------------------------------------*/
+/*-- CSS Document --*/
+/*-- Copyright (c) 2015. --*/
+/*--------------------------------------------------------------*/
+.scfp-form-content { padding-bottom: 35px; }
+.scfp-form-content:after, .scfp-form-content:before { clear: both; }
+.scfp-form-content .scfp-form-row { padding-bottom: 10px; }
+.scfp-form-content .scfp-form-row .scfp-form-label { display: inline-block; line-height: 1.1em; margin: 0; padding-bottom: 5px; font-weight: normal; }
+.scfp-form-content .scfp-form-row .scfp-form-label .scfp-form-field-required { color: #db0202; }
+.scfp-form-content .scfp-form-row .scfp-form-field { background: #fff; font-size: 90%; height: inherit; width: 100%; margin: 0; padding: 7px 10px; border: 1px solid #cfcfcf; border-radius: 0; -webkit-border-radius: 0; -moz-border-radius: 0; -webkit-appearance: none; }
+.scfp-form-content .scfp-form-row .scfp-form-field:focus { border: 1px solid #cfcfcf; }
+.scfp-form-content .scfp-form-row .scfp-form-message-field { padding: 5px 10px; min-height: 100px; resize: none; }
+.scfp-form-content .scfp-form-action { padding-top: 10px; }
+.scfp-form-content .scfp-form-action .scfp-form-submit { background: #404040; border: 0 !important; outline: none !important; min-width: 30%; min-height: 32px; margin: 0; color: #fff; font-size: 90%; line-height: 1em; font-weight: bold; padding: 11px 20px 12px; text-transform: uppercase; vertical-align: bottom; cursor: pointer; border-radius: 0; -webkit-border-radius: 0; -moz-border-radius: 0; box-shadow: none; -webkit-box-shadow: none; -moz-box-shadow: none; text-shadow: none; -webkit-text-shadow: none; -moz-text-shadow: none; }
+.scfp-form-content .scfp-form-action .scfp-form-submit:hover { opacity: 0.8; }
+/*-----------------------------------------------------------------*/
+/*--- Form Error Styles ---*/
+/*-----------------------------------------------------------------*/
+.scfp-form-error { font-size: 90%; line-height: 1em; color: #db0202; padding-bottom: 10px; }
+.scfp-form-error .scfp-error-item { padding-bottom: 5px; }
+.scfp-form-error .scfp-error-item span { font-weight: bold; padding-right: 2px; }
