@@ -93,6 +93,7 @@ Other options for configuring the form are described in [FAQ](https://wordpress.
 
 To change Send button, go to menu "Contact Form" > "Settings" > "Form" tab > "Send Button" section. 
 Following options are available:
+
 * **Caption** – allows to change button text;
 * **Background Color** – allows to change button background color;
 * **Text Color** – allows to change button text color.
@@ -101,6 +102,7 @@ Following options are available:
 
 To choose own Thank You page, go to menu "Contact Form" > "Settings" > "Form" tab > "Thank You Page" section. 
 Following options are available:
+
 * **Page** – allows to choose existed page from the dropdown list and use it as Thank You page.
 
 = How can I enable HTML5 validation? =
@@ -111,6 +113,7 @@ To eneble HTML5 validation, go to menu "Contact Form" > "Settings" > "Form" tab 
 
 To change normal validation error messages, go to menu "Contact Form" > "Settings" > "Errors" tab > "Error Messages" section.
 Following options are available:
+
 * **Required Field Error** – allows to change error message for required fields;
 * **Email Field Error Message** – allows to change error message for email field.
 
@@ -118,6 +121,7 @@ Following options are available:
 
 To change administrator notifications, go to menu "Contact Form" > "Settings" > "Notifications" tab > "Admin Notifications" section.
 Following options are available:
+
 * **Send to Email** – allows to set email address for administrator notifications;  default email address is used from: Settings > General > E-mail Address
 * **Subject** – allows to change default subject of administrator notification message;
 * **Message** – allows to change default text of administrator notification message.
@@ -127,6 +131,7 @@ Following options are available:
 
 To change user notifications, go to menu "Contact Form" > "Settings" > "Notifications" tab > "User Notifications" section.
 Following options are available:
+
 * **Subject** – allows to change default subject of user notification message;
 * **Message** – allows to change default text of user notification message.
 * **Disable User Notifications** - allows to disable notifications for successful form submission. 
