@@ -21,7 +21,7 @@ With the help of our plugin you can add an easy-to-setup contact form for the pa
 
 = Features =
 
-* Can be used on the page as shordcode or widget;
+* Can be used on the page as shortcode or widget;
 * Customize entry fields for your needs;
 * Change the name of fields and add "required" parameter;
 * Disable fields which are not necessary;
