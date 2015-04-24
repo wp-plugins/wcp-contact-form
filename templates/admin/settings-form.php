@@ -20,14 +20,14 @@
                     switch ($column['type']) :
                         case 'text':
                 ?>            
-                    <input type="<?php echo $column['type']?>" name="<?php echo $key.'[field_settings]['.$rowkey.']['.$columnkey.']'; ?>" value="<?php echo esc_attr( $data['field_settings'][$rowkey][$columnkey]); ?>">
+                    <input type="<?php echo $column['type']?>" name="<?php echo $key.'[field_settings]['.$rowkey.']['.$columnkey.']'; ?>" value="<?php echo isset($data['field_settings'][$rowkey][$columnkey]) ? esc_attr( $data['field_settings'][$rowkey][$columnkey]) : 'Captcha'; ?>">
                 <?php 
                         break;
                         case 'checkbox':
                         
                         if (empty($rowvalues['readonly'])) :
                 ?>  
-                    <input type="<?php echo $column['type']?>" name="<?php echo $key.'[field_settings]['.$rowkey.']['.$columnkey.']'; ?>" <?php checked( !empty($data['field_settings'][$rowkey][$columnkey]) ); ?>>
+                    <input type="<?php echo $column['type']?>" name="<?php echo $key.'[field_settings]['.$rowkey.']['.$columnkey.']'; ?>" <?php checked( !empty($data['field_settings'][$rowkey]) ? !empty($data['field_settings'][$rowkey][$columnkey]) : 1 ); ?>>
                     
                     <?php else: ?>
                     

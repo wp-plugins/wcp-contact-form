@@ -43,24 +43,24 @@
                             case 'captcha':
                     ?>    
                         <div class="scfp-form-row">
-                            <label class="scfp-form-label" for="scfp-<?php echo $datakey; ?>"><?php echo $data[$datakey]['values']['name'];?><?php if ( !empty( $data[$datakey]['values']['required'] ) ) : ?> <span class="scfp-form-field-required">*</span><?php endif;?></label>
-                            <div class="scfp-captcha">                                
+                            <label class="scfp-form-label" for="scfp-<?php echo $datakey; ?>"><?php echo $data[$datakey]['values']['name'];?><?php if ( !empty( $data[$datakey]['values']['required'] ) ) : ?> <span class="scfp-form-field-required">*</span><?php endif;?></label>                                
+                            <div class="scfp-captcha scfp-captcha-widget">                                
                                 <div class="scfp-captcha-image">
                                     <div class="scfp-captcha-image-wrapper">
                                         <img src="data:image/png;base64,<?php echo $form->getCaptcha()->CreateImage();?>" />
                                     </div>    
                                     
-                                </div>    
+                                </div>
                                 <div class="scfp-captcha-field">
                                     <input class="scfp-form-field" type="text" id="scfp-<?php echo $datakey; ?>" name="scfp-<?php echo $datakey; ?>" <?php if ( !empty( $data[$datakey]['values']['required'] ) && !empty($form_settings['html5_enabled']) ) : ?> required <?php endif; ?>>
-                                    <a class="scfp-captcha-refresh" data-id="<?php echo $id;?>" href="javascript:void();">refresh</a>
+                                    <a class="scfp-captcha-refresh" data-id="<?php echo $id;?>" href="javascript:void();">refresh</a>                    
                                 </div>
-                            </div>                            
+                            </div>                                    
                         </div>
                     <?php endswitch;?>
                 <?php endif;?>
             <?php endforeach; ?>
-        
+
         <div class="scfp-form-action">
             <input class="scfp-form-submit" style="background: <?php echo $button_color;?>; color: <?php echo $text_color;?>;" type="submit" value="<?php echo $form_settings['button_name']?>">
         </div>

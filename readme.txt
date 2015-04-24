@@ -2,7 +2,7 @@
 Contributors: webcodin
 Tags: contact, contact form, form, contact me, contact us, contactus, contact form plugin, email, email message, notifications, admin notifications, customer notifications, customer, form to email, wordpress contact form 
 Requires at least: 3.5.0
-Tested up to: 4.1
+Tested up to: 4.2
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 Stable tag: trunk
@@ -11,7 +11,7 @@ Quickly add simple contact form to your site and easily adjust it to your needs.
 
 == Description ==
 
-With the help of our plugin you can add an easy-to-setup contact form for the page of your site. It's fully customizable, adjustable and ideally works as:
+With the help of our plugin you can add an easy-to-setup contact form for the page or sidebar of your site. It's fully customizable, adjustable and ideally works as:
 
 * Contact form for corporate site or a personal blog;
 * Form of offline order in promotional catalog;
@@ -21,14 +21,17 @@ With the help of our plugin you can add an easy-to-setup contact form for the pa
 
 = Features =
 
+* Can be used on the page as shordcode or widget;
 * Customize entry fields for your needs;
 * Change the name of fields and add "required" parameter;
 * Disable fields which are not necessary;
+* Optional CAPTCHA field;
 * Customize "submit" button with title, background and text colors;
 * Redirection to your own "Thank You" page after a successful submitting if needed;
 * Optionally available HTML5 fields validation;
 * You can modify the text of errors for normal fields validation;
 * Set up notifications for user and administrator;
+* Variables for notification letters;
 * Handy list of received messages with the ability to filter and delete to the Trash;
 * 2 status for messages available: read and unread;
 * Group actions on messages;
@@ -79,6 +82,8 @@ Click on the name of the letter to review the letter details.
 More information can be found in the section [screenshots](https://wordpress.org/plugins/wcp-contact-form/screenshots/) and [FAQ](https://wordpress.org/plugins/wcp-contact-form/faq/).
 
 Other options for configuring the form are described in [FAQ](https://wordpress.org/plugins/wcp-contact-form/faq/).
+
+If you want to help with plugin improvement, please leave your feedback or suggestions for future updates.
 
 == Installation ==
 
@@ -157,16 +162,24 @@ Path to the templates folder inside the active theme:
 
 1. Form Sample
 2. Form Sample
-3. Form Sample
+3. Form Sample :: Widget
 4. Form Shordcode
-5. Entries
-6. Entries :: Group Actions
-7. Entries :: Detail
-8. Admin Panel :: Settings :: Form Tab
-9. Admin Panel :: Settings :: Errors Tab
-10. Admin Panel :: Settings :: Notifications
+5. Form Widget
+6. Entries
+7. Entries :: Group Actions
+8. Entries :: Detail
+9. Admin Panel :: Settings :: Form Tab
+10. Admin Panel :: Settings :: Errors Tab
+11. Admin Panel :: Settings :: Notifications
 
 == Changelog ==
+
+= 1.1.0 =
+* added form widget;
+* added optional CAPTCHA field and editable error message;
+* added ability to reset form options to default;
+* added variables for notification messages;
+* general cleanup and optimization;
 
 = 1.0.0 =
 * Initial release.

@@ -21,6 +21,13 @@
             <th>Message</th>
             <td>
                 <textarea rows="6" class="widefat" name="<?php echo $key; ?>[message]"><?php echo esc_attr( $data['message'] ); ?></textarea>
+                <p class="description">
+                    Variables:<br/>
+                    {$admin_name} - Administrator name<br/>
+                    {$user_name} - User name<br/>
+                    {$data} - Form data
+                    
+                </p>                
             </td>
         </tr>
         <tr>
@@ -42,6 +49,12 @@
             <th>Message</th>
             <td>
                 <textarea rows="6" class="widefat" name="<?php echo $key; ?>[user_message]"><?php echo esc_attr( $data['user_message'] ); ?></textarea>
+                <p class="description">
+                    Variables:<br/>
+                    {$admin_name} - Administrator name<br/>
+                    {$user_name} - User name<br/>
+                    {$data} - Form data
+                </p>                                
             </td>
         </tr>
         <tr>

@@ -3,7 +3,7 @@
  * Plugin Name: WCP Contact Form
  * Plugin URI: https://wordpress.org/plugins/wcp-contact-form/ 
  * Description: Quickly add simple contact form to your site and easily adjust it to your needs.
- * Version: 1.0.0
+ * Version: 1.1.0
  * Author: Webcodin
  * Author URI: https://profiles.wordpress.org/webcodin/
  * License: GPL2
@@ -68,7 +68,7 @@ function scfp_activate_plugin() {
     if (class_exists('Agp_Autoloader') && !function_exists('SCFP')) {
         $autoloader = Agp_Autoloader::instance();
         $autoloader->setClassMap(array(
-            __DIR__ => array('classes')
+            __DIR__ => array('classes', 'agp-core'),
         ));
 
         function SCFP() {

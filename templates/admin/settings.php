@@ -29,6 +29,9 @@
                     break;
             endswitch;
         ?>
-        <?php submit_button(); ?>
+        <p class="submit">
+            <input id="submit" class="button button-primary" type="submit" value="Save Changes" name="submit">
+            <a class="button button-primary" href="?page=<?php echo $settings->getPluginOptionsKey();?>&tab=<?php echo $tab;?>&reset-settings=true" >Reset to Default</a>
+        </p>
     </form>
 </div>

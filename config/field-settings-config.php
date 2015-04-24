@@ -61,6 +61,15 @@ return array (
             'type' => 'textarea',
             'readonly' => TRUE,
         ),    
+        'captcha' => array(
+            'default' => array(
+                'name' => 'Captcha',
+                'visibility' => 1,
+                'required' => 1,
+            ),
+            'type' => 'captcha',
+            'noemail'=>1,
+        )
 
     ),    
     

@@ -12,7 +12,7 @@
                 <div id="wp-content-editor-container" class="wp-editor-container">
                     <table class="view-entry-table widefat scfp-view-table">
                         <?php foreach( $data as $datakey => $datavalue ): ?>
-                            <?php if (!empty($data[$datakey]['values']['visibility'])) : ?>
+                            <?php if ( !empty( $data[$datakey]['values']['visibility'] ) && empty($datavalue['noemail'])) : ?>
                                 <tr class="view-entry-header alternate">
                                     <td><strong><?php echo $datavalue['default']['name']; ?></strong></td>
                                 </tr>

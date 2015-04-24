@@ -61,9 +61,8 @@ class SCFP_Settings extends Agp_Module {
         add_action( 'init', array( $this, 'loadSettings' ) );
         add_action( 'admin_init', array( $this, 'registerSettings' ) );
         add_action( 'admin_menu', array( $this, 'adminMenu' ) );   
+        add_action( 'admin_notices', array( $this, 'customAdminNotices' ) );         
         //add_filter( 'parent_file', array($this, 'currentMenu') );        
-        
-        //$this->resetSettings();
     }
     
     function loadSettings() {
@@ -96,6 +95,11 @@ class SCFP_Settings extends Agp_Module {
             'html5_enabled' => '',
         ), $this->form );
         
+        //CODEHACK
+        if (empty($this->form['field_settings']['captcha']) && !empty($field_settings_default['captcha'])) {
+            $this->form['field_settings']['captcha'] = $field_settings_default['captcha'];
+        }
+        
         $this->error = array_merge( array(
             'error_name' => $error_default
         ), $this->error );
@@ -103,9 +107,9 @@ class SCFP_Settings extends Agp_Module {
         $this->notification = array_merge( array(
             'another_email' => '',
             'subject' => 'New submission from contact form',
-            'message' => "Dear Administrator,\nYou got a new message from contact form!",
+            'message' => "Dear {\$admin_name},\nYou got a new message from contact form!\n\nForm message:\n{\$data}",
             'user_subject' => 'Form submission confirmation',
-            'user_message' => "Thanks for contacting us!\nWe will get in touch with you shortly."            
+            'user_message' => "Dear {\$user_name},\nThanks for contacting us!\nWe will get in touch with you shortly.\n\nYour message:\n{\$data}"            
         ), $this->notification );
     }    
 
@@ -120,7 +124,13 @@ class SCFP_Settings extends Agp_Module {
         //register 3 options
         register_setting( $this->formKey, $this->formKey ); 
         register_setting( $this->errorKey, $this->errorKey );        
-        register_setting( $this->notificationKey, $this->notificationKey );        
+        register_setting( $this->notificationKey, $this->notificationKey ); 
+        
+        global $pagenow;
+        if($pagenow == 'admin.php' && !empty($_REQUEST['page']) && $_REQUEST['page'] == $this->pluginOptionsKey && !empty($_REQUEST['reset-settings'])) {
+            $this->resetSettings();
+            wp_redirect(add_query_arg(array('is-reset-form' => 'true'), remove_query_arg('reset-settings')));
+        }        
     }
     
     public function adminMenu () {
@@ -198,5 +208,14 @@ class SCFP_Settings extends Agp_Module {
         return $this->errorConfig;
     }
 
+    public function customAdminNotices() {
+
+        global $pagenow;
+
+        if ( $pagenow == 'admin.php' && isset($_REQUEST['is-reset-form']) && !isset($_REQUEST['settings-updated'])) {
+            $message = 'Settings reset to default values';
+            echo '<div class="updated settings-error" id="setting-error-settings_updated"><p><strong>'.$message.'</strong></p></div>';            
+        }
+    }            
 }
 

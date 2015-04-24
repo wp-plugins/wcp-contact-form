@@ -11,7 +11,7 @@
             <tr>
                 <th scope="row"><?php echo $error_config_value['title']; ?></th>
                 <td>
-                    <input class="widefat regular-text" type="text" name="<?php echo $key.'[error_name][' . $error_config_key . ']'; ?>" value="<?php echo esc_attr( $data['error_name'][$error_config_key] ); ?>"/>
+                    <input class="widefat" type="text" name="<?php echo $key.'[error_name][' . $error_config_key . ']'; ?>" value="<?php echo esc_attr( $data['error_name'][$error_config_key] ); ?>"/>
                 </td>
             </tr>
         <?php endforeach;?>
