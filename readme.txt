@@ -40,48 +40,23 @@ With the help of our plugin you can add an easy-to-setup contact form for the pa
 
 **NB! Form uses standard WordPress wp_mail() function (https://codex.wordpress.org/Function_Reference/wp_mail) for messages submission. If you have issues with notification receiving, try to use some third-party plugin for mail settings.**
 
-= Adding form =
+= Upcoming Updates =
+* subscribe option
+* export of received emails to .csv format
 
-To create a new page for the contact form, go to the menu "Pages" > "Add New". 
-After filling all needed fields, please add to the description of the page next shortcode and save the page: 
+= 3 easy steps to start using of our contact form on a page =
+1. check plugin "Settings" page and customize form options for your purposes;
+2. create new page or use existed;
+3. add shordcode to the TinyMCE editor with unique ID, as sample **[scfp id="my_contact_form"]** and save the page
+... and that is all! You have a fully working contact form on your site page
 
-`[scfp id="unique-form-id"]`
+= 3 easy steps to start using of our contact form at a sidebar =
+1. check plugin "Settings" page and customize form options for your purposes;
+2. go to the "Appearance" --> "Widgets" sections;
+3. add "WCP Contact Form" to necessary sidebar 
+... and that is all! You have a fully working contact form at the sidebar on your site
 
-As a result, ready to use form will appear on page with default configuration.
-
-The form can be also added to an existing page. To do this, go to the menu "Pages" > "All Pages". Open for editing the necessary page and insert shortcode in the right place in description and save the page. 
-
-More information can be found in the section [screenshots](https://wordpress.org/plugins/wcp-contact-form/screenshots/) and [FAQ](https://wordpress.org/plugins/wcp-contact-form/faq/).
-
-= Shortcode examples = 
-
-`[scfp id="my-form"]`
-
-`[scfp id="my-form-1"]`
-
-`[scfp id="form1"]` 
-
-= Configuring form fields =
-
-To configure form fields go to the menu "Contact Form" > "Settings" tab "Form".
-In the "Fields Settings" section will be available settings for the form fields.
-Form can contain **maximum five** fields: Name, Email, Phone, Subject and Message. And **minimum two**: Email and Message.
-Displaying and "required" settings for fields such as Name, Phone and Subject can be changed depending on your needs.
-After all, press the "Save Changes" button at the bottom of the page.
-
-More information can be found in the section [screenshots](https://wordpress.org/plugins/wcp-contact-form/screenshots/) and [FAQ](https://wordpress.org/plugins/wcp-contact-form/faq/).
-
-= View received messages =
-
-To view the list of received messages go to the menu "Contact Form" > "Entries".
-New messages are marked automatically as Unread. There is also automatic filtering for Read and Unread messages.
-When you delete a message it goes to the "Trash". Deleted message is recoverable or can be completely removed.
-You can use Mark as Read, Mark as Unread, Move to Trash actions on each message or the group.
-Click on the name of the letter to review the letter details.
-
-More information can be found in the section [screenshots](https://wordpress.org/plugins/wcp-contact-form/screenshots/) and [FAQ](https://wordpress.org/plugins/wcp-contact-form/faq/).
-
-Other options for configuring the form are described in [FAQ](https://wordpress.org/plugins/wcp-contact-form/faq/).
+More information and documentation can be found in the section [screenshots](https://wordpress.org/plugins/wcp-contact-form/screenshots/) and [FAQ](https://wordpress.org/plugins/wcp-contact-form/faq/).
 
 If you want to help with plugin improvement, please leave your feedback or suggestions for future updates.
 
@@ -93,6 +68,48 @@ If you want to help with plugin improvement, please leave your feedback or sugge
 4. Add shortcode [scfp id="unique-form-id"] on Your page
 
 == Frequently Asked Questions ==
+
+= How can I add a form to a page =
+
+To create a new page for the contact form, go to the menu "Pages" > "Add New". 
+After filling all needed fields, please add to the description of the page next shortcode and save the page: 
+
+`[scfp id="unique-form-id"]`
+
+As a result, ready to use form will appear on page with default configuration.
+
+The form can be also added to an existing page. To do this, go to the menu "Pages" > "All Pages". Open for editing the necessary page and insert shortcode in the right place in description and save the page. 
+
+**Shortcode examples**
+
+`[scfp id="my-form"]`
+
+`[scfp id="my-form-1"]`
+
+`[scfp id="form1"]` 
+
+More information can be found in the section [screenshots](https://wordpress.org/plugins/wcp-contact-form/screenshots/).
+
+
+= How can I to configure form fields =
+
+To configure form fields go to the menu "Contact Form" > "Settings" tab "Form".
+In the "Fields Settings" section will be available settings for the form fields.
+Form can contain **maximum five** fields: Name, Email, Phone, Subject and Message. And **minimum two**: Email and Message.
+Displaying and "required" settings for fields such as Name, Phone and Subject can be changed depending on your needs.
+After all, press the "Save Changes" button at the bottom of the page.
+
+More information can be found in the section [screenshots](https://wordpress.org/plugins/wcp-contact-form/screenshots/).
+
+= Where can I find received messages =
+
+To view the list of received messages go to the menu "Contact Form" > "Entries".
+New messages are marked automatically as Unread. There is also automatic filtering for Read and Unread messages.
+When you delete a message it goes to the "Trash". Deleted message is recoverable or can be completely removed.
+You can use Mark as Read, Mark as Unread, Move to Trash actions on each message or the group.
+Click on the name of the letter to review the letter details.
+
+More information can be found in the section [screenshots](https://wordpress.org/plugins/wcp-contact-form/screenshots/).
 
 = How can I customize "Send" button? =
 
@@ -175,7 +192,7 @@ Path to the templates folder inside the active theme:
 == Changelog ==
 
 = 1.2.0 =
-* Global changes of the plugin core
+* global changes of the plugin core;
 
 = 1.1.0 =
 * added form widget;
@@ -185,4 +202,4 @@ Path to the templates folder inside the active theme:
 * general cleanup and optimization;
 
 = 1.0.0 =
-* Initial release.
+* initial release.
