@@ -174,6 +174,9 @@ Path to the templates folder inside the active theme:
 
 == Changelog ==
 
+= 1.2.0 =
+* Global changes of the plugin core
+
 = 1.1.0 =
 * added form widget;
 * added optional CAPTCHA field and editable error message;
