@@ -228,7 +228,7 @@ Path to the templates folder inside the active theme:
 == Changelog ==
 
 = 2.0.0 =
-* global changes of the plugin core and templates structure **Beware!** You can have issues if you make some customization in the form templates manually by code!;
+* global changes of the plugin core and templates structure. **Beware!** You can have issues if you make some customization in the form templates manually by code!;
 * added possibility to dynamic setup of the form fields. Fields can be added, deleted and reordered;
 * added following field types: numeric, checkbox;
 * added export to CSV format;
