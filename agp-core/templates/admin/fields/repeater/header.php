@@ -1,3 +1,3 @@
     <th>Title</th>
     <th>Description</th>
-    <th class="tbl-actions">Actions</th>
+    <th width="170px" class="tbl-actions">Actions</th>

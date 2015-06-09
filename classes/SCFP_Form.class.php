@@ -1,10 +1,10 @@
 <?php
+use Webcodin\WCPContactForm\Core\Agp_Module;
+use Webcodin\WCPContactForm\Core\Agp_Session;
 
 class SCFP_Form extends Agp_Module {
     
     private $id;
-    
-    private $fields;
     
     private $data = array();
     
@@ -24,40 +24,30 @@ class SCFP_Form extends Agp_Module {
     public function __construct($id) {
         parent::__construct(SCFP()->getBaseDir());        
         $this->id = $id;
-        $this->fields = SCFP_Form::getFormFields();
         $this->session = Agp_Session::instance();
 
         $this->captcha = new SimpleCaptcha();
         $this->captcha->resourcesPath = SCFP()->getBaseDir() . "/inc/cool-php-captcha/resources";        
         $this->captcha->session_var = 'captcha-' . $this->id;
         $this->captcha->imageFormat = 'png';
-        //$this->captcha->lineWidth = 3;
         $this->captcha->scale = 3; 
         $this->captcha->blur = true;
     }
-    
-    public static function getFormFields() {
-        $configSettings = SCFP()->getSettings()->getConfig();
-        $formSettings = SCFP()->getSettings()->getForm();
-        
-        foreach ($formSettings['field_settings'] as $fieldName => $values) {
-            if (!empty($values['visibility'])) {
-                $configSettings['rows'][$fieldName]['values'] = $values;    
-            } else {
-                unset($configSettings['rows'][$fieldName]);
-            }
-            
-        }
-        
-        return $configSettings['rows'];        
-    }
-
 
     public function submit($postData) {
         if (!empty($postData['form_id']) && $postData['form_id'] == $this->id ) {        
             
-            foreach($this->fields as $key => $value) {
-                $this->data[$key] = nl2br(esc_attr($postData['scfp-'.$key ]));
+            foreach(SCFP()->getSettings()->getFieldsSettings() as $key => $field) {
+                if (!empty($field['visibility'])) {
+                    switch ( $field['field_type'] ) {
+                        case 'checkbox':
+                           $this->data[$key] = !empty($postData['scfp-'.$key ]) ? 1 : 0;
+                            break;
+                        default:
+                            $this->data[$key] = esc_attr($postData['scfp-'.$key ]);
+                            break;
+                    }
+                }
             }
             
             if ($this->validation()) {
@@ -72,28 +62,34 @@ class SCFP_Form extends Agp_Module {
     }
     
     public function validation() {
+        $fields = SCFP()->getSettings()->getFieldsSettings();
         $this->error = array();
         foreach ($this->data as $key => $value) {
 
             //required_error
-           if (!empty($this->fields[$key]['values']['required']) && empty($value)) {
+           if (!empty($fields[$key]['required']) && empty($value)) {
                $this->error[$key] = 'required_error';
                continue;
            }
 
            //email_error
-           if ($this->fields[$key]['type'] == 'email'  && !is_email($value)) {
+           if (!empty($value) && $fields[$key]['field_type'] == 'email'  && !is_email($value)) {
                $this->error[$key] = 'email_error';
                continue;
            }
            
-           //captcha_error
-            if (!empty($this->fields[$key]['values']['required']) && $this->fields[$key]['type'] == 'captcha'  &&  ( empty( $_SESSION['captcha-'.$this->id] ) || strtolower( trim($value ) ) != $_SESSION['captcha-'.$this->id] ) ) {
+           
+           //number_error
+           if (!empty($value) && $fields[$key]['field_type'] == 'number' && (!is_numeric($value) || is_numeric($value) && !is_int($value * 1))) {
+               $this->error[$key] = 'number_error';
+               continue;
+           }           
+
+           if ($fields[$key]['field_type'] == 'captcha'  &&  ( empty( $_SESSION['captcha-'.$this->id][$key] ) || strtolower( trim($value ) ) != strtolower( trim($_SESSION['captcha-'.$this->id][$key] ))) ) {
                $this->error[$key] = 'captcha_error';
                continue;
            }
         }
-        
         return empty($this->error);
     }
     
@@ -105,7 +101,7 @@ class SCFP_Form extends Agp_Module {
             'post_status' => 'unread',
             'post_content' => !empty($this->data['message']) ? $this->data['message'] : '',
         );
-  
+     
         $this->postId = wp_insert_post( $post, TRUE );
         
         if (!is_wp_error($this->postId )) {
@@ -118,10 +114,10 @@ class SCFP_Form extends Agp_Module {
                 )
             );            
             update_option('entry_counter', ++$i);
-              
+             
             foreach ($this->data as $key => $value) {
                 $meta_key = 'scfp_' . $key;
-                $meta_value = $value;
+                $meta_value = nl2br($value);
                 add_post_meta($this->postId , $meta_key, $meta_value);
             }
 
@@ -142,7 +138,7 @@ class SCFP_Form extends Agp_Module {
     
     public function notifiction() {
         $result = TRUE;
-        $settings = SCFP()->getSettings()->getNotification();
+        $settings = SCFP()->getSettings()->getNotifictionSettings();
         
         if (empty($settings['disable'])) {
             $to = !empty($settings['another_email']) ? $settings['another_email'] : get_option('admin_email');
@@ -158,7 +154,10 @@ class SCFP_Form extends Agp_Module {
         }
         
         if (empty($settings['user_disable'])) {
-            $to = !empty($this->data['email']) ? $this->data['email'] : '';
+            
+            $email_field = !empty($settings['user_email']) ? $settings['user_email'] : 'email';
+            
+            $to = !empty($this->data[$email_field]) ? $this->data[$email_field] : '';
             $subject = !empty($settings['user_subject']) ? $settings['user_subject'] : '';
             $message = $this->applyEmailVars( nl2br(!empty($settings['user_message']) ? $settings['user_message'] : '') );            
             $content = $this->getTemplate('email/mail-template', array('message' => $message));            
@@ -172,14 +171,14 @@ class SCFP_Form extends Agp_Module {
         return $result;
     }        
     
-    private function get_admin_name(){
+    private function getAdminName(){
         $admin_data = get_users( 'role=Administrator' );
         $admin_name = $admin_data[0]->data->display_name;
         
         return $admin_name; 
     }
     
-    private function get_user_name(){
+    private function getUserName(){
         if( get_post_meta( $this->postId , 'scfp_name', true ) ){
             $user_name = get_post_meta( $this->postId , 'scfp_name', true );
         } else {
@@ -188,7 +187,7 @@ class SCFP_Form extends Agp_Module {
         return $user_name;
     }
     
-    private function get_user_message(){
+    private function getUserMessage(){
         $data = $this->getTemplate('variables/data', $this->postId );
                 
         return $data;
@@ -198,21 +197,21 @@ class SCFP_Form extends Agp_Module {
         
         if( strpos( $text, '{$admin_name}' ) !== FALSE){
 
-            $admin_name = $this->get_admin_name();
+            $admin_name = $this->getAdminName();
             $text =  str_replace( '{$admin_name}', $admin_name, $text );
         }
         
         
         if( strpos( $text, '{$user_name}' ) !== FALSE){
 
-            $user_name = $this->get_user_name();
+            $user_name = $this->getUserName();
             $text =  str_replace( '{$user_name}', $user_name, $text );
         }
         
         
         if( strpos( $text, '{$data}' ) !== FALSE){
 
-            $data = $this->get_user_message();
+            $data = $this->getUserMessage();
             $text =  str_replace( '{$data}', $data, $text );
         }
 
@@ -225,20 +224,12 @@ class SCFP_Form extends Agp_Module {
     }
     
     private function redirect() {
-        $formSettings = SCFP()->getSettings()->getForm();
+        $formSettings = SCFP()->getSettings()->getFormSettings();
         $pageId = $formSettings['page_name'];
         if (!empty($pageId)) {
             $location = get_page_link( $pageId );
             wp_redirect( $location );
         }
-    }
-    
-    public function getField($fieldName) {
-        return $this->fields[$fieldName];
-    }
-    
-    public function getFields() {
-        return $this->fields;
     }
 
     public function getId() {
@@ -260,5 +251,7 @@ class SCFP_Form extends Agp_Module {
     function getCaptcha() {
         return $this->captcha;
     }
+    
+
 
 }

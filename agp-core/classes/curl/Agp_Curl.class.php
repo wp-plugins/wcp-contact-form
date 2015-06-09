@@ -1,4 +1,5 @@
 <?php
+namespace Webcodin\WCPContactForm\Core;
 
 class Agp_Curl {
     

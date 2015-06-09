@@ -9,6 +9,7 @@
             data.action = 'recreateCaptcha';
             data.nonce = ajax_scfp.ajax_nonce;
             data.id = $(this).data('id');
+            data.key = $(this).data('key');
 
             $.ajax({
                 url:ajax_scfp.ajax_url,

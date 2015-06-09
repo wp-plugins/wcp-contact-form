@@ -1,4 +1,5 @@
 <?php
+namespace Webcodin\WCPContactForm\Core;
 
 abstract class Agp_ConfigAbstract {
 
@@ -18,7 +19,7 @@ abstract class Agp_ConfigAbstract {
      * 
      * @return  object
      */
-    protected function arrayToObject($array) {
+    public function arrayToObject($array) {
         
         // First we convert the array to a json string
         $json = json_encode($array);
@@ -37,7 +38,7 @@ abstract class Agp_ConfigAbstract {
      * 
      * @return  array
      */
-    protected function objectToArray($object) {
+    public function objectToArray($object) {
         
         // First we convert the object into a json string
         $json = json_encode($object);

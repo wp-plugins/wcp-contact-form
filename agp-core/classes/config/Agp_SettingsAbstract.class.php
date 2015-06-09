@@ -1,4 +1,6 @@
 <?php
+namespace Webcodin\WCPContactForm\Core;
+
 /**
  * Settings page abstract class
  */
@@ -46,23 +48,7 @@ abstract class Agp_SettingsAbstract extends Agp_ConfigAbstract {
     public function __construct( $data ) {    
         parent::__construct($data);
         
-        if (!empty($this->getConfig()->admin->options->page)) {        
-            $this->page = $this->getConfig()->admin->options->page;
-        }
-        
-        if (!empty($this->getConfig()->admin->options->tabs)) {        
-            $this->tabs = $this->objectToArray($this->getConfig()->admin->options->tabs);
-        }            
-        
-        if (!empty($this->getConfig()->admin->options->fields)) {        
-            $this->fields = $this->objectToArray($this->getConfig()->admin->options->fields);
-        }                    
-        
-        if (!empty($this->getConfig()->admin->options->fieldSet)) {        
-            $this->fieldSet = $this->objectToArray($this->getConfig()->admin->options->fieldSet);
-        }                            
-       
-        $this->settings = $this->getOptions();
+        $this->refreshConfig();
         
         add_action( 'admin_init', array( $this, 'registerSettings' ) );        
         add_action( 'admin_menu', array( $this, 'adminMenu' ) ); 
@@ -111,6 +97,44 @@ abstract class Agp_SettingsAbstract extends Agp_ConfigAbstract {
         }
     }
     
+    public function refreshConfig() {
+        if (!empty($this->getConfig()->admin->options->page)) {        
+            $this->page = $this->getConfig()->admin->options->page;
+        }
+        
+        if (!empty($this->getConfig()->admin->options->tabs)) {        
+            $this->tabs = $this->objectToArray($this->getConfig()->admin->options->tabs);
+        }            
+        
+        if (!empty($this->getConfig()->admin->options->fields)) {        
+            $this->fields = $this->objectToArray($this->getConfig()->admin->options->fields);
+        }                    
+        
+        if (!empty($this->getConfig()->admin->options->fieldSet)) {        
+            $this->fieldSet = $this->objectToArray($this->getConfig()->admin->options->fieldSet);
+        }                            
+       
+        $this->settings = $this->getOptions();
+    }
+    
+    /**
+     * Recursive callable apply 
+     * 
+     * @param mix $value
+     * @return mix
+     */
+    public function getRecursiveCallable ($value) {
+        $result = $value;
+        if (is_callable($value) && is_array($value)) {
+            $result =  call_user_func($value);
+        } elseif (is_array($value)) {
+            foreach ($value as $k => $v) {
+                $result[$k] = $this->getRecursiveCallable($v);
+            }
+        }
+        return $result;
+    }            
+    
     /**
      * Sanitixe settings
      * 
@@ -130,10 +154,8 @@ abstract class Agp_SettingsAbstract extends Agp_ConfigAbstract {
                         case 'colorpicker':
                             $input[$key] = stripslashes(esc_attr(trim($value)));    
                             break;                        
-                        case 'textarea':                            
-                            $input[$key] = $value;    
-                            break;                                                
                         default:
+                            $input[$key] = $value;
                             break;
                     }
                 }
@@ -179,14 +201,12 @@ abstract class Agp_SettingsAbstract extends Agp_ConfigAbstract {
         if ($this->getTabs()) {        
             foreach ($this->getTabs() as $k => $v) {
                 if (!empty($fields[$k])) {
+                    $options = get_option( $k );                    
                     foreach ($fields[$k]['fields'] as $dk => $dv) {
-                        $options = get_option( $k );
                         if (!empty($options)) {
                             if ( isset( $options[$dk] ) ) {
                                 $result[$k][$dk] = $options[$dk];                                
-                            } elseif ( isset ( $dv['default'] ) ) {
-                                $result[$k][$dk] = $dv['default'];
-                            }   
+                            } 
                         } else {
                             if ( isset ( $dv['default'] ) ) {
                                 $result[$k][$dk] = $dv['default'];
@@ -196,7 +216,7 @@ abstract class Agp_SettingsAbstract extends Agp_ConfigAbstract {
                 }
             }    
         } 
-        return $result;
+        return $this->getRecursiveCallable( $result );
     }
     
     /**
@@ -226,10 +246,10 @@ abstract class Agp_SettingsAbstract extends Agp_ConfigAbstract {
     public function getFields($key = NULL) {
         if (!empty($key)) {
             if (!empty($this->fields[$key])) {
-                return $this->fields[$key];
+                return $this->getRecursiveCallable( $this->fields[$key] );
             }
         } else {
-            return $this->fields;
+            return $this->getRecursiveCallable( $this->fields );
         }                
     }
 
@@ -242,10 +262,10 @@ abstract class Agp_SettingsAbstract extends Agp_ConfigAbstract {
     public function getFieldSet($key = NULL) {
         if (!empty($key)) {
             if (!empty($this->fieldSet[$key])) {
-                return $this->fieldSet[$key];
+                return $this->getRecursiveCallable( $this->fieldSet[$key] );
             }
         } else {
-            return $this->fieldSet;
+            return $this->getRecursiveCallable( $this->fieldSet );
         }                        
     }
 
@@ -258,10 +278,10 @@ abstract class Agp_SettingsAbstract extends Agp_ConfigAbstract {
     public function getSettings($key = NULL) {
         if (!empty($key)) {
             if (!empty($this->settings[$key])) {
-                return $this->settings[$key];
+                return $this->getRecursiveCallable( $this->settings[$key] );
             }
         } else {
-            return $this->settings;
+            return $this->getRecursiveCallable( $this->settings );
         }        
     }
     

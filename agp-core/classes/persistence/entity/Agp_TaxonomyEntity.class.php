@@ -1,4 +1,5 @@
 <?php
+namespace Webcodin\WCPContactForm\Core;
 
 class Agp_TaxonomyEntity extends Agp_Entity {
     private $term_id;

@@ -1,6 +1,16 @@
 <?php
+use Webcodin\WCPContactForm\Core\Agp_Module;
+use Webcodin\WCPContactForm\Core\Agp_Session;
 
 class SCFP extends Agp_Module {
+    
+    /**
+     * Form Settings
+     * 
+     * @var SCFP_FormSettings
+     */
+    private $formSettings;    
+    
     /**
      * Plugin settings
      * 
@@ -67,10 +77,12 @@ class SCFP extends Agp_Module {
         include_once ( $this->getBaseDir() . '/types/form-entries-post-type.php' );     
         include_once ( $this->getBaseDir() . '/inc/cool-php-captcha/captcha.php' );     
         
-        $this->settings = new SCFP_Settings($this->getBaseDir());
-        $this->formEntries = new SCFP_FormEntries($this->getBaseDir());
+        $this->settings = SCFP_Settings::instance( $this );
+        $this->formSettings = SCFP_FormSettings::instance();        
+        $this->formEntries = SCFP_FormEntries::instance();
         $this->session = Agp_Session::instance();
         $this->ajax = SCFP_Ajax::instance();
+        
         
         add_action( 'wp_enqueue_scripts', array($this, 'enqueueScripts' ) );                
         add_action( 'admin_enqueue_scripts', array($this, 'enqueueAdminScripts' ));            
@@ -94,10 +106,16 @@ class SCFP extends Agp_Module {
     }        
     
     public function enqueueAdminScripts () {
+        global $current_screen;
+        
         wp_enqueue_style( 'wp-color-picker' );        
         wp_enqueue_script( 'wp-color-picker' );            
         wp_enqueue_script( 'scfp', $this->getAssetUrl('js/admin.js'), array('jquery', 'wp-color-picker') );                                                         
-        wp_enqueue_style( 'scfp-css', $this->getAssetUrl('css/admin.css'), array('wp-color-picker') );                    
+        wp_enqueue_style( 'scfp-css', $this->getAssetUrl('css/admin.css'), array('wp-color-picker') );   
+        wp_localize_script('scfp', 'csvVar', array(
+            'href' => add_query_arg(array('download_csv' => 1)),
+            'active' =>  'form-entries' == $current_screen->post_type,
+        ));
     }
     
     public function doScfpShortcode ($atts) {
@@ -137,5 +155,9 @@ class SCFP extends Agp_Module {
     function getFormEntries() {
         return $this->formEntries;
     }
+    
+    function getFormSettings() {
+        return $this->formSettings;
+    }    
 
 }

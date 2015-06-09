@@ -1,13 +1,13 @@
 === WCP Contact Form ===
 Contributors: webcodin
-Tags: contact, contact form, form, contact me, contact us, contactus, contact form plugin, email, email message, notifications, admin notifications, customer notifications, customer, form to email, wordpress contact form 
+Tags: contact, contact form, form, contact me, contact us, contactus, contact form plugin, email, email message, notifications, admin notifications, customer notifications, customer, form to email, wordpress contact form, subscribe, CSV, CSV export, form builder, builder, captcha, validation, dynamic fields
 Requires at least: 3.5.0
 Tested up to: 4.2
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 Stable tag: trunk
 
-Quickly add simple contact form to your site and easily adjust it to your needs.
+Quickly add simple dynamic contact form to your site and easily adjust it to your needs.
 
 == Description ==
 
@@ -21,39 +21,49 @@ With the help of our plugin you can add an easy-to-setup contact form for the pa
 
 = Features =
 
-* Can be used on the page as shortcode or widget;
-* Customize entry fields for your needs;
-* Change the name of fields and add "required" parameter;
-* Disable fields which are not necessary;
-* Optional CAPTCHA field;
+* Can be used as shortcode on the page or sidebar widget;
+* Ready-to-use fiels preset after plugin instalation includs following fields: Name, Email, Phone, Subject, Message and CAPTCHA;
+* **NEW!** Dynamic form fields with the following field types: text, email, numeric, textarea, checkbox and CAPTCHA;
+* **NEW!** Each field has following parameters for configuration: type, name, visibility, required and export to CSV;
+* **NEW!** All fields can be reordered and deleted;
 * Customize "submit" button with title, background and text colors;
-* Redirection to your own "Thank You" page after a successful submitting if needed;
+* Possibility to use custom "Thank You" page that can be chosen from list of the existing pages;
 * Optionally available HTML5 fields validation;
-* You can modify the text of errors for normal fields validation;
-* Set up notifications for user and administrator;
-* Variables for notification letters;
+* Custom error messages for non-HTML5 fields validation;
+* Auto notifications for users and administrator with variables for notification letters;
 * Handy list of received messages with the ability to filter and delete to the Trash;
-* 2 status for messages available: read and unread;
+* 2 status for messages: read and unread;
 * Group actions on messages;
-* Separate page for each letter with detailed view and the ability to quickly remove to a basket;
+* Separate page for each letter with detailed view and the ability to quickly remove to Trash;
+* Form supports default theme styling;
 * Developers have the possibility to customize the plugin by creating a duplicate templates and styles in the active theme folder.
+* **NEW!** Export messages to CSV format.
+ 
+= Notes =
 
-**NB! Form uses standard WordPress wp_mail() function (https://codex.wordpress.org/Function_Reference/wp_mail) for messages submission. If you have issues with notification receiving, try to use some third-party plugin for mail settings.**
+* **Beware! If you DELETE any field from existed form configuration all received data for this field won't be available for existed messages without possibility to restore.**
+* **NB! If you use more than one email field you need to define field that will be used for user notification: "Contact Form" --> "Settings" --> "Notifications" --> "User Notifications" --> "User Email Field". By default, will be used first email field. Also, for properly work of user notifications email field should be required.**
+* **NB! Form uses standard WordPress wp_mail() function (https://codex.wordpress.org/Function_Reference/wp_mail) for messages submission. If you have issues with notification receiving, try to use some third-party plugin for mail settings.**
+* **NB! "Reset to default" button on the Settings page reset all tabs to default values includes form fields**
+
 
 = Upcoming Updates =
-* subscribe option
-* export of received emails to .csv format
+
+* contact form popup;
+* form custom styles.
 
 = 3 easy steps to start using of our contact form on a page =
 1. check plugin "Settings" page and customize form options for your purposes;
 2. create new page or use existed;
 3. add shordcode to the TinyMCE editor with unique ID, as sample **[scfp id="my_contact_form"]** and save the page
+
 ... and that is all! You have a fully working contact form on your site page
 
 = 3 easy steps to start using of our contact form at a sidebar =
 1. check plugin "Settings" page and customize form options for your purposes;
 2. go to the "Appearance" --> "Widgets" sections;
 3. add "WCP Contact Form" to necessary sidebar 
+
 ... and that is all! You have a fully working contact form at the sidebar on your site
 
 More information and documentation can be found in the section [screenshots](https://wordpress.org/plugins/wcp-contact-form/screenshots/) and [FAQ](https://wordpress.org/plugins/wcp-contact-form/faq/).
@@ -90,13 +100,27 @@ The form can be also added to an existing page. To do this, go to the menu "Page
 
 More information can be found in the section [screenshots](https://wordpress.org/plugins/wcp-contact-form/screenshots/).
 
+= How can I add a form to a sidebar =
+
+Go to the "Appearance" --> "Widgets" sections.
+Add "WCP Contact Form" to necessary sidebar, change sidebar title if you need and press "Save" button.
+
+More information can be found in the section [screenshots](https://wordpress.org/plugins/wcp-contact-form/screenshots/).
+
 
 = How can I to configure form fields =
 
 To configure form fields go to the menu "Contact Form" > "Settings" tab "Form".
 In the "Fields Settings" section will be available settings for the form fields.
-Form can contain **maximum five** fields: Name, Email, Phone, Subject and Message. And **minimum two**: Email and Message.
-Displaying and "required" settings for fields such as Name, Phone and Subject can be changed depending on your needs.
+Form supports following field types: text, email, numeric, textarea, checkbox and CAPTCHA.
+Each field has following available parameters for configuration: 
+
+* **type** - allows to choose field type from preset;
+* **name** - allows to define field label for displaying; 
+* **visibility** - allows to enable/disable field visibility; 
+* **required** - allows to make field reqired;
+* **export to CSV** - allows to add field to CSV export.
+ 
 After all, press the "Save Changes" button at the bottom of the page.
 
 More information can be found in the section [screenshots](https://wordpress.org/plugins/wcp-contact-form/screenshots/).
@@ -107,7 +131,15 @@ To view the list of received messages go to the menu "Contact Form" > "Entries".
 New messages are marked automatically as Unread. There is also automatic filtering for Read and Unread messages.
 When you delete a message it goes to the "Trash". Deleted message is recoverable or can be completely removed.
 You can use Mark as Read, Mark as Unread, Move to Trash actions on each message or the group.
+Also on this page you able to export messages to CSV format by pressing on "Export to CSV" button.
 Click on the name of the letter to review the letter details.
+
+More information can be found in the section [screenshots](https://wordpress.org/plugins/wcp-contact-form/screenshots/).
+
+= How can I export data to CSV =
+
+To export the list of received messages go to the menu "Contact Form" > "Entries".
+Press button "Export to CSV" at the top of the message list. All fiels that were defined as "Export to CSV" at the form settings will be exported to CSV format.
 
 More information can be found in the section [screenshots](https://wordpress.org/plugins/wcp-contact-form/screenshots/).
 
@@ -133,11 +165,13 @@ To eneble HTML5 validation, go to menu "Contact Form" > "Settings" > "Form" tab 
 
 = How can I change validation error messages? =
 
-To change normal validation error messages, go to menu "Contact Form" > "Settings" > "Errors" tab > "Error Messages" section.
+To change non-HTML5 validation error messages, go to menu "Contact Form" > "Settings" > "Errors" tab > "Error Messages" section.
 Following options are available:
 
-* **Required Field Error** - allows to change error message for required fields;
-* **Email Field Error Message** - allows to change error message for email field.
+* **Required Field** - allows to change error message for required fields;
+* **Email Field** - allows to change error message for fields with type email.
+* **Captcha Field** - allows to change error message CAPTCHA field.
+* **Number Field** - allows to change error message for fields with type number.
 
 = How can I change administrator notifications? =
 
@@ -154,6 +188,7 @@ Following options are available:
 To change user notifications, go to menu "Contact Form" > "Settings" > "Notifications" tab > "User Notifications" section.
 Following options are available:
 
+* **User Email Field** - allows to define default field for user notification if you use more than one email field;
 * **Subject** - allows to change default subject of user notification message;
 * **Message** - allows to change default text of user notification message.
 * **Disable User Notifications** - allows to disable notifications for successful form submission. 
@@ -185,11 +220,22 @@ Path to the templates folder inside the active theme:
 6. Entries
 7. Entries :: Group Actions
 8. Entries :: Detail
-9. Admin Panel :: Settings :: Form Tab
-10. Admin Panel :: Settings :: Errors Tab
-11. Admin Panel :: Settings :: Notifications
+9. Admin Panel :: Settings :: Form Tab :: Default Configuration
+10. Admin Panel :: Settings :: Form Tab :: Custom Configuration
+11. Admin Panel :: Settings :: Errors Tab
+12. Admin Panel :: Settings :: Notifications
 
 == Changelog ==
+
+= 2.0.0 =
+* global changes of the plugin core and templates structure **Beware!** You can have issues if you make some customization in the form templates manually by code!;
+* added possibility to dynamic setup of the form fields. Fields can be added, deleted and reordered;
+* added following field types: numeric, checkbox;
+* added export to CSV format;
+* added setting for default user notification email for forms with multiple email fields;
+* added additional error message for numeric field type;
+* Fixed: Issue with fatal error when trying to activate plugin for PHP 5.3;
+* Fixed: Issue for AJAX request with enabled Zlib-compression;
 
 = 1.2.0 =
 * global changes of the plugin core;

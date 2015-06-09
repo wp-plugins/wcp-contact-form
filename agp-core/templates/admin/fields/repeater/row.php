@@ -12,6 +12,8 @@
 </td>
 <td class="tbl-actions">
     <a class="button agp-del-row" href="javascript:void(0);">Delete</a>
+    <a class="button agp-up-row" href="javascript:void(0);">Up</a>
+    <a class="button agp-down-row" href="javascript:void(0);">Down</a>    
 </td>                
 <?php 
     endif;

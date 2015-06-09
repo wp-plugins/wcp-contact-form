@@ -1,4 +1,5 @@
 <?php
+use Webcodin\WCPContactForm\Core\Agp_Module;
 
 class SCFP_FormEntries extends Agp_Module {
     
@@ -14,7 +15,7 @@ class SCFP_FormEntries extends Agp_Module {
 	 */
 	public static function instance() {
 		if ( is_null( self::$_instance ) ) {
-			self::$_instance = new self();
+			self::$_instance = new self( dirname(dirname(__FILE__)) );
 		}
 		return self::$_instance;
 	}    
@@ -53,14 +54,32 @@ class SCFP_FormEntries extends Agp_Module {
         add_filter('manage_edit-form-entries_sortable_columns', array( $this, 'addSortableColumns' ) );
         
         add_action( 'pre_get_posts', array( $this, 'manageEntriesPreGetPosts' ) );
-        
         add_action( 'trashed_post', array( $this, 'redirectAfterTrashing' ), 10 );
-        
         add_filter( 'get_edit_post_link', array( $this, 'getEditPostLink' ), 10, 3 );
-        
         add_action( 'admin_init', array( $this, 'markRead' ));
+        add_action( 'plugins_loaded', array( $this, 'downloadCsv' ));
+        
+        add_filter( 'parent_file', array($this, 'currentMenu') );        
     }
+    
+    function currentMenu($parent_file){
+        global $submenu_file, $pagenow, $plugin_page;
 
+        if ($pagenow == 'admin.php' && !empty($_REQUEST['post']) && !empty($_REQUEST['page']) && $_REQUEST['page'] == 'view-entry') {
+            $p = $_REQUEST['post'];
+            $postType = get_post_type($p);
+                     
+            if ($postType == 'form-entries') {
+                $parent_file = 'admin.php?page=scfp_plugin_options';
+                $submenu_file = 'edit.php?post_type=form-entries';
+                $plugin_page = 'edit.php?post_type=form-entries';
+            }
+        }
+
+        
+        return $parent_file;
+
+    }         
     
     public function appendViewPage () {
         add_submenu_page( 'admin.php', 'Entry', 'Entry', 'manage_options', 'view-entry', array( $this, 'displayViewPage' ) );        
@@ -78,7 +97,7 @@ class SCFP_FormEntries extends Agp_Module {
         global $submenu;
         unset($submenu['edit.php?post_type=form-entries'][10]);
 
-        if (isset($_GET['post_type']) && $_GET['post_type'] == 'form-entries') {
+        if (isset($_GET['post_type']) && $_GET['post_type'] == 'form-entries' && empty($_GET['download_csv'])) {
             echo '<style type="text/css">
             #favorite-actions, .add-new-h2 { display:none; }
             </style>';
@@ -89,7 +108,7 @@ class SCFP_FormEntries extends Agp_Module {
         register_post_status( 'read', array(
                 'label'                     => _x( 'Read', 'form-entries' ),
                 'public'                    => true,
-                'exclude_from_search'       => true,
+                'exclude_from_search'       => false,
                 'show_in_admin_all_list'    => true,
                 'show_in_admin_status_list' => true,
                 'label_count'               => _n_noop( 'Read <span class="count">(%s)</span>', 'Read <span class="count">(%s)</span>' ),
@@ -99,7 +118,7 @@ class SCFP_FormEntries extends Agp_Module {
         register_post_status( 'unread', array(
                 'label'                     => _x( 'Unread', 'form-entries' ),
                 'public'                    => true,
-                'exclude_from_search'       => true,
+                'exclude_from_search'       => false,
                 'show_in_admin_all_list'    => true,
                 'show_in_admin_status_list' => true,
                 'label_count'               => _n_noop( 'Unread <span class="count">(%s)</span>', 'Unread <span class="count">(%s)</span>' ),
@@ -112,7 +131,7 @@ class SCFP_FormEntries extends Agp_Module {
         global $post;
         $unread_complete = $read_complete = '';
         $unread_label = $read_label = '';
-        if($post->post_type == 'form-entries') :
+        if($post->post_type == 'form-entries' && empty($_GET['download_csv'])) :
             if($post->post_status == 'unread') {
                  $unread_complete = ' selected="selected"';
                  $unread_label = '<span id="post-status-display"> Unread</span>';
@@ -137,7 +156,7 @@ class SCFP_FormEntries extends Agp_Module {
     public function appendCustomBulkActions () {
         global $post_type;
 
-        if ($post_type == 'form-entries') {
+        if ($post_type == 'form-entries' && empty($_GET['download_csv'])) {
             $post_status = !empty($_GET['post_status']) ? $_GET['post_status'] : '';
             
         ?>
@@ -170,7 +189,7 @@ class SCFP_FormEntries extends Agp_Module {
 
     
     public function changeRowActions( $actions, $post ) {
-        if ( get_post_type() === 'form-entries' ) {
+        if ( get_post_type() === 'form-entries' && empty($_GET['download_csv']) ) {
             $post_status = !empty($_GET['post_status']) ? $_GET['post_status'] : '';
             $res = array();                            
             switch ($post_status) {
@@ -195,6 +214,71 @@ class SCFP_FormEntries extends Agp_Module {
         }
         return $actions;
     }        
+    
+    public function dataCsv(){
+        //get header
+        $this->customPostStatus();
+        $data = SCFP()->getSettings()->getFieldsSettings();
+
+        
+        $header = array();
+        foreach( $data as $datakey => $datavalue ){
+            if( $datavalue['field_type'] != 'captcha' && !empty($datavalue['visibility']) && !empty($datavalue['exportCSV']) ){
+               $header[] = $datavalue['name'];
+            }
+        }
+        $header = implode(';', $header)."\n";
+
+        $args = array_merge(array(
+            'post_status' => 'any',
+            'posts_per_page' => -1
+        ), $_REQUEST);
+
+        if ($args['post_status'] == 'all') {
+            $args['post_status'] = 'any';    
+        }
+        
+        $query = new WP_Query($args);            
+        
+        //get data
+        $content = '';
+        foreach ( $query->posts as $key => $p ) {
+            $post_ID = $p->ID;
+            $content_row = array();
+            foreach( $data as $datakey => $datavalue ){
+                if( $datavalue['field_type'] != 'captcha' && !empty($datavalue['visibility']) && !empty($datavalue['exportCSV']) ){
+                    
+                    if( $datavalue['field_type'] == 'checkbox' ){
+                        $subscribe = html_entity_decode( strip_tags( get_post_meta( $post_ID, 'scfp_'.$datakey, true ) ) ); 
+                        $row =  !empty( $subscribe )? 'Yes' : 'No'; 
+                        $content_row[] = str_replace( chr(13).chr(10), " ", $row );
+                    } else {
+                        $row = html_entity_decode(strip_tags( get_post_meta( $post_ID, 'scfp_'.$datakey, true ) ));
+                        $content_row[] = str_replace( chr(13).chr(10), " ", $row );
+                    }
+                }
+            }
+            $content .= implode(';', $content_row)."\n";
+        }
+        
+        return $result = $header . $content;
+    }
+    
+    public function downloadCsv(){
+        
+        if( !empty( $_GET['download_csv'] ) ){
+            header("Content-type: application/x-msdownload");
+            header("Content-Disposition: attachment; filename=" . date( 'YmdHis' ) . ".csv");
+            header("Pragma: no-cache");
+            header("Expires: 0");            
+            
+            $result = $this->dataCsv();
+
+            echo $result;
+            
+            exit();
+        }        
+    }
     
     public function changeBulkActions ($actions) {
         $post_status = !empty($_GET['post_status']) ? $_GET['post_status'] : '';
@@ -330,7 +414,7 @@ class SCFP_FormEntries extends Agp_Module {
 
         global $post_type, $pagenow;
 
-        if ( $pagenow == 'edit.php' && $post_type == 'form-entries' ) {
+        if ( $pagenow == 'edit.php' && $post_type == 'form-entries' && empty($_GET['download_csv']) ) {
             if (isset($_REQUEST['readed']) && (int) $_REQUEST['readed'] > 1) {
                 $message = $_REQUEST['readed'] . ' entries was marked as Read';
                 echo '<div class="updated"><p>'.$message.'</p></div>';
@@ -349,7 +433,7 @@ class SCFP_FormEntries extends Agp_Module {
 
     public function changeViews ($views) {
         global $post_type, $pagenow;
-        if ( $pagenow == 'edit.php' && $post_type == 'form-entries' ) {
+        if ( $pagenow == 'edit.php' && $post_type == 'form-entries' && empty($_GET['download_csv']) ) {
 
             $key = 'trash';
             if (array_key_exists($key, $views)) {
@@ -386,27 +470,18 @@ class SCFP_FormEntries extends Agp_Module {
     public function entrieColumns( $columns ){
         unset( $columns['title'] );
 
-        $fields = SCFP_Form::getFormFields();
         
         $results['cb'] = '<input type="checkbox" />';
         
         $results['title'] = 'ID';
-        
-        if( !empty( $fields['name'] ) ){
-            $results['name'] = 'Name';
-        }
-        
-        if( !empty( $fields['email'] ) ){
-            $results['email'] = 'Email';
-        }
-        
-        if( !empty( $fields['phone'] ) ){
-            $results['phone'] = 'Phone';
-        }
-        
-        if( !empty( $fields['subject'] ) ){
-            $results['subject'] = 'Subject';
-        }
+
+        $fields = SCFP()->getSettings()->getFieldsSettings();        
+        foreach( $fields as $key => $value ):
+            if (!empty( $value['visibility'] ) && $value['field_type'] !== 'captcha' && $value['field_type'] !== 'textarea') :
+                $results[$key] = $value['name'];    
+            endif;
+        endforeach;
+
         $results['date'] = $columns['date']; 
 
         return $results;
@@ -414,38 +489,36 @@ class SCFP_FormEntries extends Agp_Module {
     
     public function fillEntrieColumns( $column ){
         global $post;
-        
+
         switch ( $column ) {
-            
             case 'title' :
                 echo get_post_meta( $post->ID, 'entry_id', true );
                 break;
-            
-            case 'name' :
-                echo get_post_meta( $post->ID, 'scfp_name', true );
-                break;            
-            
-            case 'subject' :
-                echo get_post_meta($post->ID, 'scfp_subject', true);
-                break;
-
-            case 'email' :
-                echo get_post_meta($post->ID, 'scfp_email', true);
-                break;
-            
-            case 'phone' :
-                echo get_post_meta($post->ID, 'scfp_phone', true);
+            default :
+                $fields = SCFP()->getSettings()->getFieldsSettings();        
+                foreach( $fields as $key => $value ):
+                    if ($key == $column && !empty( $value['visibility'] ) && $value['field_type'] !== 'captcha' && $value['field_type'] !== 'textarea') :
+                        if ($value['field_type'] == 'checkbox') {
+                            $data = get_post_meta( $post->ID, "scfp_{$key}", true ); 
+                            echo !empty( $data )? 'Yes' : 'No'; 
+                        } else {
+                            echo get_post_meta( $post->ID, "scfp_{$key}", true );
+                        }
+                    endif;
+                endforeach;
                 break;
         }
     }
     
     public function addSortableColumns($sortable_columns){
         $sortable_columns['id'] = 'id';
-        $sortable_columns['subject'] = 'subject';
-        $sortable_columns['email'] = 'email';
-        $sortable_columns['phone'] = 'phone';
-        $sortable_columns['name'] = 'name';
-        $sortable_columns['date'] = 'date';
+        
+        $fields = SCFP()->getSettings()->getFieldsSettings();        
+        foreach( $fields as $key => $value ):
+            if (!empty( $value['visibility'] ) && $value['field_type'] !== 'captcha' && $value['field_type'] !== 'textarea') :
+                $sortable_columns[$key] = $key;
+            endif;
+        endforeach;        
         
         return $sortable_columns;
     }
@@ -470,7 +543,7 @@ class SCFP_FormEntries extends Agp_Module {
     public function redirectAfterTrashing( $post_id ) {
         global $pagenow;
 
-        if( get_post_type( $post_id ) == 'form-entries' && $pagenow == 'post.php'){
+        if( get_post_type( $post_id ) == 'form-entries' && $pagenow == 'post.php' && empty($_GET['download_csv'])){
             wp_redirect( admin_url("edit.php?post_type=form-entries") );
             exit;
         }
@@ -479,7 +552,7 @@ class SCFP_FormEntries extends Agp_Module {
     public function getEditPostLink($link, $post_id, $context) {
         global $pagenow;
         
-        if( get_post_type( $post_id ) == 'form-entries' && $pagenow == 'edit.php'){
+         if( get_post_type( $post_id ) == 'form-entries' && $pagenow == 'edit.php' && empty($_GET['download_csv'])){
             $link = admin_url( 'admin.php?post='. $post_id .'&page=view-entry' );
         }
         
@@ -487,7 +560,7 @@ class SCFP_FormEntries extends Agp_Module {
     }
     
     public function markRead($a) {
-        global $pagenow ;
+        global $pagenow;
         if ($pagenow == 'admin.php' && !empty($_REQUEST['page']) && $_REQUEST['page'] == 'view-entry') {
             if (!empty($_REQUEST['post'])) {
                 wp_update_post( array(
@@ -497,7 +570,6 @@ class SCFP_FormEntries extends Agp_Module {
                 );                            
             }    
         }
-        
     }
 }
 

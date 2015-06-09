@@ -1,4 +1,14 @@
 <?php
+/**
+ * Collection of a base classes for a custom WordPress plugins
+ * 
+ * @author Alexey Golubnichenko <profosbox@gmail.com>
+ * @license GPLv2
+ * @link https://github.com/AGolubnichenko/agp-core
+ * @package AGPCore
+ * @version 1.0.0
+ */
+
 /*  Copyright 2015  Alexey Golubnichenko  (email : profosbox@gmail.com)
 
     This program is free software; you can redistribute it and/or modify
@@ -15,6 +25,8 @@
     Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 */
 
+use Webcodin\WCPContactForm\Core\Agp_Autoloader;
+
 if (!defined('ABSPATH')) {
     exit;
 }
@@ -22,7 +34,7 @@ if (!defined('ABSPATH')) {
 /**
  * Autoloader
  */
-if (!class_exists('Agp_Autoloader')) {
+if (!class_exists('Webcodin\WCPContactForm\Core\Agp_Autoloader')) {
     require_once __DIR__ . '/classes/Agp_Autoloader.class.php';
     Agp_Autoloader::instance();    
 }

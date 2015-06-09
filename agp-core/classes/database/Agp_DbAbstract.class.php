@@ -1,4 +1,5 @@
 <?php
+namespace Webcodin\WCPContactForm\Core;
 
 abstract class Agp_DbAbstract {
     

@@ -1,23 +1,34 @@
 <?php
     $post = $params;
     $entry = SCFP()->getFormEntries();
-    $data = SCFP_Form::getFormFields();
+    $data = SCFP()->getSettings()->getFieldsSettings();
+
 ?>
 <div class="wrap">
     <h2>Entry #<?php echo $entry->getEntryId($post->ID); ?></h2>
-    <form id="post" method="post" action="post.php" name="post">
     <div id="poststuff">
         <div id="post-body" class="metabox-holder columns-2">
             <div id="post-body-content" style="position: relative;">
                 <div id="wp-content-editor-container" class="wp-editor-container">
                     <table class="view-entry-table widefat scfp-view-table">
                         <?php foreach( $data as $datakey => $datavalue ): ?>
-                            <?php if ( !empty( $data[$datakey]['values']['visibility'] ) && empty($datavalue['noemail'])) : ?>
+                            <?php if ( !empty( $datavalue['visibility'] ) && $datavalue['field_type'] !== 'captcha') : ?>
                                 <tr class="view-entry-header alternate">
-                                    <td><strong><?php echo $datavalue['default']['name']; ?></strong></td>
+                                    <td><strong><?php echo $datavalue['name']; ?></strong></td>
                                 </tr>
                                 <tr>
-                                    <td><?php echo get_post_meta($post->ID, 'scfp_'.$datakey, true ); ?></td>
+                                    <td>
+                                        <?php
+                                            if( $datavalue['field_type'] == 'checkbox' ){
+                                                $data = get_post_meta( $post->ID, 'scfp_'.$datakey, true ); 
+                                                $value = !empty( $data )? 'Yes' : 'No'; 
+                                            }
+                                            else{
+                                                $value = get_post_meta($post->ID, 'scfp_'.$datakey, true );
+                                            }           
+                                            echo !empty($value) ? $value : '&nbsp;';
+                                        ?>
+                                    </td>
                                 </tr>
                             <?php endif;?>
                         <?php endforeach; ?>

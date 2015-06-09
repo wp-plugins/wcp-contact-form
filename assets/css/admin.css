@@ -2,12 +2,20 @@
 /*-- CSS Document --*/
 /*-- Copyright (c) 2015. --*/
 /*--------------------------------------------------------------*/
-.scfp-settings-table { width: 50%; margin-bottom: 40px; }
+.scfp-settings-table { width: 100%; margin-bottom: 5px; }
 .scfp-settings-table th { text-align: center; }
 .scfp-settings-table th:first-child { text-align: left; }
 .scfp-settings-table td { text-align: center; vertical-align: middle; padding-top: 0; }
 .scfp-settings-table tr:first-child td { padding-top: 8px; }
 .scfp-settings-table td input[type="text"] { width: 100%; }
+.scfp-settings-table .tbl-actions { width: 110px; }
+.scfp-settings-table td.tbl-actions { text-align: right; }
+.scfp-settings-table td.tbl-actions .button { padding: 2px 5px; height: 28px; line-height: 26px; }
+.scfp-settings-table td.tbl-actions .button.agp-del-row { background: #f7d9d9; border: 1px solid #edc0c0; }
+.scfp-settings-table td.tbl-actions .dashicons { font-size: 18px; line-height: 23px; }
+.scfp-settings-table td.tbl-actions .button.agp-del-row .dashicons { color: #b20101; }
+.scfp-settings-table td.tbl-actions .button.agp-del-row:hover { border-color: #e17777; background: #f7d5d5; }
+.scfp-settings-table td.tbl-actions .button.agp-del-row:hover .dashicons { color: #890101; }
 /*--------------------------------------------------------------*/
 .contact-form_page_scfp_plugin_options .regular-select { width: 25em; }
 /*--------------------------------------------------------------*/

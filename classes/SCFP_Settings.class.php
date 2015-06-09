@@ -1,40 +1,30 @@
 <?php
+use Webcodin\WCPContactForm\Core\Agp_SettingsAbstract;
 
-class SCFP_Settings extends Agp_Module {
-
-    private $config;
-    
-    private $errorConfig;
-    
-    private $form;
-
-    private $error;
-    
-    private $notification;
-
-    private $formKey = 'scfp_form_settings';
-
-    private $errorKey = 'scfp_error_settings';
-    
-    private $notificationKey = 'scfp_notification_settings';
-    
-    private $pluginOptionsKey = 'scfp_plugin_options';
-    
-    private $pluginSettingsTabs = array();    
-    
+class SCFP_Settings extends Agp_SettingsAbstract {
     
     /**
-     * @var object The single instance of the class 
+     * The single instance of the class 
+     * 
+     * @var object 
      */
     protected static $_instance = null;    
+
+    /**
+     * Parent Module
+     * 
+     * @var Agp_Module
+     */
+    protected static $_parentModule;
     
 	/**
 	 * Main Instance
 	 *
-     * @return Visualizer
+     * @return object
 	 */
-	public static function instance() {
+	public static function instance($parentModule = NULL) {
 		if ( is_null( self::$_instance ) ) {
+            self::$_parentModule = $parentModule;            
 			self::$_instance = new self();
 		}
 		return self::$_instance;
@@ -52,170 +42,234 @@ class SCFP_Settings extends Agp_Module {
 	public function __wakeup() {
     }        
     
-    public function __construct($baseDir) {
-        parent::__construct($baseDir);        
+    /**
+     * Constructor 
+     * 
+     * @param Agp_Module $parentModule
+     */
+    public function __construct() {
         
-        $this->config = include_once ($this->getBaseDir() . '/config/field-settings-config.php');
-        $this->errorConfig = include_once ($this->getBaseDir() . '/config/error-config.php');
+        $config = include ($this->getParentModule()->getBaseDir() . '/config/config.php');        
+        parent::__construct($config);
         
-        add_action( 'init', array( $this, 'loadSettings' ) );
-        add_action( 'admin_init', array( $this, 'registerSettings' ) );
-        add_action( 'admin_menu', array( $this, 'adminMenu' ) );   
-        add_action( 'admin_notices', array( $this, 'customAdminNotices' ) );         
-        //add_filter( 'parent_file', array($this, 'currentMenu') );        
+        add_action('admin_menu', array($this, 'adminMenu'));                        
     }
     
-    function loadSettings() {
+    public static function getParentModule() {
        
-        //create arrays with all values from every option
-        $this->form = (array) get_option( $this->formKey );
-        $this->error = (array) get_option( $this->errorKey );
-        $this->notification = (array) get_option( $this->notificationKey );
-
-        $config = $this->getConfig();
-      
-        foreach( $config['rows'] as $config_key => $config_value ):
-            $field_settings_default[$config_key] = $config_value['default']; 
-        endforeach;
-        
-        $error_config = $this->getErrorConfig();
-        
-        foreach( $error_config as $error_config_key => $error_config_value ):
-            $error_default[$error_config_key] = $error_config_value['text']; 
-        endforeach;
-
-        // Merge with defaults
-        // add defolt values to option fields
-        $this->form = array_merge( array(
-            'button_name' => 'Send',
-            'button_color' => '#404040',
-            'text_color' => '#FFF',            
-            'field_settings' => $field_settings_default,
-            'page_name' => '',
-            'html5_enabled' => '',
-        ), $this->form );
-        
-        //CODEHACK
-        if (empty($this->form['field_settings']['captcha']) && !empty($field_settings_default['captcha'])) {
-            $this->form['field_settings']['captcha'] = $field_settings_default['captcha'];
+        return self::$_parentModule;
+    }
+    
+/**
+     * Sanitixe settings
+     * 
+     * @param array $input
+     * @return array
+     */
+    public function sanitizeSettings($input) {
+        $result = array();
+       
+        if (!empty($input) && is_array($input)) {
+            foreach ($input as $key => $value) {
+                $field = $this->getFieldByName($key);
+                if (!empty($field['type'])) {
+                    switch ($field['type']) {
+                        case 'checkbox':
+                            $result[$key] = !empty($value) ? 1 : 0;    
+                            break;
+                        case 'text':
+                        case 'colorpicker':
+                            $result[$key] = stripslashes(esc_attr(trim($value)));    
+                            break;                        
+                        case 'textarea':                            
+                            $result[$key] = $value;    
+                            break;                                                
+                        case 'metabox' :
+                            $hasError = FALSE;
+                            foreach ($value as $k => $v) {
+                                if ($k == "0") {
+                                    unset($value[$k]);
+                                } elseif (empty($v['name'])) {
+                                    if (empty($hasError)) {
+                                        $hasError = TRUE;                                        
+                                        add_settings_error( 'fields_main_input', 'texterror', 'Field "Name" in "Fields Settings" section is mandatory', 'error' );                                        
+                                    }
+                                } 
+                            }
+                            $result[$key] = $value;                            
+                            break;                                                
+                        default:
+                            $result[$key] = $value;
+                            break;
+                    }
+                }
+            }            
         }
         
-        $this->error = array_merge( array(
-            'error_name' => $error_default
-        ), $this->error );
-
-        $this->notification = array_merge( array(
-            'another_email' => '',
-            'subject' => 'New submission from contact form',
-            'message' => "Dear {\$admin_name},\nYou got a new message from contact form!\n\nForm message:\n{\$data}",
-            'user_subject' => 'Form submission confirmation',
-            'user_message' => "Dear {\$user_name},\nThanks for contacting us!\nWe will get in touch with you shortly.\n\nYour message:\n{\$data}"            
-        ), $this->notification );
+        return $result;
     }    
 
-    public function registerSettings () {
+    public static function renderSettingsPage() {
+        echo self::getParentModule()->getTemplate('admin/options/layout', self::instance());
+    }    
+    
+    public static function getPagesFieldSet() {
+        $result = array('' => '');        
+        $pages = get_pages();
+        if (!empty($pages) and is_array($pages)) {
+            foreach ($pages as $page) {
+                $result[$page->ID] = $page->post_title;
+            }
+        }
         
-        //create array with names of tabs; use it in 'settings.php' template
-        $this->pluginSettingsTabs[$this->formKey] = 'Form';
-        $this->pluginSettingsTabs[$this->errorKey] = 'Errors';
-        $this->pluginSettingsTabs[$this->notificationKey] = 'Notifications';
+        return $result;        
+    }        
+    
+    public static function getEmailsFieldSet() {
+        $result = array();
+        $items = SCFP()->getSettings()->getFieldsSettings();
+        if (!empty($items) && is_array($items)) {
+            foreach( $items as $key => $field ) {
+                if (!empty($field['visibility']) && !empty($field['field_type']) && $field['field_type'] == 'email' ) {
+                    $result[$key] = $field['name'];    
+                }
+            }
+        }
         
-        
-        //register 3 options
-        register_setting( $this->formKey, $this->formKey ); 
-        register_setting( $this->errorKey, $this->errorKey );        
-        register_setting( $this->notificationKey, $this->notificationKey ); 
-        
-        global $pagenow;
-        if($pagenow == 'admin.php' && !empty($_REQUEST['page']) && $_REQUEST['page'] == $this->pluginOptionsKey && !empty($_REQUEST['reset-settings'])) {
-            $this->resetSettings();
-            wp_redirect(add_query_arg(array('is-reset-form' => 'true'), remove_query_arg('reset-settings')));
-        }        
-    }
+        return $result;        
+    }            
     
     public function adminMenu () {
-        add_menu_page('Contact Form', 'Contact Form', 'manage_options', 'scfp');            
-        add_submenu_page('scfp', 'Settings', 'Settings', 'manage_options', $this->pluginOptionsKey, array($this, 'renderSettingsPage'));                
+        parent::adminMenu();
     }
 
-    function currentMenu($parent_file){
-        global $submenu_file, $pagenow;
+    public function getErrorsConfig () {
+        return $this->objectToArray($this->getConfig()->form->errors);
+    }
+
+    public function getErrorsDefaults () {
+        $result = array();
+        foreach ($this->getConfig()->form->errors as $key => $value) {
+            $result[$key] = $value->default;
+        }
+        return $result;
+    }        
+    
+    public function getErrorsSettings () {
+        $options = get_option('scfp_error_settings');
+        if (!empty($options['error_name']) && empty($options['errors'])) {
+            $options['errors'] = $options['error_name'];
+        }
+
+        if (!empty($options)) {
+            foreach ($this->getErrorsDefaults() as $k => $v) {
+                if (!array_key_exists($k, $options['errors'])) {
+                    $options['errors'][$k] = $v; 
+                }
+            }            
+        }
         
-        //TODO: ....
-        if($pagenow == 'admin.php' && !empty($_REQUEST['page']) && $_REQUEST['page'] == 'view-entry') {
-            //$submenu_file = 'admin.php?page=scfp_plugin_options';
-            //$parent_file = 'edit.php?post_type=form-entries';
+        return !empty($options) ? $options : array( 'errors' => $this->getErrorsDefaults()) ;
+    }    
+    
+    public function getFormConfig () {
+        return $this->objectToArray($this->getConfig()->admin->options->fields->scfp_form_settings->fields);
+    }
+
+    public function getFormDefaults () {
+        $result = array();
+        foreach ($this->getConfig()->admin->options->fields->scfp_form_settings->fields as $key => $value) {
+            if ($key == 'field_settings') {
+                $result[$key] = $this->getFieldsDefaults();
+            } else {
+                $result[$key] = $value->default;    
+            }
+            
         }
-
-        return $parent_file;
-
-    }        
-
-    public function renderSettingsPage () {
-        echo $this->getTemplate('admin/settings');                    
+        return $result;
     }        
     
-    public function getOptions() {
-        return array(
-            'form' => $this->getForm(),
-            'error' => $this->getError(),
-            'notification' => $this->getNotification(),
-        );
+    public function getFormSettings () {
+        $options = get_option('scfp_form_settings');
+        return !empty($options) ? $options : $this->getFormDefaults() ;
+    }        
+    
+    
+    public function getNotifictionConfig () {
+        return $this->objectToArray($this->getConfig()->admin->options->fields->scfp_notification_settings->fields);
     }
     
-    public function resetSettings () {
-        delete_option( $this->formKey );
-        delete_option( $this->errorKey );
-        delete_option( $this->notificationKey );                
-    }
-
-    public function getForm() {
-        return $this->form;
-    }
-
-    public function getError() {
-        return $this->error;
-    }
-
-    public function getNotification() {
-        return $this->notification;
-    }
-
-    public function getFormKey() {
-        return $this->formKey;
-    }
-
-    public function getErrorKey() {
-        return $this->errorKey;
-    }
-
-    public function getNotificationKey() {
-        return $this->notificationKey;
-    }
-
-    public function getPluginOptionsKey() {
-        return $this->pluginOptionsKey;
-    }
-
-    public function getPluginSettingsTabs() {
-        return $this->pluginSettingsTabs;
-    }
-
-    public function getConfig() {
-        return $this->config;
-    }
-    public function getErrorConfig() {
-        return $this->errorConfig;
-    }
-
-    public function customAdminNotices() {
-
-        global $pagenow;
-
-        if ( $pagenow == 'admin.php' && isset($_REQUEST['is-reset-form']) && !isset($_REQUEST['settings-updated'])) {
-            $message = 'Settings reset to default values';
-            echo '<div class="updated settings-error" id="setting-error-settings_updated"><p><strong>'.$message.'</strong></p></div>';            
+    public function getNotifictionDefaults () {
+        $result = array();
+        foreach ($this->getConfig()->admin->options->fields->scfp_notification_settings->fields as $key => $value) {
+            $result[$key] = $value->default;    
         }
+        return $result;
     }            
+    
+    public function getNotifictionSettings () {
+        $options = get_option('scfp_notification_settings');
+        return !empty($options) ? $options : $this->getNotifictionDefaults() ;
+    }            
+    
+    public function getFieldsConfig () {
+        return $this->objectToArray($this->getConfig()->form->fields);
+    }    
+    
+
+    public function getFieldsDefaults () {
+        $result = array();
+        foreach ($this->getConfig()->form->fields as $key => $value) {
+            $result[$key] = $this->objectToArray($value->default);
+        }
+        return $result;
+    }        
+    
+    public function getFieldsSettings () {
+        $defaults = $this->getFieldsDefaults();
+        $types = $this->getFieldsTypes();
+
+        $data = SCFP()->getFormSettings()->getData('scfp_form_settings');        
+        if (empty($data)) {
+            $data = $this->getFieldsDefaults();            
+        }
+        
+        foreach ($data as $k => $v) {
+            if (array_key_exists($k, $defaults)) {
+                if (!empty($defaults[$k]['visibility_readonly'])) {
+                    $data[$k]['visibility'] = $defaults[$k]['visibility'];
+                    $data[$k]['visibility_readonly'] = $defaults[$k]['visibility_readonly'];
+                }
+                if (!empty($defaults[$k]['required_readonly'])) {
+                    $data[$k]['required'] = $defaults[$k]['required'];
+                    $data[$k]['required_readonly'] = $defaults[$k]['required_readonly'];
+                }                
+                if (!empty($defaults[$k]['no_email'])) {
+                    $data[$k]['no_email'] = $defaults[$k]['no_email'];
+                }                                
+                if (!empty($defaults[$k]['no_csv'])) {
+                    $data[$k]['no_csv'] = $defaults[$k]['no_csv'];
+                }                                                
+                $data[$k]['field_type'] = $types[$k];
+            }
+        }
+        return $data;
+    }        
+    
+    public function getUserParamsConfig () {
+        return $this->objectToArray($this->getConfig()->form->userParams);
+    }
+    
+
+    
+    public function getFieldsTypes () {
+        $result = array();
+        foreach ($this->getConfig()->form->fields as $key => $value) {
+            $result[$key] = $value->type;
+        }
+        return $result;
+    }        
+
+
 }
 

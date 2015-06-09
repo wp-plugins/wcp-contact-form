@@ -1,4 +1,5 @@
 <?php
+use Webcodin\WCPContactForm\Core\Agp_AjaxAbstract;
 
 class SCFP_Ajax extends Agp_AjaxAbstract {
     /**
@@ -38,9 +39,21 @@ class SCFP_Ajax extends Agp_AjaxAbstract {
      */
     public function recreateCaptcha($data) {
         $id = $data['id'];
+        $key = $data['key'];        
+        
         $form = new SCFP_Form($id);
+        $fieldsSettings = SCFP()->getSettings()->getFieldsSettings();
+        $field = $fieldsSettings[$key];
+        $formSettings = SCFP()->getSettings()->getFormSettings();
+        $formData = $form->getData();    
+        
         $atts['id'] = $id;
         $atts['form'] = $form;
-        return SCFP()->getTemplate('scfp', $atts);                
+        $atts['key'] = $key;
+        $atts['field'] = $field;
+        $atts['formSettings'] = $formSettings;
+        $atts['formData'] = $formData;
+        
+        return SCFP()->getTemplate('form/captcha', $atts);                
     }
 }

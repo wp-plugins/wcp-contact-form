@@ -134,7 +134,7 @@ class SimpleCaptcha {
 
 
 
-    public function CreateImage() {
+    public function CreateImage($id = NULL) {
         $ini = microtime(true);
 
         /** Initialization */
@@ -145,7 +145,15 @@ class SimpleCaptcha {
         $fontcfg  = $this->fonts[array_rand($this->fonts)];
         $this->WriteText($text, $fontcfg);
 
-        $_SESSION[$this->session_var] = $text;
+        if (isset($id)) {
+            if (isset($_SESSION[$this->session_var]) && !is_array($_SESSION[$this->session_var])) {
+                unset($_SESSION[$this->session_var]);
+            }
+            $_SESSION[$this->session_var][$id] = $text;    
+        } else {
+            $_SESSION[$this->session_var] = $text;    
+        }
+        
 
         /** Transformations */
         if (!empty($this->lineWidth)) {
@@ -184,9 +192,9 @@ class SimpleCaptcha {
      */
     protected function ImageAllocate() {
         // Cleanup
-        if (!empty($this->im)) {
-            imagedestroy($this->im);
-        }
+//        if (!empty($this->im)) {
+//            imagedestroy($this->im);
+//        }
 
         $this->im = imagecreatetruecolor($this->width*$this->scale, $this->height*$this->scale);
 
@@ -359,7 +367,7 @@ class SimpleCaptcha {
 
         /** Increase font-size for shortest words: 9% for each glyp missing */
         $lettersMissing = $this->maxWordLength-strlen($text);
-        $fontSizefactor = 1+($lettersMissing*0.09);
+        $fontSizefactor = 1 + ($lettersMissing*0.09);
 
         // Text generation (char by char)
         $x      = 20*$this->scale;
