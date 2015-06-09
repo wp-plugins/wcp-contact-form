@@ -1,0 +1,34 @@
+/*--------------------------------------------------------------*/
+/*-- CSS Document --*/
+/*-- Copyright (c) 2015. --*/
+/*--------------------------------------------------------------*/
+.scfp-settings-table { width: 50%; margin-bottom: 40px; }
+.scfp-settings-table th { text-align: center; }
+.scfp-settings-table th:first-child { text-align: left; }
+.scfp-settings-table td { text-align: center; vertical-align: middle; padding-top: 0; }
+.scfp-settings-table tr:first-child td { padding-top: 8px; }
+.scfp-settings-table td input[type="text"] { width: 100%; }
+/*--------------------------------------------------------------*/
+.contact-form_page_scfp_plugin_options .regular-select { width: 25em; }
+/*--------------------------------------------------------------*/
+.scfp-view-table .view-entry-header td { border-top: 1px solid #e5e5e5; }
+.scfp-view-table .view-entry-header:first-child td { border-top: 0; }
+
+
+
+/*-----------------------------------------------------------------*/
+/*--- Media Queries Styles ---*/
+/*-----------------------------------------------------------------*/
+
+/*-----------------------------------------------------------------*/
+/*---------- Styles for tablet 0 - 1100px --------*/
+/*-----------------------------------------------------------------*/
+@media only screen and (min-width: 0) and (max-width: 1100px) {
+    .scfp-settings-table { width: 100%; }
+}
+/*-----------------------------------------------------------------*/
+/*---------- Styles for tablet 0 - 782px --------*/
+/*-----------------------------------------------------------------*/
+@media only screen and (min-width: 0) and (max-width: 782px) {
+    .contact-form_page_scfp_plugin_options .regular-select { width: 100%; }
+}
