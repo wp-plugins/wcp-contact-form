@@ -1,0 +1,48 @@
+/*--------------------------------------------------------------*/
+/*-- CSS Document --*/
+/*-- Copyright (c) 2015. --*/
+/*--------------------------------------------------------------*/
+.scfp-form-content { padding-bottom: 15px; }
+.scfp-form-content a, .scfp-form-content a:focus, .scfp-form-content a:hover { outline: none; }
+.scfp-form-content:after, .scfp-form-content:before { clear: both; }
+.scfp-form-content .scfp-form-row { padding-bottom: 10px; }
+.scfp-form-content .scfp-form-row .scfp-form-label { display: inline-block; line-height: 1.1em; margin: 0; padding-bottom: 5px; font-weight: normal; }
+.scfp-form-content .scfp-form-row .scfp-form-label .scfp-form-field-required { color: #d32f2f; }
+.scfp-form-content .scfp-form-row .scfp-form-field { background: #fff; font-size: 90%; height: inherit; width: 100%; margin: 0; padding: 7px 10px; border: 1px solid #cfcfcf; border-radius: 0; -webkit-border-radius: 0; -moz-border-radius: 0; -webkit-appearance: none; box-sizing: border-box; -webkit-box-sizing: border-box; -moz-box-sizing: border-box; }
+.scfp-form-content .scfp-form-row .scfp-form-field:invalid, .scfp-form-content .scfp-form-row input[type="checkbox"]:invalid { box-shadow: none !important; outline: none !important; }
+.scfp-form-content .scfp-form-row .scfp-form-field:focus:required:valid { border-color: #388e3c; }
+.scfp-form-content .scfp-form-row .scfp-form-field:focus:required:invalid, .scfp-form-content .scfp-form-row input[type="checkbox"]:focus:required:invalid { border-color: #d32f2f; box-shadow: none !important; }
+.scfp-form-content .scfp-form-row .scfp-form-field:focus { border: 1px solid #cfcfcf; }
+.scfp-form-content .scfp-form-row .scfp-form-message-field { padding: 5px 10px; min-height: 100px; resize: none; }
+/*-----------------------------------------------------------------*/
+.scfp-form-content .scfp-captcha { width: 100%; overflow: hidden; padding: 2px 2px 0 0; margin-top: -2px; }
+.scfp-form-content .scfp-captcha .scfp-captcha-image, .scfp-form-content .scfp-captcha .scfp-captcha-field { float: left; }
+.scfp-form-content .scfp-captcha .scfp-captcha-image { width: 36%; text-align: center; }
+.scfp-form-content .scfp-captcha .scfp-captcha-image .scfp-captcha-image-wrapper { padding: 3px; border: 1px solid #cfcfcf; }
+.scfp-form-content .scfp-captcha .scfp-captcha-image .scfp-captcha-image-wrapper img { max-width: 100%; height: auto; display: block; width: 200px; margin: 0 auto; }
+.scfp-form-content .scfp-captcha .scfp-captcha-field { box-sizing: border-box; -moz-box-sizing: border-box; -webkitbox-sizing: border-box; width: 64%; padding-left: 10px; }
+.scfp-form-content .scfp-captcha .scfp-captcha-field input { float: left; width: 92%; }
+.scfp-form-content .scfp-captcha .scfp-captcha-refresh { background: url('../images/icons/refresh-icon.png') no-repeat; width: 14px; height: 14px; float: right; text-indent: -10000px; margin: 10px 0 0 0; text-decoration: none; border: 0; }
+.scfp-form-content .scfp-captcha .scfp-captcha-refresh:hover { opacity: 0.7; }
+/*-----------------------------------------------------------------*/
+.scfp-form-content .scfp-form-row-checkbox { padding: 5px 0; }
+.scfp-form-content .scfp-form-row-checkbox input[type="checkbox"] { vertical-align: top; margin: 3px 0 0; }
+.scfp-form-content .scfp-form-row-checkbox .scfp-form-label { vertical-align: top; max-width: 92%; padding: 0 0 0 3px; }
+/*-----------------------------------------------------------------*/
+.scfp-form-content .scfp-form-action { padding-top: 10px; }
+.scfp-form-content .scfp-form-action .scfp-form-submit { background: #404040; border: 0 !important; outline: none !important; min-width: 30%; min-height: 32px; margin: 0; color: #fff; font-size: 90%; line-height: 1em; font-weight: bold; padding: 11px 20px 12px; text-transform: uppercase; vertical-align: bottom; cursor: pointer; border-radius: 0; -webkit-border-radius: 0; -moz-border-radius: 0; box-shadow: none; -webkit-box-shadow: none; -moz-box-shadow: none; text-shadow: none; -webkit-text-shadow: none; -moz-text-shadow: none; }
+.scfp-form-content .scfp-form-action .scfp-form-submit:hover { opacity: 0.8; }
+/*-----------------------------------------------------------------*/
+.scfp-form-content.scfp-form-widget { padding-bottom: 0; }
+.scfp-form-content.scfp-form-widget .scfp-captcha .scfp-captcha-image { width: 38%; }
+.scfp-form-content.scfp-form-widget .scfp-captcha .scfp-captcha-field { width: 62%; }
+.scfp-form-content.scfp-form-widget .scfp-captcha .scfp-captcha-image .scfp-captcha-image-wrapper { background: #fff; padding: 4px; }
+.scfp-form-content.scfp-form-widget .scfp-captcha .scfp-captcha-field input { margin-bottom: 0; width: 88%; }
+.scfp-form-content.scfp-form-widget .scfp-captcha .scfp-captcha-refresh { margin: 9px 0 0 0; }
+.scfp-form-content.scfp-form-widget .scfp-form-row-checkbox input[type="checkbox"] { margin: 1px 0 0; }
+/*-----------------------------------------------------------------*/
+/*--- Form Error Styles ---*/
+/*-----------------------------------------------------------------*/
+.scfp-form-error { font-size: 90%; line-height: 1em; color: #db0202; padding-bottom: 10px; }
+.scfp-form-error .scfp-error-item { padding-bottom: 5px; }
+.scfp-form-error .scfp-error-item span { font-weight: bold; padding-right: 2px; }
