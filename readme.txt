@@ -7,11 +7,11 @@ License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 Stable tag: trunk
 
-Quickly add simple dynamic contact form to your site and easily adjust it to your needs.
+The contact form plugin with dynamic fields, CAPTCHA and other features that makes it easy to add custom contact form on your site in a few clicks
 
 == Description ==
 
-With the help of our plugin you can add an easy-to-setup contact form for the page or sidebar of your site. It's fully customizable, adjustable and ideally works as:
+With the help of our plugin you can add an easy-to-setup contact form on the page or sidebar of your site. It's fully customizable, adjustable and ideally works as:
 
 * Contact form for corporate site or a personal blog;
 * Form of offline order in promotional catalog;
@@ -21,30 +21,29 @@ With the help of our plugin you can add an easy-to-setup contact form for the pa
 
 = Features =
 
-* Can be used as shortcode on the page or sidebar widget;
-* Ready-to-use fiels preset after plugin instalation includs following fields: Name, Email, Phone, Subject, Message and CAPTCHA;
+* Contact form can be used as shortcode on the page or sidebar widget;
+* Ready-to-use fields preset after plugin instalation includs following fields: Name, Email, Phone, Subject, Message and CAPTCHA;
 * **NEW!** Dynamic form fields with the following field types: text, email, numeric, textarea, checkbox and CAPTCHA;
 * **NEW!** Each field has following parameters for configuration: type, name, visibility, required and export to CSV;
 * **NEW!** All fields can be reordered and deleted;
-* Customize "submit" button with title, background and text colors;
+* "Submit" button can be customized with title, background and text colors;
 * Possibility to use custom "Thank You" page that can be chosen from list of the existing pages;
 * Optionally available HTML5 fields validation;
 * Custom error messages for non-HTML5 fields validation;
 * Auto notifications for users and administrator with variables for notification letters;
-* Handy list of received messages with the ability to filter and delete to the Trash;
+* Handy list of received messages with the ability to filter, delete to the Trash and group actions;
 * 2 status for messages: read and unread;
-* Group actions on messages;
 * Separate page for each letter with detailed view and the ability to quickly remove to Trash;
 * Form supports default theme styling;
-* Developers have the possibility to customize the plugin by creating a duplicate templates and styles in the active theme folder.
 * **NEW!** Export messages to CSV format.
+* Developers have the possibility to customize the plugin by creating a duplicate templates and styles in the active theme folder.
  
 = Notes =
 
-* **Beware! If you DELETE any field from existed form configuration all received data for this field won't be available for existed messages without possibility to restore.**
-* **NB! If you use more than one email field you need to define field that will be used for user notification: "Contact Form" --> "Settings" --> "Notifications" --> "User Notifications" --> "User Email Field". By default, will be used first email field. Also, for properly work of user notifications email field should be required.**
-* **NB! Form uses standard WordPress wp_mail() function (https://codex.wordpress.org/Function_Reference/wp_mail) for messages submission. If you have issues with notification receiving, try to use some third-party plugin for mail settings.**
-* **NB! "Reset to default" button on the Settings page reset all tabs to default values includes form fields**
+* **Beware!** If you DELETE any field from existed form configuration all received data for this field won't be available for existed messages without possibility to restore.
+* **NB!** If you use more than one email field you need to define field that will be used for user notification: "Contact Form" --> "Settings" --> "Notifications" --> "User Notifications" --> "User Email Field". By default, will be used first email field. Also, for properly work of user notifications email field should be required.
+* **NB!** Form uses standard WordPress wp_mail() function (https://codex.wordpress.org/Function_Reference/wp_mail) for messages submission. If you have issues with notification receiving, try to use some third-party plugin for mail settings.
+* **NB!** "Reset to default" button on the Settings page reset all tabs to default values includes form fields
 
 
 = Upcoming Updates =
@@ -226,6 +225,10 @@ Path to the templates folder inside the active theme:
 12. Admin Panel :: Settings :: Notifications
 
 == Changelog ==
+
+= 2.0.1 =
+* changed: "Refresh" button styling for CAPTCHA field 
+* minor styles changes
 
 = 2.0.0 =
 * global changes of the plugin core and templates structure. **Beware!** You can have issues if you make some customization in the form templates manually by code!;

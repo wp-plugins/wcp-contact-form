@@ -2,8 +2,8 @@
 /**
  * Plugin Name: WCP Contact Form
  * Plugin URI: https://wordpress.org/plugins/wcp-contact-form/ 
- * Description: Quickly add simple contact form to your site and easily adjust it to your needs.
- * Version: 2.0.0
+ * Description: The contact form plugin with dynamic fields, CAPTCHA and other features that makes it easy to add custom contact form on your site in a few clicks
+ * Version: 2.0.1
  * Author: Webcodin
  * Author URI: https://profiles.wordpress.org/webcodin/
  * License: GPL2
