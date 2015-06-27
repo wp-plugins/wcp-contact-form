@@ -9,8 +9,24 @@
     $title = !empty($args->settings->getConfig()->admin->options->title) ? $args->settings->getConfig()->admin->options->title : '';
 ?>
 <?php if (!empty($title)) :?>
-<h1><?php echo $title;?></h1>
+<div style="width: 100%; padding: 20px 0 0;">
+    <table>
+        <tr style="vertical-align: middle;">
+            <td style="padding: 0 20px 0 0;">                                                                                               
+                <img src="<?php echo SCFP()->getAssetUrl( 'images/icons/icon-128x128.png' )?>" width="100" height="100" />    
+            </td>
+            <td>
+                <h1 style="margin: 0px; padding: 0 0 10px;"><?php echo $title;?></h1>
+                <p style="margin: 0px; padding: 0 0 5px;">More information about the plugin you can find on the <a href="https://wordpress.org/plugins/wcp-contact-form/" target="_blank" title="">plugin page</a> in the <a href="https://wordpress.org/plugins/wcp-contact-form/faq/" target="_blank" title="FAQ">FAQ</a> and <a href="https://wordpress.org/plugins/wcp-contact-form/screenshots/" target="_blank" title="Screenshots">Screenshots</a> sections. <strong>Live demo</strong> you can find on <a href="http://wpdemo.webcodin.com/stay-in-touch/" target="_blank" title="FAQ">our site</a>.</p> 
+                <p style="margin: 0px; padding: 0;">To start using our contact form on your site, please <strong>check settings</strong> on the tabs below and <strong>add to a page shortcode</strong> of the contact form via <strong>button in the TinyMCE toolbar</strong> (should be activated in tab "Form" --> "TinyMCE Support") or <strong>copy &amp; paste following shortcode</strong>: [wcp_contactform id="wcpform_1"]</p>   
+            </td>
+        </tr>
+    </table>
+</div>
 <?php endif;?>
+
+
+
 <div class="wrap">
     <?php 
         screen_icon();

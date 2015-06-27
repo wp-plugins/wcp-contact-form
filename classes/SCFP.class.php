@@ -84,10 +84,17 @@ class SCFP extends Agp_Module {
         $this->ajax = SCFP_Ajax::instance();
         
         
+        add_action( 'init', array($this, 'init' ) );                
         add_action( 'wp_enqueue_scripts', array($this, 'enqueueScripts' ) );                
         add_action( 'admin_enqueue_scripts', array($this, 'enqueueAdminScripts' ));            
         add_shortcode( 'scfp', array($this, 'doScfpShortcode') ); 
+        add_shortcode( 'wcp_contactform', array($this, 'doScfpShortcode') ); 
         add_action( 'widgets_init', array($this, 'initWidgets' ) );
+        add_action( 'admin_init', array($this, 'tinyMCEButtons' ) );        
+    }
+    
+    public function init() {
+        $this->settings->applyUpdateChanges();
     }
     
     public function initWidgets() {
@@ -118,9 +125,30 @@ class SCFP extends Agp_Module {
         ));
     }
     
+    public function tinyMCEButtons () {
+        
+        $form_settings = $this->settings->getFormSettings();
+        if ( current_user_can('edit_posts') && current_user_can('edit_pages') && !empty($form_settings['tinymce_button_enabled'])) {
+            if ( get_user_option('rich_editing') == 'true' ) {
+               add_filter( 'mce_buttons', array($this, 'tinyMCERegisterButtons'));                
+               add_filter( 'mce_external_plugins', array($this, 'tinyMCEAddPlugin') );
+            }        
+        }        
+    }
+    
+    public function tinyMCERegisterButtons( $buttons ) {
+       array_push( $buttons, "|", "wcp_contactform" );
+       return $buttons;
+    }    
+    
+    public function tinyMCEAddPlugin( $plugin_array ) {
+        $plugin_array['wcp_contactform'] = $this->getAssetUrl() . '/js/wcp-contactform.js';
+        return $plugin_array;        
+    }            
+    
     public function doScfpShortcode ($atts) {
         $atts = shortcode_atts( array(
-            'id' => NULL,
+            'id' => 'default-contactform-id',
         ), $atts );        
         
         

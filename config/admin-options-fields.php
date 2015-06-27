@@ -6,14 +6,17 @@ return array(
                 'label' => 'Fields Settings',
             ),            
             'send_button_settings' => array(
-                'label' => 'Send Button',
+                'label' => 'Submit Button',
             ),                     
             'thankyou_page_settings' => array(
                 'label' => '"Thank You" Page',
             ),            
-            'html5_validation_settings' => array(
-                'label' => 'HTML5 Validation',
-            ),                        
+//            'html5_validation_settings' => array(
+//                'label' => 'HTML5 Validation',
+//            ),                        
+            'other_settings' => array(
+                'label' => 'Other Settings',
+            ),                                    
         ),
         'fields' => array(
             'field_settings' => array(
@@ -22,7 +25,12 @@ return array(
                 'default' => '',
                 'section' => 'field_settings',
                 'class' => '',
-                'note' => '',
+                'note' => 'You can configure fields of the contact form in the table below. Each field has following available parameters for configuration : '
+                . '<strong>Type</strong> - allows to choose field type from preset; '
+                . '<strong>Name</strong> - allows to define field label for displaying; '
+                . '<strong>Visibility</strong> - allows to enable/disable field visibility; '
+                . '<strong>Required</strong> - allows to make field required; '
+                . '<strong>Export to CSV</strong> - allows to add field to CSV export.',
                 'atts' => array(
                 ),                
             ),            
@@ -32,17 +40,54 @@ return array(
                 'default' => 'Send',
                 'section' => 'send_button_settings',
                 'class' => 'widefat regular-text',
-                'note' => '',
+                'note' => 'option allows to change submit button text',
                 'atts' => array(
                 ),                
-            ),            
+            ),        
+            'page_name' => array(
+                'type' => 'select',
+                'label' => 'Select Page',
+                'fieldSet' => 'pages',
+                'default' => '',
+                'section' => 'thankyou_page_settings',
+                'class' => 'widefat regular-select',
+                'note' => 'option allows to set "Thank You" page from the list of existed pages',
+            ),      
+            'html5_enabled' => array(
+                'type' => 'checkbox',
+                'label' => 'Enable HTML5 Validation',
+                'default' => 1,
+                'section' => 'other_settings',
+                'note' => 'option allows to enable/disable HTML5 validation on the contact form',
+                'class' => '',
+            ),                                      
+            'tinymce_button_enabled' => array(
+                'type' => 'checkbox',
+                'label' => 'TinyMCE Support',
+                'default' => 1,
+                'section' => 'other_settings',
+                'note' => 'option allows to enable/disable button in the TinyMCE editor for adding contact form shortcode to editor area',
+                'class' => '',
+            ),                                                  
+        ),
+    ),
+    'scfp_style_settings' => array(
+        'sections' => array(
+            'send_button_settings' => array(
+                'label' => 'Submit Button',
+            ),                     
+            'field_style_settings' => array(
+                'label' => 'Fields Style',
+            ),                                 
+        ),  
+        'fields' => array(
             'button_color' => array(
                 'type' => 'colorpicker',
                 'label' => 'Background Color',
                 'default' => '#404040',
                 'section' => 'send_button_settings',
                 'class' => 'scfp-color-picker',
-                'note' => '',
+                'note' => 'option allows to change background color of the "Submit" button',
                 'atts' => array(
                 ),                                
             ),
@@ -52,27 +97,87 @@ return array(
                 'default' => '#FFF',
                 'section' => 'send_button_settings',
                 'class' => 'scfp-color-picker',
-                'note' => '',
+                'note' => 'option allows to change text color of the "Submit" button',
                 'atts' => array(
                 ),                                
             ),        
-            'page_name' => array(
-                'type' => 'select',
-                'label' => 'Page',
-                'fieldSet' => 'pages',
+            'field_label_text_color' => array(
+                'type' => 'colorpicker',
+                'label' => 'Label Color',
                 'default' => '',
-                'section' => 'thankyou_page_settings',
-                'class' => 'widefat regular-select',
-            ),      
-            'html5_enabled' => array(
+                'section' => 'field_style_settings',
+                'class' => 'scfp-color-picker',
+                'note' => 'option allows to change color of field labels (labels are displayed above the form fields)',
+                'atts' => array(
+                ),                                
+            ),                                       
+            'field_text_color' => array(
+                'type' => 'colorpicker',
+                'label' => 'Text Color',
+                'default' => '',
+                'section' => 'field_style_settings',
+                'class' => 'scfp-color-picker',
+                'note' => 'option allows to change field text color inside the form fields',
+                'atts' => array(
+                ),                                
+            ),                           
+            'no_border' => array(
                 'type' => 'checkbox',
-                'label' => 'Enabled',
-                'default' => 1,
-                'section' => 'html5_validation_settings',
+                'label' => 'No Border',
+                'default' => 0,
+                'section' => 'field_style_settings',
                 'class' => '',
-            ),                                      
+                'note' => 'option allows to disable border around the form fields'
+            ),                  
+            'border_size' => array(
+                'type' => 'text',
+                'label' => 'Border Size',
+                'default' => '',
+                'section' => 'field_style_settings',
+                'class' => 'widefat regular-text',
+                'note' => 'option allows to set size of the border around the form fields (positive digital value with "px")',
+                'atts' => array(
+                ),                
+            ),  
+            'border_style' => array (
+                'type' => 'select',
+                'label' => 'Border Style',
+                'fieldSet' => 'borderStyle',
+                'default' => 'solid',
+                'section' => 'field_style_settings',
+                'class' => 'widefat regular-select',
+                'note' => 'option allows to set style of the border around the form fields',                
+            ),
+            'border_color' => array(
+                'type' => 'colorpicker',
+                'label' => 'Border Color',
+                'default' => '',
+                'section' => 'field_style_settings',
+                'class' => 'scfp-color-picker',
+                'note' => 'option allows to set color of the border around the form fields',
+                'atts' => array(
+                ),                                
+            ),   
+            'no_background' => array(
+                'type' => 'checkbox',
+                'label' => 'No Background',
+                'default' => 0,
+                'section' => 'field_style_settings',
+                'class' => '',
+                'note' => 'option allows to disable background inside the form fields'
+            ),      
+            'background_color' => array(
+                'type' => 'colorpicker',
+                'label' => 'Background Color',
+                'default' => '',
+                'section' => 'field_style_settings',
+                'class' => 'scfp-color-picker',
+                'note' => 'option allows to set background color inside the form fields',
+                'atts' => array(
+                ),                                
+            ),               
         ),
-    ),
+    ),            
     'scfp_error_settings' => array(
         'sections' => array(
             'error_settings' => array(
@@ -86,6 +191,7 @@ return array(
                 'default' => '',
                 'section' => 'error_settings',
                 'class' => '',
+                'note' => 'You can change error messages for non-HTML5 validation below',
             ),                                      
         ),
     ),    
@@ -105,7 +211,7 @@ return array(
                 'default' => '',
                 'section' => 'admin_notifications_settings',
                 'class' => 'widefat regular-text',
-                'note' => 'Default email address is used from: Settings --> General --> E-mail Address',
+                'note' => 'option allows to set administrator email address for notifications. Default email address is used from: Settings --> General --> E-mail Address',
                 'atts' => array(
                 ),                
             ),            
@@ -115,17 +221,17 @@ return array(
                 'default' => 'New submission from contact form',
                 'section' => 'admin_notifications_settings',
                 'class' => 'widefat regular-text',
-                'note' => '',
+                'note' => 'option allows to set default subject of administrator notification message',
                 'atts' => array(
                 ),                
             ),                        
             'message' => array(
                 'type' => 'textarea',
                 'label' => 'Message',
-                'default' => "Dear {\$admin_name},\nYou got a new message from contact form!\n\nForm message:\n{\$data}",
+                'default' => "Dear {\$admin_name},\nYou have got a new message from contact form!\n\nForm message:\n{\$data}",
                 'section' => 'admin_notifications_settings',
                 'class' => 'widefat',
-                'note' => 'Variables:<br/>{$admin_name} - Administrator name<br/>{$user_name} - User name<br/>{$data} - Form data',
+                'note' => 'option allows to set default text of administrator notification message. You can use the following variables:<br/>{$admin_name} - Administrator name<br/>{$user_name} - User name<br/>{$data} - Form data',
                 'atts' => array(
                 ),                
             ),  
@@ -135,6 +241,7 @@ return array(
                 'default' => 0,
                 'section' => 'admin_notifications_settings',
                 'class' => '',
+                'note' => 'option allows to disable notifications of new form submissions'
             ),                                                  
             'user_email' => array(
                 'type' => 'select',
@@ -143,7 +250,7 @@ return array(
                 'default' => 'email',
                 'section' => 'user_notifications_settings',
                 'class' => 'widefat regular-select',
-                'note' => '',
+                'note' => 'option allows to set default field for user notification if you use more than one email field in the contact form',
                 'atts' => array(
                 ),                
             ),                                    
@@ -153,7 +260,7 @@ return array(
                 'default' => 'Form submission confirmation',
                 'section' => 'user_notifications_settings',
                 'class' => 'widefat regular-text',
-                'note' => '',
+                'note' => 'option allows to set default subject of user notification message',
                 'atts' => array(
                 ),                
             ),                        
@@ -163,7 +270,7 @@ return array(
                 'default' => "Dear {\$user_name},\nThanks for contacting us!\nWe will get in touch with you shortly.\n\nYour message:\n{\$data}",
                 'section' => 'user_notifications_settings',
                 'class' => 'widefat',
-                'note' => 'Variables:<br/>{$admin_name} - Administrator name<br/>{$user_name} - User name<br/>{$data} - Form data',
+                'note' => 'option allows to set default text of user notification message. You can use the following variables:<br/>{$admin_name} - Administrator name<br/>{$user_name} - User name<br/>{$data} - Form data',
                 'atts' => array(
                 ),                
             ),  
@@ -172,6 +279,7 @@ return array(
                 'label' => 'Disable User Notifications',
                 'default' => 0,
                 'section' => 'user_notifications_settings',
+                'note' => 'option allows to disable notifications for successful form submission',
                 'class' => '',
             ),               
             

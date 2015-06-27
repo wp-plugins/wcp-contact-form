@@ -87,19 +87,23 @@ return array(
     'errors' => array(
         'required_error' => array(
             'label' => 'Required Field',
-            'default' => "This field is required",
+            'default' => "This field can not be empty. Please enter required information",
+            'note' => 'option allows to set error message for "required" fields',
         ),
         'email_error' => array(
             'label' => 'Email Field',
-            'default' => "Email address isn't correct. Please fill this field in carefully",
+            'default' => "Email address is not correct. Please fill in this field carefully.",
+            'note' => 'option allows to set error message for "email "fields',
         ),
         'captcha_error' => array(
             'label' => 'Captcha Field',
-            'default' => "Captcha isn't correct. Please fill this field in carefully",
+            'default' => "Captcha is not correct. Please fill in this field carefully.",
+            'note' => 'option allows to set error message for "CAPTCHA" field',
         ),
         'number_error' => array(
             'label' => 'Number Field',
-            'default' => "Number isn't correct. Please fill this field in carefully",
+            'default' => "Value must be numeric. Please fill in this field carefully.",
+            'note' => 'option allows to set error message for "number" fields',
         ),
     ),
 );

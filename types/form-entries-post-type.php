@@ -8,7 +8,7 @@ function scfp_form_entries_init() {
     'add_new_item'       => __('Add New Entry', 'scfp'),
     'edit_item'          => __('Edit Entry', 'scfp'),
     'new_item'           => __('New Entry', 'scfp'),
-    'all_items'          => __('Entries', 'scfp'),
+    'all_items'          => __('Inbox', 'scfp'),
     'view_item'          => __('View Entry', 'scfp'),
     'search_items'       => __('Search Entry', 'scfp'),
     'not_found'          => __('No Entries Found', 'scfp'),

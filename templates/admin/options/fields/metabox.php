@@ -18,7 +18,9 @@
     </tbody>        
 </table>     
 
-<?php echo SCFP()->getFormSettings()->viewMetabox($obj); ?>
+    <?php if (!empty($note)): ?><p class="description"><?php echo $note;?></p><?php endif;?>
+    
+    <?php echo SCFP()->getFormSettings()->viewMetabox($obj); ?>
 
 <table class="form-table">
     <tbody>

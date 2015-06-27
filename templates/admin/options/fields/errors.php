@@ -17,11 +17,14 @@
     $settings = SCFP()->getSettings()->getErrorsConfig();
 ?>
 
+<?php if (!empty($note)): ?><tr><p class="description"><?php echo $note;?></p></tr><?php endif;?>
+
 <?php foreach( $settings as $error_config_key => $error_config_value): ?>
     <tr>
         <th scope="row"><?php echo $error_config_value['label']; ?></th>
         <td>
             <input class="widefat" type="text" name="<?php echo $key.'[errors][' . $error_config_key . ']'; ?>" value="<?php echo esc_attr( $data['errors'][$error_config_key] ); ?>"/>
+            <?php if (!empty($error_config_value['note'])): ?><p class="description"><?php echo $error_config_value['note'];?></p><?php endif;?>
         </td>
     </tr>
 <?php endforeach;

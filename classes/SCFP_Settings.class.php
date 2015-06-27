@@ -60,8 +60,35 @@ class SCFP_Settings extends Agp_SettingsAbstract {
         return self::$_parentModule;
     }
     
-/**
-     * Sanitixe settings
+    public function applyUpdateChanges() {
+        // 2.1.0
+        $form_settings = get_option('scfp_form_settings') ? get_option('scfp_form_settings') : array();
+        $style_settings = get_option('scfp_style_settings') ? get_option('scfp_style_settings') : array();
+        
+        if (!empty($form_settings) && empty($style_settings)) {
+            
+            $style_settings = $this->getStyleDefaults();            
+            
+            if (isset($form_settings['button_color'])) {
+                $style_settings['button_color'] = $form_settings['button_color'];
+                unset($form_settings['button_color']);
+            }
+
+            if (isset($form_settings['text_color'])) {
+                $style_settings['text_color'] = $form_settings['text_color'];
+                unset($form_settings['text_color']);
+            }        
+
+            update_option( 'scfp_form_settings', $form_settings );
+            update_option( 'scfp_style_settings', $style_settings );            
+        }
+        
+
+ 
+    }
+    
+    /**
+     * Sanitize settings
      * 
      * @param array $input
      * @return array
@@ -194,6 +221,22 @@ class SCFP_Settings extends Agp_SettingsAbstract {
         return !empty($options) ? $options : $this->getFormDefaults() ;
     }        
     
+    public function getStyleConfig () {
+        return $this->objectToArray($this->getConfig()->admin->options->fields->scfp_style_settings->fields);
+    }
+
+    public function getStyleDefaults () {
+        $result = array();
+        foreach ($this->getConfig()->admin->options->fields->scfp_style_settings->fields as $key => $value) {
+            $result[$key] = $value->default;
+        }
+        return $result;
+    }        
+    
+    public function getStyleSettings () {
+        $options = get_option('scfp_style_settings');
+        return !empty($options) ? $options : $this->getStyleDefaults() ;
+    }            
     
     public function getNotifictionConfig () {
         return $this->objectToArray($this->getConfig()->admin->options->fields->scfp_notification_settings->fields);

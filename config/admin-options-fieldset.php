@@ -10,4 +10,9 @@ return array(
         'text' => 'Text',
         'textarea' => 'Textarea',
     ),
+    'borderStyle' => array (
+        'solid' => 'Solid',
+        'dotted' => 'Dotted',
+        'dashed' => 'Dashed',
+    ),
 );
