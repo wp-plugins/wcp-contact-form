@@ -5,7 +5,7 @@ Requires at least: 3.5.0
 Tested up to: 4.2
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
-Stable tag: 2.0.1
+Stable tag: trunk
 
 The contact form plugin with dynamic fields, CAPTCHA and other features that makes it easy to add custom contact form on your site in a few clicks
 
@@ -14,99 +14,108 @@ The contact form plugin with dynamic fields, CAPTCHA and other features that mak
 Main feature of our contact form is ready-to-use set of the fields includes CAPTCHA, that you can immediately use after installation.
 
 All that you need it is install plugin, check form settings and add contact form in two ways:
-1. as shortcode via TinyMCE toolbar button;
-2. as widget to a page sidebar
+
+1. As shortcode via TinyMCE toolbar button;
+2. As widget to a page sidebar.
 
 As additional options of the contact form, you can find dynamic fields with various types, custom form styles and notifications for administrator and users.
 
 You can find [live demo](http://wpdemo.webcodin.com/stay-in-touch/) on our site.
-If you find issues or have any questions about the plugin, please feel free to ask questions in the [Support Tab] (http://wordpress.org/support/plugin/wcp-contact-form) or directly via our [demo site] (http://wpdemo.webcodin.com/stay-in-touch/).
+
+If you find issues or have any questions about the plugin, please feel free to ask questions in the [Support Tab](http://wordpress.org/support/plugin/wcp-contact-form) or directly via our [demo site](http://wpdemo.webcodin.com/stay-in-touch/).
 
 = Features =
 
 * Ready-to-use fields preset after plugin instalation;
 * Dynamic form fields with various parameters that can be reordered and deleted;
 * Inbox page for message list with read/unread statuses and single detailed page for each message;
-* Optional "Thank You" page that can be chosen from list of the existing pages
+* Optional "Thank You" page that can be chosen from list of the existing pages;
 * Optional HTML5 validation and editable error messages for non-HTML5 validation;
 * Auto notifications for users and administrator with variables for notification letters;
 * List of the messages can be exported to CSV format based on selected fields in the form settings;
+* Minimum required PHP version is **5.3.0**;
 * **NEW** Custom styles for contact form.
 
-
-== Ready-to-Use Fields Preset==
+= Ready-to-Use Fields Preset =
 
 Ready-to-use fields preset after plugin instalation includs following fields:
+
 * Name;
 * Email;
 * Phone;
 * Subject;
 * Message;
-* CAPTCHA;
+* CAPTCHA.
 
-==Dynamic Form Fields==
+= Dynamic Form Fields =
 
 Dynamic form fields include following field types:
-* text;
-* email;
-* numeric;
-* textarea;
-* checkbox;
+
+* Text;
+* Email;
+* Numeric;
+* Textarea;
+* Checkbox;
 * CAPTCHA;
 
-And support following parameters:
-* type;
-* name;
-* visibility;
-* required;
-* export to CSV
+and support following parameters:
 
-== Form Styling==
+* Type;
+* Name;
+* Visibility;
+* Required;
+* Export to CSV.
+
+= Form Styling =
 
 Contact form fields can be styled with following options:
-* border: size, style and color or no-border;
-* background color or no-background;
-* text color inside fields;
-* fields labels color;
-* button text and background colors;
 
-==For Developers==
+* Border: size, style and color or no-border;
+* Background color or no-background;
+* Text color inside fields;
+* Fields labels color;
+* Button text and background colors.
+
+= For Developers =
 
 Developers have the possibility to customize the plugin by creating a duplicate templates and styles in the active theme folder.
+
 More information and documentation can be found in the section [screenshots](https://wordpress.org/plugins/wcp-contact-form/screenshots/) and [FAQ](https://wordpress.org/plugins/wcp-contact-form/faq/).
  
 = Notes =
 
 * **Beware!** If you DELETE any field from existed form configuration all received data for this field won't be available for existed messages without possibility to restore.
-* **NB!** If you use more than one email field you need to define field that will be used for user notification: "Contact Form" --> "Settings" --> "Notifications" --> "User Notifications" --> "User Email Field". By default, will be used first email field. Also, for properly work of user notifications email field should be required.
-* **NB!** Form uses standard WordPress wp_mail() function (https://codex.wordpress.org/Function_Reference/wp_mail) for messages submission. If you have issues with notification receiving, try to use some third-party plugin for mail settings.
+* **NB!** If you use more than one email field you need to define field that will be used for user notification: "Contact Form" > "Settings" > "Notifications" > "User Notifications" > "User Email Field". By default, will be used first email field. Also, for properly work of user notifications email field should be required.
+* **NB!** Form uses standard WordPress [wp_mail()](https://codex.wordpress.org/Function_Reference/wp_mail) function for messages submission. If you have issues with notification receiving, try to use some third-party plugin for mail settings.
 * **NB!** "Reset to default" button on the Settings page reset all tabs to default values includes form fields
 
 = Upcoming Updates =
 
-* contact form popup;
+* Contact form popup.
 
 If you want to help with plugin improvement, please leave your feedback or suggestions for future updates.
 
 == Installation ==
 
-1. Download a copy of the plugin
+1. Download a copy of the plugin.
 2. Unzip and Upload 'wcp-contact-form' to a sub directory in '/wp-content/plugins/'.
 3. Activate the plugins through the 'Plugins' menu in WordPress.
 
-== 3 easy steps to start using of our contact form on a page ==
-1. check plugin "Contact Form" --> "Settings" page and customize form options for your purposes;
-2. create new page or use existed;
-3. add shortcode via TinyMCE toolbar button and save the page.
+= 3 easy steps to start using of our contact form on a page =
 
-... and that is all! You have a fully working contact form on your site page. New messages can be found in "Contact Form" --> "Inbox".
+1. Check plugin "Contact Form" > "Settings" page and customize form options for your purposes;
+2. Create new page or use existed;
+3. Add shortcode via TinyMCE toolbar button and save the page.
 
-== 3 easy steps to start using of our contact form at a sidebar ==
-1. check plugin "Contact Form" --> "Settings" page and customize form options for your purposes;
-2. go to the "Appearance" --> "Widgets" sections;
-3. add "WCP Contact Form" to necessary sidebar 
+... and that is all! You have a fully working contact form on your site page. New messages can be found in "Contact Form" > "Inbox".
 
-... and that is all! You have a fully working contact form at the sidebar on your site. New messages can be found in "Contact Form" --> "Inbox"
+= 3 easy steps to start using of our contact form at a sidebar =
+
+1. Check plugin "Contact Form" > "Settings" page and customize form options for your purposes;
+2. Go to the "Appearance" > "Widgets" sections;
+3. Add "WCP Contact Form" to necessary sidebar. 
+
+... and that is all! You have a fully working contact form at the sidebar on your site. New messages can be found in "Contact Form" > "Inbox"
 
 More information and documentation can be found in the section [screenshots](https://wordpress.org/plugins/wcp-contact-form/screenshots/) and [FAQ](https://wordpress.org/plugins/wcp-contact-form/faq/).
 
@@ -120,21 +129,20 @@ As a result, ready-to-use form will appear on page with default configuration.
 
 Also, the contact form can be added to an existing page. 
 To do this, go to the menu "Pages" > "All Pages". Open for editing the necessary page and add contact form shordcode via TinyMCE toolbar button and save the page. 
- 
 
 More information can be found in the section [screenshots](https://wordpress.org/plugins/wcp-contact-form/screenshots/).
 
 = How can I add a form to a sidebar =
 
-Go to the "Appearance" --> "Widgets" sections.
+Go to the "Appearance" > "Widgets" sections.
 Add "WCP Contact Form" to necessary sidebar, change sidebar title if you need and press "Save" button.
 
 More information can be found in the section [screenshots](https://wordpress.org/plugins/wcp-contact-form/screenshots/).
 
-= I can't find button in TinyMCE toolbar for shortcode adding  =
+= I can't find button in TinyMCE toolbar for shortcode adding =
 
 Go to menu "Contact Form" > "Settings" > "Form" tab > "Other Settings" section. Option "TinyMCE Support" should be enabled.
-If this option is enabled, but you doesn't TinyMCE toolbar button after the page refresh, please let us know about this issue in the [Support Tab] (http://wordpress.org/support/plugin/wcp-contact-form) or directly via our [demo site] (http://wpdemo.webcodin.com/stay-in-touch/).
+If this option is enabled, but you doesn't TinyMCE toolbar button after the page refresh, please let us know about this issue in the [Support Tab](http://wordpress.org/support/plugin/wcp-contact-form) or directly via [our site](http://wpdemo.webcodin.com/stay-in-touch/).
 Also, you can manually add following shordcode into the TinyMCE editor area: [wcp_contactform id="wcpform_1"].
 
 More information can be found in the section [screenshots](https://wordpress.org/plugins/wcp-contact-form/screenshots/).  
@@ -189,7 +197,7 @@ To eneble HTML5 validation, go to menu "Contact Form" > "Settings" > "Form" tab 
 
 More information can be found in the section [screenshots](https://wordpress.org/plugins/wcp-contact-form/screenshots/).
 
-== How can I style contact form==
+= How can I style contact form =
 
 To style contact form, go to menu "Contact Form" > "Settings" > "Style" tab
 In this tab following options are avialable:
@@ -295,6 +303,7 @@ Path to the templates folder inside the active theme:
 * changed: layout of the "Settings" page
 * added: notes for a parameters on the "Settings" page tabs
 * added: possibility to form style customization 
+* updated plugin documentation
 
 = 2.0.1 =
 * changed: "Refresh" button styling for CAPTCHA field 
