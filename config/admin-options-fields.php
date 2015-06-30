@@ -197,6 +197,9 @@ return array(
     ),    
     'scfp_notification_settings' => array(
         'sections' => array(
+            'general_notifications_settings' => array(
+                'label' => 'General Settings',
+            ),                        
             'admin_notifications_settings' => array(
                 'label' => 'Admin Notifications',
             ),            
@@ -205,6 +208,28 @@ return array(
             ),                        
         ),  
         'fields' => array(
+            'user_email' => array(
+                'type' => 'select',
+                'label' => 'User Email Field',
+                'fieldSet' => 'emails',
+                'default' => 'email',
+                'section' => 'general_notifications_settings',
+                'class' => 'widefat regular-select',
+                'note' => 'option allows to set default field for user notification if you use more than one email field in the contact form',
+                'atts' => array(
+                ),                
+            ),                                    
+            'user_name' => array(
+                'type' => 'select',
+                'label' => 'User Name Field',
+                'fieldSet' => 'userNames',
+                'default' => 'name',
+                'section' => 'general_notifications_settings',
+                'class' => 'widefat regular-select',
+                'note' => 'option allows to set default field for {$user_name} variable in the contact form',
+                'atts' => array(
+                ),                
+            ),                                                
             'another_email' => array(
                 'type' => 'text',
                 'label' => 'Send to Email',
@@ -231,7 +256,7 @@ return array(
                 'default' => "Dear {\$admin_name},\nYou have got a new message from contact form!\n\nForm message:\n{\$data}",
                 'section' => 'admin_notifications_settings',
                 'class' => 'widefat',
-                'note' => 'option allows to set default text of administrator notification message. You can use the following variables:<br/>{$admin_name} - Administrator name<br/>{$user_name} - User name<br/>{$data} - Form data',
+                'note' => 'option allows to set default text of administrator notification message. You can use the following variables:<br/>{$admin_name} - Administrator name<br/>{$user_name} - User name<br/>{$user_email} - User email<br/>{$data} - Form data',
                 'atts' => array(
                 ),                
             ),  
@@ -243,17 +268,6 @@ return array(
                 'class' => '',
                 'note' => 'option allows to disable notifications of new form submissions'
             ),                                                  
-            'user_email' => array(
-                'type' => 'select',
-                'label' => 'User Email Field',
-                'fieldSet' => 'emails',
-                'default' => 'email',
-                'section' => 'user_notifications_settings',
-                'class' => 'widefat regular-select',
-                'note' => 'option allows to set default field for user notification if you use more than one email field in the contact form',
-                'atts' => array(
-                ),                
-            ),                                    
             'user_subject' => array(
                 'type' => 'text',
                 'label' => 'Subject',
@@ -266,11 +280,11 @@ return array(
             ),                        
             'user_message' => array(
                 'type' => 'textarea',
-                'label' => 'message',
+                'label' => 'Message',
                 'default' => "Dear {\$user_name},\nThanks for contacting us!\nWe will get in touch with you shortly.\n\nYour message:\n{\$data}",
                 'section' => 'user_notifications_settings',
                 'class' => 'widefat',
-                'note' => 'option allows to set default text of user notification message. You can use the following variables:<br/>{$admin_name} - Administrator name<br/>{$user_name} - User name<br/>{$data} - Form data',
+                'note' => 'option allows to set default text of user notification message. You can use the following variables:<br/>{$admin_name} - Administrator name<br/>{$user_name} - User name<br/>{$user_email} - User email<br/>{$data} - Form data',
                 'atts' => array(
                 ),                
             ),  

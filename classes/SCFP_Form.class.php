@@ -179,13 +179,28 @@ class SCFP_Form extends Agp_Module {
     }
     
     private function getUserName(){
-        if( get_post_meta( $this->postId , 'scfp_name', true ) ){
-            $user_name = get_post_meta( $this->postId , 'scfp_name', true );
+        $settings = SCFP()->getSettings()->getNotifictionSettings();
+        $user_name_field = !empty($settings['user_name']) ? $settings['user_name'] : 'name';
+        
+        if( get_post_meta( $this->postId , "scfp_{$user_name_field}", true ) ){
+            $user_name = get_post_meta( $this->postId , "scfp_{$user_name_field}", true );
         } else {
-            $user_name = 'User';
+            $user_name = 'Visitor';
         }
         return $user_name;
     }
+    
+    private function getUserEmail(){
+        $settings = SCFP()->getSettings()->getNotifictionSettings();
+        $user_email_field = !empty($settings['user_email']) ? $settings['user_email'] : 'email';
+        
+        if( get_post_meta( $this->postId , "scfp_{$user_email_field}", true ) ){
+            $user_email = get_post_meta( $this->postId , "scfp_{$user_email_field}", true );
+        } else {
+            $user_email = '';
+        }
+        return $user_email;
+    }    
     
     private function getUserMessage(){
         $data = $this->getTemplate('variables/data', $this->postId );
@@ -208,6 +223,11 @@ class SCFP_Form extends Agp_Module {
             $text =  str_replace( '{$user_name}', $user_name, $text );
         }
         
+        if( strpos( $text, '{$user_email}' ) !== FALSE){
+            
+            $user_email = $this->getUserEmail();
+            $text =  str_replace( '{$user_email}', $user_email, $text );
+        }        
         
         if( strpos( $text, '{$data}' ) !== FALSE){
 

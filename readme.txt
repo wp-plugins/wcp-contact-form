@@ -38,33 +38,17 @@ If you find issues or have any questions about the plugin, please feel free to a
 
 = Ready-to-Use Fields Preset =
 
-Ready-to-use fields preset after plugin instalation includs following fields:
-
-* Name;
-* Email;
-* Phone;
-* Subject;
-* Message;
-* CAPTCHA.
+Ready-to-use fields preset after plugin instalation includs following fields: Name, Email, Phone, Subject, Message, CAPTCHA.
 
 = Dynamic Form Fields =
 
-Dynamic form fields include following field types:
+Dynamic form fields include following field types: 
 
-* Text;
-* Email;
-* Numeric;
-* Textarea;
-* Checkbox;
-* CAPTCHA;
+`Text, Email, Numeric, Textarea, Checkbox, CAPTCHA `
 
-and support following parameters:
+and support following parameters: 
 
-* Type;
-* Name;
-* Visibility;
-* Required;
-* Export to CSV.
+`Type, Name, Visibility, Required, Export to CSV`
 
 = Form Styling =
 
@@ -249,10 +233,18 @@ Following options are available:
 To change user notifications, go to menu "Contact Form" > "Settings" > "Notifications" tab > "User Notifications" section.
 Following options are available:
 
-* **User Email Field** - option allows to set default field for user notification if you use more than one email field in the contact form;
 * **Subject** - option allows to set default subject of user notification message;
 * **Message** - option allows to set default text of user notification message.
 * **Disable User Notifications** - option allows to disable notifications for successful form submission. 
+
+= How can I set notifications variables for Email and User Name, if I use a custom set of the fields? =
+
+To change user notifications, go to menu "Contact Form" > "Settings" > "Notifications" tab > "General Settings" section.
+If you use a custom set of the fields, you need to define manually following variables for properly work of the email notifications to users:
+
+* **User Email Field** - option allows to set default field for user notification if you use more than one email field in the contact form;
+* **User Name Field** - option allows to set default field for {$user_name} variable in the contact form;
+
 
 = How can I export data to CSV =
 
@@ -295,6 +287,11 @@ Path to the templates folder inside the active theme:
 13. Admin Panel :: Settings :: Notifications
 
 == Changelog ==
+
+= 2.1.1 =
+* added: filter hook 'wcp_contact_form_get_fields_settings' for developer needs
+* added: new notifications varable **{$user_email}**
+* added: setting for default "User Name" field for user notification variables
 
 = 2.1.0 =
 * added: new friendly "[wcp_contactform]" shortcode that can used instead "[scfp]"

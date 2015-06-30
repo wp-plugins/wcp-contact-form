@@ -2,6 +2,7 @@
 return array(
     'pages' => array('SCFP_Settings', 'getPagesFieldSet'),
     'emails' => array('SCFP_Settings', 'getEmailsFieldSet'),
+    'userNames' => array('SCFP_Settings', 'getNamesFieldSet'),
     'fieldTypes' => array(
         'captcha' => 'Captcha',
         'checkbox' => 'Checkbox',

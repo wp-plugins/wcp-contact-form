@@ -19,7 +19,7 @@
 .scfp-form-content .scfp-captcha .scfp-captcha-image, .scfp-form-content .scfp-captcha .scfp-captcha-field { float: left; }
 .scfp-form-content .scfp-captcha .scfp-captcha-image { width: 36%; text-align: center; }
 .scfp-form-content .scfp-captcha .scfp-captcha-image .scfp-captcha-image-wrapper { border: 1px solid #cfcfcf; background: #fff!important; }
-.scfp-form-content .scfp-captcha .scfp-captcha-image .scfp-captcha-image-wrapper img { max-width: 100%; height: auto; display: block; width: 200px; margin: 0 auto; padding: 0; border: 0; }
+.scfp-form-content .scfp-captcha .scfp-captcha-image .scfp-captcha-image-wrapper img { max-width: 100%; height: auto; display: block; width: 200px; margin: 0 auto; padding: 0; border: 0; box-shadow: 0; border-radius: 0; }
 .scfp-form-content .scfp-captcha .scfp-captcha-field { box-sizing: border-box; -moz-box-sizing: border-box; -webkitbox-sizing: border-box; width: 64%; padding-left: 10px; position: relative; }
 .scfp-form-content .scfp-captcha .scfp-captcha-field input { width: 100%; margin: 0; padding-right: 30px !important; }
 .scfp-form-content .scfp-captcha .scfp-captcha-refresh { background: url('../images/icons/refresh-icon.png') no-repeat 0 center; border: 0 none; bottom: 1px; display: block; margin: 0; position: absolute; right: 1px; text-decoration: none; text-indent: -10000px; top: 1px; width: 30px; transition: none !important; background-blend-mode: darken; }
@@ -38,7 +38,7 @@
 .scfp-form-content.scfp-form-widget .scfp-form-row .scfp-form-message-field { padding: 5px 7px; }
 .scfp-form-content.scfp-form-widget .scfp-captcha .scfp-captcha-image { width: 45%; }
 .scfp-form-content.scfp-form-widget .scfp-captcha .scfp-captcha-field { width: 55%; }
-.scfp-form-content.scfp-form-widget .scfp-captcha .scfp-captcha-image .scfp-captcha-image-wrapper { background: #fff!important; }
+.scfp-form-content.scfp-form-widget .scfp-captcha .scfp-captcha-image .scfp-captcha-image-wrapper { background: #fff!important; }    
 .scfp-form-content.scfp-form-widget .scfp-captcha .scfp-captcha-field input { padding-right: 25px !important; }
 .scfp-form-content.scfp-form-widget .scfp-captcha .scfp-captcha-refresh { width: 25px; background-size: 50px 27px; background-position: 0 center; }
 .scfp-form-content.scfp-form-widget .scfp-captcha .scfp-captcha-refresh:hover { background-size: 50px 27px; background-position: -25px center; }

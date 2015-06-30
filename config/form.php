@@ -46,15 +46,6 @@ return array(
             ),
             'type' => 'textarea',
         ), 
-//        'subscribe' => array(
-//            'default' => array(
-//                'name' => 'Subscribe',
-//                'visibility' => 0,
-//                'required' => 0,
-//                'exportCSV' => 1,
-//            ),
-//            'type' => 'checkbox',
-//        ),
         'captcha' => array(
             'default' => array(
                 'name' => 'Captcha',

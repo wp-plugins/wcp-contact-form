@@ -153,7 +153,7 @@ class SCFP_Settings extends Agp_SettingsAbstract {
     }        
     
     public static function getEmailsFieldSet() {
-        $result = array();
+        $result = array('' => '');
         $items = SCFP()->getSettings()->getFieldsSettings();
         if (!empty($items) && is_array($items)) {
             foreach( $items as $key => $field ) {
@@ -165,6 +165,20 @@ class SCFP_Settings extends Agp_SettingsAbstract {
         
         return $result;        
     }            
+    
+    public static function getNamesFieldSet() {
+        $result = array('' => '');
+        $items = SCFP()->getSettings()->getFieldsSettings();
+        if (!empty($items) && is_array($items)) {
+            foreach( $items as $key => $field ) {
+                if (!empty($field['visibility']) && !empty($field['field_type']) && $field['field_type'] == 'text' ) {
+                    $result[$key] = $field['name'];    
+                }
+            }
+        }
+        
+        return $result;        
+    }                
     
     public function adminMenu () {
         parent::adminMenu();
@@ -296,7 +310,8 @@ class SCFP_Settings extends Agp_SettingsAbstract {
                 $data[$k]['field_type'] = $types[$k];
             }
         }
-        return $data;
+        
+        return apply_filters( 'wcp_contact_form_get_fields_settings', $data ) ;
     }        
     
     public function getUserParamsConfig () {

@@ -5,6 +5,15 @@ $key = !empty($params['key']) ? $params['key'] : NULL;
 $field = !empty($params['field']) ? $params['field'] : NULL;
 $formSettings = !empty($params['formSettings']) ? $params['formSettings'] : NULL;
 $formData = !empty($params['formData']) ? $params['formData'] : NULL;
+
+$atts = !empty($field['atts']) ? $field['atts'] : NULL;
+if (!empty($atts) && is_array($atts)) {
+    $atts_s = '';
+    foreach ($atts as $key => $value) {
+        $atts_s .= $key . '="' . $value . '"';
+    }
+    $atts = $atts_s;
+}
 if (!empty($key)) :
 ?>
     <div class="scfp-form-row">
@@ -16,7 +25,7 @@ if (!empty($key)) :
                 </div>    
             </div>    
             <div class="scfp-captcha-field">
-                <input class="scfp-form-field" type="text" id="scfp-<?php echo $key; ?>" name="scfp-<?php echo $key; ?>" <?php if ( !empty( $field['required'] ) && !empty($formSettings['html5_enabled']) ) : ?> required <?php endif;?>>
+                <input <?php echo $atts;?> class="scfp-form-field" type="text" id="scfp-<?php echo $key; ?>" name="scfp-<?php echo $key; ?>" <?php if ( !empty( $field['required'] ) && !empty($formSettings['html5_enabled']) ) : ?> required <?php endif;?>>
                 <a class="scfp-captcha-refresh" data-key="<?php echo $key; ?>" data-id="<?php echo $id;?>" href="javascript:void();">refresh</a>
             </div>
         </div>                                    
