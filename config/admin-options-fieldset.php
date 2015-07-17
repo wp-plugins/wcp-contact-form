@@ -16,4 +16,9 @@ return array(
         'dotted' => 'Dotted',
         'dashed' => 'Dashed',
     ),
+    'buttonPosition' => array(
+        'left' => 'Left',
+        'right' => 'Right',
+        'center' => 'Center',
+    ),
 );

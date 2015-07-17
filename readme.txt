@@ -20,9 +20,9 @@ All that you need it is install plugin, check form settings and add contact form
 
 As additional options of the contact form, you can find dynamic fields with various types, custom form styles and notifications for administrator and users.
 
-You can find [live demo](http://wpdemo.webcodin.com/stay-in-touch/) on our site.
+You can find [live demo](http://wpdemo.webcodin.com/stay-in-touch/) and [plugin documentation](http://wpdemo.webcodin.com/wordpress-plugin-wcp-contact-form/documentation/getting-started/) on our site.
 
-If you find issues or have any questions about the plugin, please feel free to ask questions in the [Support Tab](http://wordpress.org/support/plugin/wcp-contact-form) or directly via our [demo site](http://wpdemo.webcodin.com/stay-in-touch/).
+If you find issues or have any questions about the plugin, please feel free to ask questions in the [Support Tab](http://wordpress.org/support/plugin/wcp-contact-form), directly via our [demo site](http://wpdemo.webcodin.com/stay-in-touch/) or use following email address support@webcodin.com.
 
 = Features =
 
@@ -34,17 +34,19 @@ If you find issues or have any questions about the plugin, please feel free to a
 * Auto notifications for users and administrator with variables for notification letters;
 * List of the messages can be exported to CSV format based on selected fields in the form settings;
 * Minimum required PHP version is **5.3.0**;
-* **NEW** Custom styles for contact form.
+* Custom styles for contact form.
 
 = Ready-to-Use Fields Preset =
 
-Ready-to-use fields preset after plugin instalation includs following fields: Name, Email, Phone, Subject, Message, CAPTCHA.
+Ready-to-use fields preset after plugin instalation includs following fields: 
+
+`Name, Email, Phone, Subject, Message, CAPTCHA`
 
 = Dynamic Form Fields =
 
 Dynamic form fields include following field types: 
 
-`Text, Email, Numeric, Textarea, Checkbox, CAPTCHA `
+`Text, Email, Numeric, Textarea, Checkbox, CAPTCHA`
 
 and support following parameters: 
 
@@ -287,6 +289,8 @@ Path to the templates folder inside the active theme:
 13. Admin Panel :: Settings :: Notifications
 
 == Changelog ==
+= 2.1.2 =
+* added: new parameter "Button Position" that allows to set submit button position
 
 = 2.1.1 =
 * added: filter hook 'wcp_contact_form_get_fields_settings' for developer needs

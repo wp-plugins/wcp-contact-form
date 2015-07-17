@@ -6,7 +6,8 @@
     $fieldsSettings = SCFP()->getSettings()->getFieldsSettings();
     $formSettings = SCFP()->getSettings()->getFormSettings();
     $styleSettings = SCFP()->getSettings()->getStyleSettings();
-    $formData = $form->getData();    
+    $formData = $form->getData();   
+    $button_position = !empty($formSettings['button_position']) ? $formSettings['button_position'] : 'left';
     
     $button_color = !empty($styleSettings['button_color']) ? $styleSettings['button_color'] : '';
     $text_color = !empty($styleSettings['text_color']) ? $styleSettings['text_color'] : '';    
@@ -67,7 +68,7 @@
             endif;
         endforeach;
         ?>
-        <div class="scfp-form-action">
+        <div class="scfp-form-action scfp-form-button-position-<?php echo $button_position;?>">
             <input class="scfp-form-submit" style="background: <?php echo $button_color;?>!important; color: <?php echo $text_color;?>!important;" type="submit" value="<?php echo $formSettings['button_name']?>">
         </div>        
     </form>

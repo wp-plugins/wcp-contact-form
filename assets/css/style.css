@@ -25,12 +25,15 @@
 .scfp-form-content .scfp-captcha .scfp-captcha-refresh { background: url('../images/icons/refresh-icon.png') no-repeat 0 center; border: 0 none; bottom: 1px; display: block; margin: 0; position: absolute; right: 1px; text-decoration: none; text-indent: -10000px; top: 1px; width: 30px; transition: none !important; background-blend-mode: darken; }
 .scfp-form-content .scfp-captcha .scfp-captcha-refresh:hover { background: url('../images/icons/refresh-icon.png') no-repeat right center; }
 /*-----------------------------------------------------------------*/
-.scfp-form-content .scfp-form-row-checkbox { padding: 5px 0; }
-.scfp-form-content .scfp-form-row-checkbox input[type="checkbox"] { vertical-align: top; margin: 3px 0 0; }
-.scfp-form-content .scfp-form-row-checkbox .scfp-form-label { vertical-align: top; max-width: 92%; padding: 0 0 0 3px; }
+.scfp-form-content .scfp-form-row-checkbox { padding: 3px 0 5px; line-height: 1.1em; }
+.scfp-form-content .scfp-form-row-checkbox input[type="checkbox"] { vertical-align: top; margin: 3px 0 0; padding: 0; }
+.scfp-form-content .scfp-form-row-checkbox .scfp-form-label { vertical-align: top; max-width: 92%; padding: 0 0 0 3px; line-height: inherit; } 
 /*-----------------------------------------------------------------*/
-.scfp-form-content .scfp-form-action { padding-top: 10px; }
-.scfp-form-content .scfp-form-action .scfp-form-submit { background: #404040; border: 0 !important; outline: none !important; min-width: 30%; min-height: 32px; margin: 0; color: #fff; font-size: 90%; line-height: 1em; font-weight: bold; padding: 11px 20px 12px; text-transform: uppercase; vertical-align: bottom; cursor: pointer; border-radius: 0; -webkit-border-radius: 0; -moz-border-radius: 0; box-shadow: none; -webkit-box-shadow: none; -moz-box-shadow: none; text-shadow: none; -webkit-text-shadow: none; -moz-text-shadow: none; }
+.scfp-form-content .scfp-form-action { padding-top: 10px; text-align: left !important; }
+.scfp-form-content .scfp-form-action.scfp-form-button-position-right { text-align: right !important; }
+.scfp-form-content .scfp-form-action.scfp-form-button-position-center { text-align: center !important; }
+.scfp-form-content .scfp-form-action.scfp-form-button-position-left { text-align: left !important; }
+.scfp-form-content .scfp-form-action .scfp-form-submit { display: inline-block !important; background: #404040; border: 0 !important; outline: none !important; min-width: 30%; min-height: 32px; margin: 0; color: #fff; font-size: 90%; line-height: 1em; font-weight: bold; padding: 11px 20px 12px; text-transform: uppercase; vertical-align: bottom; cursor: pointer; border-radius: 0; -webkit-border-radius: 0; -moz-border-radius: 0; box-shadow: none; -webkit-box-shadow: none; -moz-box-shadow: none; text-shadow: none; -webkit-text-shadow: none; -moz-text-shadow: none; }
 .scfp-form-content .scfp-form-action .scfp-form-submit:hover { opacity: 0.8; }
 /*-----------------------------------------------------------------*/
 .scfp-form-content.scfp-form-widget { padding-bottom: 0; }

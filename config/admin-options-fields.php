@@ -11,9 +11,6 @@ return array(
             'thankyou_page_settings' => array(
                 'label' => '"Thank You" Page',
             ),            
-//            'html5_validation_settings' => array(
-//                'label' => 'HTML5 Validation',
-//            ),                        
             'other_settings' => array(
                 'label' => 'Other Settings',
             ),                                    
@@ -44,6 +41,15 @@ return array(
                 'atts' => array(
                 ),                
             ),        
+            'button_position' => array(
+                'type' => 'select',
+                'label' => 'Button Position',
+                'fieldSet' => 'buttonPosition',
+                'default' => 'left',
+                'section' => 'send_button_settings',
+                'class' => 'widefat regular-select',
+                'note' => 'option allows to set submit button position',
+            ),                  
             'page_name' => array(
                 'type' => 'select',
                 'label' => 'Select Page',
