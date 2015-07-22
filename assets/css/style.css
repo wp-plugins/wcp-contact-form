@@ -8,7 +8,7 @@
 .scfp-form-content .scfp-form-row { padding-bottom: 10px; }
 .scfp-form-content .scfp-form-row .scfp-form-label { display: inline-block; line-height: 1.1em; margin: 0; padding-bottom: 5px; font-weight: normal; }
 .scfp-form-content .scfp-form-row .scfp-form-label .scfp-form-field-required { color: #d32f2f; }
-.scfp-form-content .scfp-form-row .scfp-form-field { background: #fff; font-size: 90%; height: auto; min-height: 32px; width: 100%; margin: 0; padding: 7px 8px; border: 1px solid #cfcfcf; border-radius: 0; -webkit-border-radius: 0; -moz-border-radius: 0; -webkit-appearance: none; box-sizing: border-box; -webkit-box-sizing: border-box; -moz-box-sizing: border-box; }
+.scfp-form-content .scfp-form-row .scfp-form-field { background: #fff; font-size: 90%; height: auto; min-height: 32px; width: 100%; margin: 0; padding: 7px 8px; border: 1px solid #cfcfcf; border-radius: 0; -webkit-border-radius: 0; -moz-border-radius: 0; -webkit-appearance: none; box-sizing: border-box; -webkit-box-sizing: border-box; -moz-box-sizing: border-box; box-shadow: none !important; -webkit-box-shadow: none !important; -moz-box-shadow: none !important; }
 .scfp-form-content .scfp-form-row .scfp-form-field:invalid, .scfp-form-content .scfp-form-row input[type="checkbox"]:invalid { box-shadow: none !important; outline: none !important; }
 .scfp-form-content .scfp-form-row .scfp-form-field:focus:required:valid { border-color: #388e3c; }
 .scfp-form-content .scfp-form-row .scfp-form-field:focus:required:invalid, .scfp-form-content .scfp-form-row input[type="checkbox"]:focus:required:invalid { border-color: #d32f2f; box-shadow: none !important; }

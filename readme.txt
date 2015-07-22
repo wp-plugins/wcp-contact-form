@@ -289,6 +289,9 @@ Path to the templates folder inside the active theme:
 13. Admin Panel :: Settings :: Notifications
 
 == Changelog ==
+= 2.1.3 =
+Fixed: Issue with duplicate email notifications
+
 = 2.1.2 =
 * added: new parameter "Button Position" that allows to set submit button position
 

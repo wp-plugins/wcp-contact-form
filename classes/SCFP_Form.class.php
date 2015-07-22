@@ -249,6 +249,7 @@ class SCFP_Form extends Agp_Module {
         if (!empty($pageId)) {
             $location = get_page_link( $pageId );
             wp_redirect( $location );
+            die();
         }
     }
 
