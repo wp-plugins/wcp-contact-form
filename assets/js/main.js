@@ -28,9 +28,21 @@
             return false;
         });
         
+        setTimeout(function () { $('.scfp-form-notification').fadeOut('slow', function() {$(this).remove();});}, 7000);
         
+        $(document).on('click', '.scfp-form-notifications-close', function(event) {
+           $(this).closest('.scfp-notifications').fadeOut('slow', function() {$(this).remove();}); 
+           return false;
+        }); 
         
+        if ($('.scfp-notifications').length > 0) {
+            $('html, body').stop().animate({scrollTop: $('.scfp-notifications').eq(0).position().top} , 0);    
+        }
+
     });
+    
+    
+    
 })(jQuery);
 
 

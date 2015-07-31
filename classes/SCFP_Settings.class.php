@@ -184,6 +184,21 @@ class SCFP_Settings extends Agp_SettingsAbstract {
         parent::adminMenu();
     }
 
+    
+    public function getConfirmationConfig () {
+        return $this->objectToArray($this->getConfig()->admin->options->fields->scfp_error_settings->fields->submit_confirmation);
+    }
+
+    public function getConfirmationDefaults () {
+        return $this->getConfig()->admin->options->fields->scfp_error_settings->fields->submit_confirmation->default;
+    }        
+    
+    public function getConfirmationSettings () {
+        $options = get_option('scfp_error_settings');
+        return !empty($options['submit_confirmation']) ? $options['submit_confirmation'] : $this->getConfirmationDefaults() ;
+    }                
+    
+    
     public function getErrorsConfig () {
         return $this->objectToArray($this->getConfig()->form->errors);
     }
@@ -306,8 +321,13 @@ class SCFP_Settings extends Agp_SettingsAbstract {
                 }                                
                 if (!empty($defaults[$k]['no_csv'])) {
                     $data[$k]['no_csv'] = $defaults[$k]['no_csv'];
-                }                                                
-                $data[$k]['field_type'] = $types[$k];
+                }               
+                
+                
+                
+                if (!isset($data[$k]['field_type'])) {
+                    $data[$k]['field_type'] = $types[$k];  
+                }
             }
         }
         

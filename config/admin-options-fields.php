@@ -189,6 +189,9 @@ return array(
             'error_settings' => array(
                 'label' => 'Error Messages',
             ),            
+            'notification_settings' => array(
+                'label' => 'Notification Messages',
+            ),                        
         ),  
         'fields' => array(
             'errors' => array(
@@ -198,7 +201,17 @@ return array(
                 'section' => 'error_settings',
                 'class' => '',
                 'note' => 'You can change error messages for non-HTML5 validation below',
-            ),                                      
+            ),        
+            'submit_confirmation' => array(
+                'type' => 'text',
+                'label' => 'Submit Success',
+                'default' => 'Thanks for contacting us! We will get in touch with you shortly.',
+                'section' => 'notification_settings',
+                'class' => 'widefat',
+                'note' => 'option allows to set submit success message for the form',
+                'atts' => array(
+                ),                
+            ),                    
         ),
     ),    
     'scfp_notification_settings' => array(

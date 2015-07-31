@@ -41,6 +41,13 @@ class SCFP extends Agp_Module {
     private $ajax;
     
     /**
+     * LESS Parser
+     * 
+     * @var Less_Parser
+     */
+    private $lessParser;
+    
+    /**
      * The single instance of the class 
      * 
      * @var object 
@@ -76,13 +83,14 @@ class SCFP extends Agp_Module {
         
         include_once ( $this->getBaseDir() . '/types/form-entries-post-type.php' );     
         include_once ( $this->getBaseDir() . '/inc/cool-php-captcha/captcha.php' );     
+        include_once ( $this->getBaseDir() . '/vendor/autoload.php' );     
         
+        $this->lessParser = new Less_Parser();
         $this->settings = SCFP_Settings::instance( $this );
         $this->formSettings = SCFP_FormSettings::instance();        
         $this->formEntries = SCFP_FormEntries::instance();
         $this->session = Agp_Session::instance();
         $this->ajax = SCFP_Ajax::instance();
-        
         
         add_action( 'init', array($this, 'init' ) );                
         add_action( 'wp_enqueue_scripts', array($this, 'enqueueScripts' ) );                
@@ -103,13 +111,12 @@ class SCFP extends Agp_Module {
     
     public function enqueueScripts () {
         wp_enqueue_script( 'scfp', $this->getAssetUrl('js/main.js'), array('jquery') ); 
-        
         wp_localize_script( 'scfp', 'ajax_scfp', array( 
             'base_url' => site_url(),         
             'ajax_url' => admin_url( 'admin-ajax.php' ), 
             'ajax_nonce' => wp_create_nonce('ajax_atf_nonce'),        
         ));  
-        wp_enqueue_style( 'scfp-css', $this->getAssetUrl('css/style.css') );                    
+        wp_enqueue_style( 'scfp-css', $this->getAssetUrl('css/style.css') ); 
     }        
     
     public function enqueueAdminScripts () {
@@ -117,8 +124,12 @@ class SCFP extends Agp_Module {
         
         wp_enqueue_style( 'wp-color-picker' );        
         wp_enqueue_script( 'wp-color-picker' );            
+        wp_enqueue_script( 'jquery-ui-sortable' );            
+        
         wp_enqueue_script( 'scfp', $this->getAssetUrl('js/admin.js'), array('jquery', 'wp-color-picker') );                                                         
         wp_enqueue_style( 'scfp-css', $this->getAssetUrl('css/admin.css'), array('wp-color-picker') );   
+        
+        
         wp_localize_script('scfp', 'csvVar', array(
             'href' => add_query_arg(array('download_csv' => 1)),
             'active' =>  'form-entries' == $current_screen->post_type,
@@ -146,11 +157,32 @@ class SCFP extends Agp_Module {
         return $plugin_array;        
     }            
     
+    public function getFormDynamicStyle ($id) {
+        $this->lessParser->parseFile($this->getBaseDir() . '/assets/less/style.less');
+        
+        $styleSettings = SCFP()->getSettings()->getStyleSettings();
+        $this->lessParser->ModifyVars( array (
+                'id' => $id,
+                'no_border' => !empty($styleSettings['no_border']) ? $styleSettings['no_border'] : '',
+                'border_size' => !empty($styleSettings['border_size']) ? $styleSettings['border_size'] : '',
+                'border_style' => !empty($styleSettings['border_style']) ? $styleSettings['border_style'] : '',
+                'border_color' => !empty($styleSettings['border_color']) ? $styleSettings['border_color'] : '',            
+                'field_label_text_color' => !empty($styleSettings['field_label_text_color']) ? $styleSettings['field_label_text_color'] : '',
+                'field_text_color' => !empty($styleSettings['field_text_color']) ? $styleSettings['field_text_color'] : '',
+                'no_background' => !empty($styleSettings['no_background']) ? $styleSettings['no_background'] : '',
+                'background_color' => !empty($styleSettings['background_color']) ? $styleSettings['background_color'] : '',
+                'button_color' => !empty($styleSettings['button_color']) ? $styleSettings['button_color'] : '',
+                'text_color' => !empty($styleSettings['text_color']) ? $styleSettings['text_color'] : '',  
+            )
+        );
+        
+        return '<style type="text/css" >' . $this->lessParser->getCss() . '</style>';        
+    }    
+    
     public function doScfpShortcode ($atts) {
         $atts = shortcode_atts( array(
             'id' => 'default-contactform-id',
         ), $atts );        
-        
         
         if (!empty($atts['id'])) {
             $id = $atts['id'];
@@ -165,7 +197,6 @@ class SCFP extends Agp_Module {
         $atts = shortcode_atts( array(
             'id' => NULL,
         ), $atts );        
-        
         
         if (!empty($atts['id'])) {
             $id = $atts['id'];
@@ -187,5 +218,9 @@ class SCFP extends Agp_Module {
     function getFormSettings() {
         return $this->formSettings;
     }    
+
+    public function getLessParser() {
+        return $this->lessParser;
+    }
 
 }

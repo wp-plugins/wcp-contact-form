@@ -1,6 +1,6 @@
 === WCP Contact Form ===
 Contributors: webcodin
-Tags: contact, contact form, form, contact me, contact us, contactus, contact form plugin, email, email message, notifications, admin notifications, customer notifications, customer, form to email, wordpress contact form, subscribe, CSV, CSV export, form builder, builder, captcha, validation, dynamic fields
+Tags: contact, contact form, form, contact me, contact us, contactus, contact form plugin, email, email message, notifications, admin notifications, customer notifications, customer, form to email, wordpress contact form, subscribe, CSV, CSV export, form builder, builder, captcha, validation, dynamic fields, LESS, dynamic CSS
 Requires at least: 3.5.0
 Tested up to: 4.2
 License: GPLv2 or later
@@ -34,7 +34,9 @@ If you find issues or have any questions about the plugin, please feel free to a
 * Auto notifications for users and administrator with variables for notification letters;
 * List of the messages can be exported to CSV format based on selected fields in the form settings;
 * Minimum required PHP version is **5.3.0**;
-* Custom styles for contact form.
+* Custom styles for contact form;
+* **NEW!** Drag&Drop re-order of the form fields for configurator;
+* **NEW!** Success notification message after the form submission for form without "Thank You" page. 
 
 = Ready-to-Use Fields Preset =
 
@@ -66,20 +68,16 @@ Contact form fields can be styled with following options:
 
 Developers have the possibility to customize the plugin by creating a duplicate templates and styles in the active theme folder.
 
-More information and documentation can be found in the section [screenshots](https://wordpress.org/plugins/wcp-contact-form/screenshots/) and [FAQ](https://wordpress.org/plugins/wcp-contact-form/faq/).
+More information and documentation can be found in the section [screenshots](https://wordpress.org/plugins/wcp-contact-form/screenshots/), [FAQ](https://wordpress.org/plugins/wcp-contact-form/faq/) and [plugin documentation](http://wpdemo.webcodin.com/wordpress-plugin-wcp-contact-form/documentation/getting-started/) on our site.
  
 = Notes =
 
 * **Beware!** If you DELETE any field from existed form configuration all received data for this field won't be available for existed messages without possibility to restore.
 * **NB!** If you use more than one email field you need to define field that will be used for user notification: "Contact Form" > "Settings" > "Notifications" > "User Notifications" > "User Email Field". By default, will be used first email field. Also, for properly work of user notifications email field should be required.
+* **NB!** If use own fielsd set rater than default preset, please define fields for email and user name that will be used for email notifications in the "Contact Form" > "Settings" > "Notifications" > "General Settings".
 * **NB!** Form uses standard WordPress [wp_mail()](https://codex.wordpress.org/Function_Reference/wp_mail) function for messages submission. If you have issues with notification receiving, try to use some third-party plugin for mail settings.
 * **NB!** "Reset to default" button on the Settings page reset all tabs to default values includes form fields
 
-= Upcoming Updates =
-
-* Contact form popup.
-
-If you want to help with plugin improvement, please leave your feedback or suggestions for future updates.
 
 == Installation ==
 
@@ -103,7 +101,7 @@ If you want to help with plugin improvement, please leave your feedback or sugge
 
 ... and that is all! You have a fully working contact form at the sidebar on your site. New messages can be found in "Contact Form" > "Inbox"
 
-More information and documentation can be found in the section [screenshots](https://wordpress.org/plugins/wcp-contact-form/screenshots/) and [FAQ](https://wordpress.org/plugins/wcp-contact-form/faq/).
+More information and documentation can be found in the section [screenshots](https://wordpress.org/plugins/wcp-contact-form/screenshots/), [FAQ](https://wordpress.org/plugins/wcp-contact-form/faq/) and [plugin documentation](http://wpdemo.webcodin.com/wordpress-plugin-wcp-contact-form/documentation/getting-started/) on our site.
 
 == Frequently Asked Questions ==
 
@@ -116,14 +114,14 @@ As a result, ready-to-use form will appear on page with default configuration.
 Also, the contact form can be added to an existing page. 
 To do this, go to the menu "Pages" > "All Pages". Open for editing the necessary page and add contact form shordcode via TinyMCE toolbar button and save the page. 
 
-More information can be found in the section [screenshots](https://wordpress.org/plugins/wcp-contact-form/screenshots/).
+More information can be found in the section [screenshots](https://wordpress.org/plugins/wcp-contact-form/screenshots/) and [plugin documentation](http://wpdemo.webcodin.com/wordpress-plugin-wcp-contact-form/documentation/getting-started/) on our site.
 
 = How can I add a form to a sidebar =
 
 Go to the "Appearance" > "Widgets" sections.
 Add "WCP Contact Form" to necessary sidebar, change sidebar title if you need and press "Save" button.
 
-More information can be found in the section [screenshots](https://wordpress.org/plugins/wcp-contact-form/screenshots/).
+More information can be found in the section [screenshots](https://wordpress.org/plugins/wcp-contact-form/screenshots/) and [plugin documentation](http://wpdemo.webcodin.com/wordpress-plugin-wcp-contact-form/documentation/getting-started/) on our site.
 
 = I can't find button in TinyMCE toolbar for shortcode adding =
 
@@ -131,7 +129,7 @@ Go to menu "Contact Form" > "Settings" > "Form" tab > "Other Settings" section. 
 If this option is enabled, but you doesn't TinyMCE toolbar button after the page refresh, please let us know about this issue in the [Support Tab](http://wordpress.org/support/plugin/wcp-contact-form) or directly via [our site](http://wpdemo.webcodin.com/stay-in-touch/).
 Also, you can manually add following shordcode into the TinyMCE editor area: [wcp_contactform id="wcpform_1"].
 
-More information can be found in the section [screenshots](https://wordpress.org/plugins/wcp-contact-form/screenshots/).  
+More information can be found in the section [screenshots](https://wordpress.org/plugins/wcp-contact-form/screenshots/) and [plugin documentation](http://wpdemo.webcodin.com/wordpress-plugin-wcp-contact-form/documentation/getting-started/) on our site.  
 
 = Where can I find received messages =
 
@@ -142,7 +140,7 @@ You can use Mark as Read, Mark as Unread, Move to Trash actions on each message 
 Also on this page you able to export messages to CSV format by pressing on "Export to CSV" button.
 Click on the name of the letter to review the letter details.
 
-More information can be found in the section [screenshots](https://wordpress.org/plugins/wcp-contact-form/screenshots/).
+More information can be found in the section [screenshots](https://wordpress.org/plugins/wcp-contact-form/screenshots/) and [plugin documentation](http://wpdemo.webcodin.com/wordpress-plugin-wcp-contact-form/documentation/getting-started/) on our site.
 
 = How can I to configure form fields =
 
@@ -159,7 +157,7 @@ Each field has following available parameters for configuration:
  
 When you configured all necessary fields, press the "Save Changes" button at the bottom of the page.
 
-More information can be found in the section [screenshots](https://wordpress.org/plugins/wcp-contact-form/screenshots/).
+More information can be found in the section [screenshots](https://wordpress.org/plugins/wcp-contact-form/screenshots/) and [plugin documentation](http://wpdemo.webcodin.com/wordpress-plugin-wcp-contact-form/documentation/getting-started/) on our site.
 
 = How can I customize "Send" button text? =
 
@@ -168,7 +166,7 @@ Following options are available:
 
 * **Caption** - option allows to change submit button text;
 
-More information can be found in the section [screenshots](https://wordpress.org/plugins/wcp-contact-form/screenshots/).
+More information can be found in the section [screenshots](https://wordpress.org/plugins/wcp-contact-form/screenshots/) and [plugin documentation](http://wpdemo.webcodin.com/wordpress-plugin-wcp-contact-form/documentation/getting-started/) on our site.
 
 = How can I use own "Thank You" page? =
 
@@ -181,7 +179,7 @@ Following options are available:
 
 To eneble HTML5 validation, go to menu "Contact Form" > "Settings" > "Form" tab > "Other Settings" section and check "Enable HTML5 Validation" checkbox.
 
-More information can be found in the section [screenshots](https://wordpress.org/plugins/wcp-contact-form/screenshots/).
+More information can be found in the section [screenshots](https://wordpress.org/plugins/wcp-contact-form/screenshots/) and [plugin documentation](http://wpdemo.webcodin.com/wordpress-plugin-wcp-contact-form/documentation/getting-started/) on our site.
 
 = How can I style contact form =
 
@@ -193,7 +191,7 @@ In this tab following options are avialable:
 * **Background Color** - option allows to change background color of the "Submit" button
 * **Text Color** - option allows to change text color of the "Submit" button; 
 
-More information can be found in the section [screenshots](https://wordpress.org/plugins/wcp-contact-form/screenshots/).
+More information can be found in the section [screenshots](https://wordpress.org/plugins/wcp-contact-form/screenshots/) and [plugin documentation](http://wpdemo.webcodin.com/wordpress-plugin-wcp-contact-form/documentation/getting-started/) on our site.
 
 **Fields Style**
 
@@ -206,19 +204,28 @@ More information can be found in the section [screenshots](https://wordpress.org
 * **No Background** - option allows to disable background inside the form fields;
 * **Background Color** - option allows to set background color inside the form fields;
 
-More information can be found in the section [screenshots](https://wordpress.org/plugins/wcp-contact-form/screenshots/).
+More information can be found in the section [screenshots](https://wordpress.org/plugins/wcp-contact-form/screenshots/) and [plugin documentation](http://wpdemo.webcodin.com/wordpress-plugin-wcp-contact-form/documentation/getting-started/) on our site.
 
 = How can I change validation error messages? =
 
-To change non-HTML5 validation error messages, go to menu "Contact Form" > "Settings" > "Errors" tab > "Error Messages" section.
+To change non-HTML5 validation error messages, go to menu "Contact Form" > "Settings" > "Messages" tab > "Error Messages" section.
 Following options are available:
 
-* **Required Field** - option allows to set error message for "required" fields;
+* **Submit Success** - option allows to set error message for "required" fields;
 * **Email Field** - option allows to set error message for "email "fields;
 * **Captcha Field** - option allows to set error message for "CAPTCHA" field;
 * **Number Field** - option allows to set error message for "number" fields.
 
-More information can be found in the section [screenshots](https://wordpress.org/plugins/wcp-contact-form/screenshots/).
+More information can be found in the section [screenshots](https://wordpress.org/plugins/wcp-contact-form/screenshots/) and [plugin documentation](http://wpdemo.webcodin.com/wordpress-plugin-wcp-contact-form/documentation/getting-started/) on our site.
+
+= How can I change "Submit Success" message? =
+
+To change "Submit Success" message for forms without "Thank You" page, go to menu "Contact Form" > "Settings" > "Messages" tab > "Notification Messages" section.
+Following option is available:
+
+* **Submit Success** - option allows to set submit success message for the form.
+
+More information can be found in the section [screenshots](https://wordpress.org/plugins/wcp-contact-form/screenshots/) and [plugin documentation](http://wpdemo.webcodin.com/wordpress-plugin-wcp-contact-form/documentation/getting-started/) on our site.
 
 = How can I change administrator notifications? =
 
@@ -253,7 +260,7 @@ If you use a custom set of the fields, you need to define manually following var
 To export the list of received messages go to the menu "Contact Form" > "Entries".
 Press button "Export to CSV" at the top of the message list. All fiels that were defined as "Export to CSV" at the form settings ("Contact Form" > "Settings" > "Form" tab) will be exported to CSV format.
 
-More information can be found in the section [screenshots](https://wordpress.org/plugins/wcp-contact-form/screenshots/).
+More information can be found in the section [screenshots](https://wordpress.org/plugins/wcp-contact-form/screenshots/) and [plugin documentation](http://wpdemo.webcodin.com/wordpress-plugin-wcp-contact-form/documentation/getting-started/) on our site.
 
 = How can I style the form content? =
 
@@ -289,8 +296,16 @@ Path to the templates folder inside the active theme:
 13. Admin Panel :: Settings :: Notifications
 
 == Changelog ==
+= 2.2.0 =
+* added: LESS-based dynamic CSS for custom form styles
+* added: Drag&Drop re-order for fields configurator
+* added: Success notification message after the form submission for form without "Thank You" page
+* added: Ability to change type of the fields in the default fields preset
+* added: New parameter "Submit Success" that allows to set submit success message for the form
+* changed: Caption of the "Errors" tab changed to "Messages" value on the form settings page
+
 = 2.1.3 =
-Fixed: Issue with duplicate email notifications
+* fixed: Issue with duplicate email notifications
 
 = 2.1.2 =
 * added: new parameter "Button Position" that allows to set submit button position

@@ -7,7 +7,7 @@ return array(
         'title' => 'Style',
     ),            
     'scfp_error_settings' => array(
-        'title' => 'Errors',
+        'title' => 'Messages',
     ),    
     'scfp_notification_settings' => array(
         'title' => 'Notifications',

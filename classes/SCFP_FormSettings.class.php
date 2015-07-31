@@ -44,6 +44,15 @@ class SCFP_FormSettings extends Agp_RepeaterAbstract {
         $this->setRowTemplateAdminName("admin/form/row"); 
     }
     
+    public function enqueueScripts () {
+        wp_enqueue_script( 'scfp-form-repeater', $this->getAssetUrl('repeater/js/main.js'), array('jquery') );                                                         
+        wp_enqueue_style( 'scfp-form-repeater-css', $this->getAssetUrl('repeater/css/style.css') );  
+    }        
+    
+    public function enqueueAdminScripts () {
+        wp_enqueue_script( 'scfp-form-repeater', $this->getAssetUrl('repeater/js/admin.js'), array('jquery') );                                                         
+        wp_enqueue_style( 'scfp-form-repeater-css', $this->getAssetUrl('repeater/css/admin.css') );  
+    }                    
     
     public function getData($post_id) {
         $data = array();

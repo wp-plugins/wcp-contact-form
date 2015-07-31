@@ -10,6 +10,8 @@ class SCFP_Form extends Agp_Module {
     
     private $error = array();
     
+    private $notifications = array();
+    
     private $postId;
     
     /**
@@ -41,24 +43,33 @@ class SCFP_Form extends Agp_Module {
                 if (!empty($field['visibility'])) {
                     switch ( $field['field_type'] ) {
                         case 'checkbox':
-                           $this->data[$key] = !empty($postData['scfp-'.$key ]) ? 1 : 0;
+                           $this->data[$key] = !empty($postData['scfp-'.$key]) ? 1 : 0;
                             break;
                         default:
-                            $this->data[$key] = esc_attr($postData['scfp-'.$key ]);
+                            $this->data[$key] = !empty($postData['scfp-'.$key]) ? esc_attr($postData['scfp-'.$key]) : '';
                             break;
                     }
                 }
             }
             
+            $this->notifications = array();
+            
             if ($this->validation()) {
                 if ($this->saveForm()) {
                     if ($this->notifiction()) {
                         $this->data = array();
-                        $this->redirect();
+                        if (!$this->redirect()) {
+                            $this->submitConfirmation();
+                        }
                     }
                 }
             }
         }
+    }
+    
+    public function submitConfirmation () {
+        $message = SCFP()->getSettings()->getConfirmationSettings();
+        $this->notifications[] = $message;
     }
     
     public function validation() {
@@ -251,6 +262,7 @@ class SCFP_Form extends Agp_Module {
             wp_redirect( $location );
             die();
         }
+        return FALSE;
     }
 
     public function getId() {
@@ -265,14 +277,17 @@ class SCFP_Form extends Agp_Module {
         return $this->data;
     }
     
-    function getSession() {
+    public function getSession() {
         return $this->session;
     }
 
-    function getCaptcha() {
+    public function getCaptcha() {
         return $this->captcha;
     }
     
 
+    public function getNotifications() {
+        return $this->notifications;
+    }
 
 }

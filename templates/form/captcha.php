@@ -21,12 +21,18 @@ if (!empty($key)) :
         <div class="scfp-captcha">                                
             <div class="scfp-captcha-image">
                 <div class="scfp-captcha-image-wrapper">
-                    <img src="data:image/png;base64,<?php echo $form->getCaptcha()->CreateImage($key);?>" />
+                    <img src="data:image/png;base64,<?php echo $form->getCaptcha()->CreateImage($key);?>" alt="" />
                 </div>    
             </div>    
             <div class="scfp-captcha-field">
                 <input <?php echo $atts;?> class="scfp-form-field" type="text" id="scfp-<?php echo $key; ?>" name="scfp-<?php echo $key; ?>" <?php if ( !empty( $field['required'] ) && !empty($formSettings['html5_enabled']) ) : ?> required <?php endif;?>>
-                <a class="scfp-captcha-refresh" data-key="<?php echo $key; ?>" data-id="<?php echo $id;?>" href="javascript:void();">refresh</a>
+                <a class="scfp-captcha-refresh" data-key="<?php echo $key; ?>" data-id="<?php echo $id;?>" href="javascript:void();">
+                    <div class="scfp-captcha-refresh-inner">
+                        <div class="scfp-captcha-refresh-inner-icon">
+                            <span class="scfp-icon-refresh"></span>
+                        </div>    
+                    </div>    
+                </a>
             </div>
         </div>                                    
     </div>

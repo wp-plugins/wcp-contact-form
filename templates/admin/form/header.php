@@ -1,6 +1,7 @@
-    <th class="manage-column " scope="col" style=""><b>Type</b></th>
-    <th class="manage-column " scope="col" style=""><b>Name</b></th>
-    <th class="manage-column " scope="col" style=""><b>Visibility</b></th>
-    <th class="manage-column " scope="col" style=""><b>Required</b></th>
-    <th class="manage-column " scope="col" style=""><b>Export to CSV</b></th>
-    <th width="170px" class="manage-column tbl-actions" scope="col" style=""><b>Actions</b></th>
+    <div class="manage-column scfp-field scfp-field-num" scope="col" style="">Num</div>
+    <div class="manage-column scfp-field scfp-field-type" scope="col" style="">Type</div>
+    <div class="manage-column scfp-field scfp-field-name" scope="col" style="">Name</div>
+    <div class="manage-column scfp-field scfp-field-visibility scfp-field-center" scope="col" style="">Visibility</div>
+    <div class="manage-column scfp-field scfp-field-required scfp-field-center" scope="col" style="">Required</div>
+    <div class="manage-column scfp-field scfp-field-export scfp-field-center" scope="col" style="">Export to CSV</div>
+    <div class="manage-column scfp-field scfp-field-actions scfp-field-center" scope="col" style="">Actions</div>
