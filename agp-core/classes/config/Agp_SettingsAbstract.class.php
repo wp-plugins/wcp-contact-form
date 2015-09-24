@@ -206,7 +206,9 @@ abstract class Agp_SettingsAbstract extends Agp_ConfigAbstract {
                         if (!empty($options)) {
                             if ( isset( $options[$dk] ) ) {
                                 $result[$k][$dk] = $options[$dk];                                
-                            } 
+                            } elseif ($dv['type'] !== 'checkbox' && isset ( $dv['default'])) {
+                                $result[$k][$dk] = $dv['default'];
+                            }
                         } else {
                             if ( isset ( $dv['default'] ) ) {
                                 $result[$k][$dk] = $dv['default'];

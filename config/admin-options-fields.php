@@ -75,6 +75,15 @@ return array(
                 'note' => 'option allows to enable/disable button in the TinyMCE editor for adding contact form shortcode to editor area',
                 'class' => '',
             ),                                                  
+            'scripts_in_footer' => array(
+                'type' => 'checkbox',
+                'label' => 'Footer Scripts',
+                'default' => 1,
+                'section' => 'other_settings',
+                'note' => 'option allows to enqueue scripts and styles only for the pages with contact form',
+                'class' => '',
+            ),                                      
+            
         ),
     ),
     'scfp_style_settings' => array(
@@ -318,4 +327,70 @@ return array(
             
         ),
     ),        
+    'scfp_recaptcha_settings' => array(
+        'sections' => array(
+            'general_recaptcha_settings' => array(
+                'label' => 'General Settings',
+            ),                        
+            'render_recaptcha_settings' => array(
+                'label' => 'Render Settings',
+            ),                                    
+            
+        ),
+        'fields' => array(
+            'rc_key' => array(
+                'type' => 'text',
+                'label' => 'Key',
+                'default' => '',
+                'section' => 'general_recaptcha_settings',
+                'class' => 'widefat regular-text',
+                'note' => 'allows to set <a href="https://www.google.com/recaptcha" title="Get the reCAPTCHA key" target="_blank">reCAPTCHA key</a>',
+                'atts' => array(
+                ),
+            ),
+            'rc_secret_key' => array(
+                'type' => 'text',
+                'label' => 'Secret Key',
+                'default' => '',
+                'section' => 'general_recaptcha_settings',
+                'class' => 'widefat regular-text',
+                'note' => 'allows to set <a href="https://www.google.com/recaptcha" title="Get the reCAPTCHA secret key" target="_blank">reCAPTCHA secret key</a>',
+                'atts' => array(
+                ),
+            ),            
+            'rc_theme' => array(
+                'type' => 'select',
+                'label' => 'Theme',
+                'fieldSet' => 'recaptchaTheme',
+                'default' => 'light',
+                'section' => 'render_recaptcha_settings',
+                'class' => 'widefat regular-select',
+                'note' => 'allows to set reCAPTCHA theme',
+                'atts' => array(
+                ),                
+            ),                                                            
+            'rc_type' => array(
+                'type' => 'select',
+                'label' => 'Type',
+                'fieldSet' => 'recaptchaType',
+                'default' => 'image',
+                'section' => 'render_recaptcha_settings',
+                'class' => 'widefat regular-select',
+                'note' => 'allows to set reCAPTCHA type',
+                'atts' => array(
+                ),                
+            ),                                                                        
+            'rc_size' => array(
+                'type' => 'select',
+                'label' => 'Size',
+                'fieldSet' => 'recaptchaSize',
+                'default' => 'normal',
+                'section' => 'render_recaptcha_settings',
+                'class' => 'widefat regular-select',
+                'note' => 'allows to set reCAPTCHA size',
+                'atts' => array(
+                ),                
+            ),                                                                                    
+        ),
+    ),
 );

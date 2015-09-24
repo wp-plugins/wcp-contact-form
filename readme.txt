@@ -1,13 +1,13 @@
 === WCP Contact Form ===
 Contributors: webcodin
-Tags: contact, contact form, form, contact me, contact us, contactus, contact form plugin, email, email message, notifications, admin notifications, customer notifications, customer, form to email, wordpress contact form, subscribe, CSV, CSV export, form builder, builder, captcha, validation, dynamic fields, LESS, dynamic CSS
+Tags: contact, contact form, form, contact me, contact us, contactus, contact form plugin, email, email message, notifications, admin notifications, customer notifications, customer, form to email, wordpress contact form, subscribe, CSV, CSV export, form builder, builder, captcha, validation, dynamic fields, LESS, dynamic CSS, reCAPTCHA, indicator
 Requires at least: 3.5.0
-Tested up to: 4.2
+Tested up to: 4.3
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 Stable tag: trunk
 
-The contact form plugin with dynamic fields, CAPTCHA and other features that makes it easy to add custom contact form on your site in a few clicks
+The contact form plugin with dynamic fields, reCAPTCHA and other features that makes it easy to add custom contact form on your site in a few clicks
 
 == Description ==
 
@@ -35,8 +35,11 @@ If you find issues or have any questions about the plugin, please feel free to a
 * List of the messages can be exported to CSV format based on selected fields in the form settings;
 * Minimum required PHP version is **5.3.0**;
 * Custom styles for contact form;
-* **NEW!** Drag&Drop re-order of the form fields for configurator;
-* **NEW!** Success notification message after the form submission for form without "Thank You" page. 
+* Drag&Drop re-order of the form fields for configurator;
+* Success notification message after the form submission for form without "Thank You" page. 
+* **NEW!** reCAPTCHA field support;
+* **NEW!** Visual indicator for the new messages at the admin toolbar.
+* **NEW!** Optional ability to enqueue scripts and styles only for the pages with contact form
 
 = Ready-to-Use Fields Preset =
 
@@ -48,7 +51,7 @@ Ready-to-use fields preset after plugin instalation includs following fields:
 
 Dynamic form fields include following field types: 
 
-`Text, Email, Numeric, Textarea, Checkbox, CAPTCHA`
+`Text, Email, Numeric, Textarea, Checkbox, CAPTCHA, reCAPTCHA`
 
 and support following parameters: 
 
@@ -294,8 +297,23 @@ Path to the templates folder inside the active theme:
 11. Admin Panel :: Settings :: Style Tab
 12. Admin Panel :: Settings :: Errors Tab
 13. Admin Panel :: Settings :: Notifications
+14. Admin Panel :: Settings :: reCAPTCHA 
 
 == Changelog ==
+
+= 2.3.2 =
+* minor bugfixing
+
+= 2.3.1 =
+* added: Optional ability to enqueue scripts and styles only for the pages with contact form
+* changed: Minor loading speed optimization
+
+= 2.3.0 =
+* added: New reCAPTCHA field for the form
+* added: Indicator for unread inbox messages in admin toolbar
+* minor styles changes
+* minor bugfixing
+
 = 2.2.0 =
 * added: LESS-based dynamic CSS for custom form styles
 * added: Drag&Drop re-order for fields configurator

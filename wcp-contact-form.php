@@ -3,7 +3,7 @@
  * Plugin Name: WCP Contact Form
  * Plugin URI: https://wordpress.org/plugins/wcp-contact-form/ 
  * Description: The contact form plugin with dynamic fields, CAPTCHA and other features that makes it easy to add custom contact form on your site in a few clicks
- * Version: 2.2.0
+ * Version: 2.3.2
  * Author: Webcodin
  * Author URI: https://profiles.wordpress.org/webcodin/
  * License: GPL2
@@ -47,14 +47,20 @@ function scfp_activate_plugin() {
     if (class_exists('Webcodin\WCPContactForm\Core\Agp_Autoloader') && !function_exists('SCFP')) {
         $autoloader = Agp_Autoloader::instance();
         $autoloader->setClassMap(array(
-            __DIR__ => array('classes'),
+            'paths' => array(
+                __DIR__ => array('classes'),
+            ),
             'namespaces' => array(
                 'Webcodin\WCPContactForm\Core' => array(
                     __DIR__ => array('agp-core'),
                 ),
             ),
+            'classmaps' => array (
+                __DIR__ => 'classmap.json',
+            ),            
         ));
-
+        //$autoloader->generateClassMap(__DIR__);
+            
         function SCFP() {
             return SCFP::instance();
             

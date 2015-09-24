@@ -4,7 +4,7 @@
 ?>
 <table width="100%" style="border: 1px solid #dfdfdf; border-collapse: collapse;">
     <?php $i=0; foreach( $data as $datakey => $datavalue ): ?>
-        <?php if ( !empty( $datavalue['visibility'] ) && $datavalue['field_type'] !== 'captcha') : ?>
+        <?php if ( !empty( $datavalue['visibility'] ) && $datavalue['field_type'] !== 'captcha' && $datavalue['field_type'] !== 'captcha-recaptcha' ) : ?>
             <tr<?php echo (($i % 2 == 0)) ? ' style="background: #f5f5f5;"' : ''; ?>>
                 <td style="padding: 10px 5px; border: 1px solid #dfdfdf; width: 15%;">
                     <strong><?php echo $datavalue['name']; ?></strong>

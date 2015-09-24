@@ -12,4 +12,7 @@ return array(
     'scfp_notification_settings' => array(
         'title' => 'Notifications',
     ),    
+    'scfp_recaptcha_settings' => array(
+        'title' => 'reCAPTCHA',
+    ),        
 );

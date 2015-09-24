@@ -35,7 +35,18 @@
 #scfp-sortable .ui-sortable .scfp-field-row { cursor: move; }
 #scfp-sortable .ui-sortable-helper { border: 1px solid #f0f0f0; border-width: 1px; box-shadow: 0 0 2px #ddd; }
 #scfp-sortable .ui-sortable-placeholder { background-color: #f9f9f9 !important; border-top: 1px solid #f0f0f0; height: 50px; }
-
+/*-----------------------------------------------------------------*/
+/* WP_AdminTopBar Menu*/
+/*-----------------------------------------------------------------*/
+#wpadminbar #wp-admin-bar-wcp-contactform-menu .ab-icon:before { content: '\f466'; top: 2px; }
+#wpadminbar #wp-admin-bar-wcp-contactform-menu .ab-items { background-color: #d54e21; border-radius: 10px; color: #fff; display: inline-block; font-size: 9px; font-weight: 600; line-height: 17px; margin: 8px 0 0 5px; vertical-align: top; z-index: 26; }
+#wpadminbar #wp-admin-bar-wcp-contactform-menu .ab-items-count { padding: 0 6px; color: #fff; font-size: 10px; font-weight: 600; line-height: 16px; }
+/*-----------------------------------------------------------------*/
+/* WP_Admin Panel Menu*/
+/*-----------------------------------------------------------------*/
+#adminmenu .wcp-items { background-color: #d54e21; border-radius: 10px; color: #fff; display: inline-block; font-size: 9px; font-weight: 600; line-height: 17px; margin: 1px 0 0 5px; vertical-align: top; z-index: 26; }
+#adminmenu .wcp-items-count { padding: 0 6px; color: #fff; font-size: 9px; font-weight: 600; line-height: 17px; } 
+/*-----------------------------------------------------------------*/
 /* Corrected for IE8 */
 .scfp-settings-table .scfp-field-type, .scfp-settings-table .scfp-field-name { width: 20%\9 !important; }
 

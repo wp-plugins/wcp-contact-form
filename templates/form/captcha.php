@@ -21,7 +21,7 @@ if (!empty($key)) :
         <div class="scfp-captcha">                                
             <div class="scfp-captcha-image">
                 <div class="scfp-captcha-image-wrapper">
-                    <img src="data:image/png;base64,<?php echo $form->getCaptcha()->CreateImage($key);?>" alt="" />
+                    <img src="data:image/png;base64,<?php echo $form->getCaptcha()->CreateImage($key, TRUE);?>" alt="" />
                 </div>    
             </div>    
             <div class="scfp-captcha-field">

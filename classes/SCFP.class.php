@@ -98,7 +98,16 @@ class SCFP extends Agp_Module {
         add_shortcode( 'scfp', array($this, 'doScfpShortcode') ); 
         add_shortcode( 'wcp_contactform', array($this, 'doScfpShortcode') ); 
         add_action( 'widgets_init', array($this, 'initWidgets' ) );
-        add_action( 'admin_init', array($this, 'tinyMCEButtons' ) );        
+        add_action( 'admin_init', array($this, 'tinyMCEButtons' ) ); 
+        add_filter( 'clean_url', array($this, 'deferJavascripts' ), 11, 1 );
+    }
+
+    
+    public function deferJavascripts ( $url ) {
+        if ( FALSE === strpos( $url, '.js' ) ) return $url;
+        if ( !strpos( $url, 'recaptcha/api.js' ) || !strpos( $url, 'scfpOnLoadCallback' ) ) return $url;
+        
+        return "$url' async='async' defer='defer";
     }
     
     public function init() {
@@ -110,13 +119,27 @@ class SCFP extends Agp_Module {
     }
     
     public function enqueueScripts () {
-        wp_enqueue_script( 'scfp', $this->getAssetUrl('js/main.js'), array('jquery') ); 
+        wp_register_script( 'scfp', $this->getAssetUrl('js/main.js'), array('jquery') ); 
         wp_localize_script( 'scfp', 'ajax_scfp', array( 
             'base_url' => site_url(),         
             'ajax_url' => admin_url( 'admin-ajax.php' ), 
             'ajax_nonce' => wp_create_nonce('ajax_atf_nonce'),        
         ));  
-        wp_enqueue_style( 'scfp-css', $this->getAssetUrl('css/style.css') ); 
+        
+        wp_register_script( 'scfp-recaptcha', $this->getAssetUrl('js/recaptcha.js'), array('jquery', 'scfp') );         
+        wp_register_script( 'scfp-recaptcha-api', 'https://www.google.com/recaptcha/api.js?onload=scfpOnLoadCallback&render=explicit', array('jquery', 'scfp-recaptcha') );         
+        wp_register_style( 'scfp-css', $this->getAssetUrl('css/style.css') );         
+        
+        $form_settings = $this->settings->getFormSettings();
+        if (empty($form_settings['scripts_in_footer'])) {
+            wp_enqueue_script( 'scfp' );         
+            wp_enqueue_script( 'scfp-recaptcha' );         
+            wp_enqueue_script( 'scfp-recaptcha-api' );         
+        }
+        
+        if ( is_super_admin() && is_admin_bar_showing() ) {
+            wp_enqueue_style( 'scfp-css' );                         
+        }
     }        
     
     public function enqueueAdminScripts () {
@@ -128,7 +151,6 @@ class SCFP extends Agp_Module {
         
         wp_enqueue_script( 'scfp', $this->getAssetUrl('js/admin.js'), array('jquery', 'wp-color-picker') );                                                         
         wp_enqueue_style( 'scfp-css', $this->getAssetUrl('css/admin.css'), array('wp-color-picker') );   
-        
         
         wp_localize_script('scfp', 'csvVar', array(
             'href' => add_query_arg(array('download_csv' => 1)),
@@ -180,6 +202,14 @@ class SCFP extends Agp_Module {
     }    
     
     public function doScfpShortcode ($atts) {
+        $form_settings = $this->settings->getFormSettings();
+        if (!empty($form_settings['scripts_in_footer'])) {
+            wp_enqueue_script( 'scfp' );         
+            wp_enqueue_script( 'scfp-recaptcha' );         
+            wp_enqueue_script( 'scfp-recaptcha-api' ); 
+            wp_enqueue_style( 'scfp-css' );                         
+        }
+        
         $atts = shortcode_atts( array(
             'id' => 'default-contactform-id',
         ), $atts );        
@@ -194,6 +224,14 @@ class SCFP extends Agp_Module {
     }
     
     public function doContactFormWidget($atts){
+        $form_settings = $this->settings->getFormSettings();
+        if (!empty($form_settings['scripts_in_footer'])) {
+            wp_enqueue_script( 'scfp' );         
+            wp_enqueue_script( 'scfp-recaptcha' );         
+            wp_enqueue_script( 'scfp-recaptcha-api' );    
+            wp_enqueue_style( 'scfp-css' );                         
+        }
+        
         $atts = shortcode_atts( array(
             'id' => NULL,
         ), $atts );        

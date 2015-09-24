@@ -1,31 +1,43 @@
 (function($) {  
     $(document).ready(function() { 
-        $('.scfp-captcha-refresh').on('click', function( event ) {
-            event.preventDefault();
-            var container = $(this).closest('.scfp-form-row').find('.scfp-captcha-image');
-            var self = this;
+        
+        function refreshCaptcha (element) {
+            
+            var container = $(element).closest('.scfp-form-row').find('.scfp-captcha-image');
+            var self = element;
             
             var data = {};
             data.action = 'recreateCaptcha';
             data.nonce = ajax_scfp.ajax_nonce;
-            data.id = $(this).data('id');
-            data.key = $(this).data('key');
+            data.id = $(element).data('id');
+            data.key = $(element).data('key');
 
             $.ajax({
                 url:ajax_scfp.ajax_url,
                 type: 'POST' ,
                 data: data,
-                dataType: 'html',
+                dataType: 'json',
                 cache: false,
                 success: function(data) {
-                    $(container).html($(data).find('.scfp-captcha-image').html());
-                    $(self).closest('.scfp-form-row').find('.scfp-captcha-field .scfp-form-field').val('');
+                    if (data.img) {
+                        $(container).find('img').attr('src', data.img);
+                        $(self).closest('.scfp-form-row').find('.scfp-captcha-field .scfp-form-field').val('');                        
+                    }
                 },
                 error: function (request, status, error) {
                 }
             });            
-          
-            return false;
+        }
+        
+        
+        $('.scfp-captcha-refresh').each(function() {
+            $(this).on('click', function( event ) {
+                event.preventDefault();
+                refreshCaptcha(this);
+                return false;
+            });
+
+            refreshCaptcha(this);            
         });
         
         setTimeout(function () { $('.scfp-form-notification').fadeOut('slow', function() {$(this).remove();});}, 7000);
@@ -41,7 +53,7 @@
 
     });
     
-    
+    $('.scfp-rcwidget-response').val('');
     
 })(jQuery);
 

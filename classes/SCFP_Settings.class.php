@@ -267,11 +267,11 @@ class SCFP_Settings extends Agp_SettingsAbstract {
         return !empty($options) ? $options : $this->getStyleDefaults() ;
     }            
     
-    public function getNotifictionConfig () {
+    public function getNotificationConfig () {
         return $this->objectToArray($this->getConfig()->admin->options->fields->scfp_notification_settings->fields);
     }
     
-    public function getNotifictionDefaults () {
+    public function getNotificationDefaults () {
         $result = array();
         foreach ($this->getConfig()->admin->options->fields->scfp_notification_settings->fields as $key => $value) {
             $result[$key] = $value->default;    
@@ -279,10 +279,29 @@ class SCFP_Settings extends Agp_SettingsAbstract {
         return $result;
     }            
     
-    public function getNotifictionSettings () {
+    public function getNotificationSettings () {
         $options = get_option('scfp_notification_settings');
-        return !empty($options) ? $options : $this->getNotifictionDefaults() ;
+        return !empty($options) ? $options : $this->getNotificationDefaults() ;
     }            
+    
+    
+    
+    public function getRecaptchaConfig () {
+        return $this->objectToArray($this->getConfig()->admin->options->fields->scfp_recaptcha_settings->fields);
+    }
+    
+    public function getRecaptchaDefaults () {
+        $result = array();
+        foreach ($this->getConfig()->admin->options->fields->scfp_recaptcha_settings->fields as $key => $value) {
+            $result[$key] = $value->default;    
+        }
+        return $result;
+    }            
+    
+    public function getRecaptchaSettings () {
+        $options = get_option('scfp_recaptcha_settings');
+        return !empty($options) ? $options : $this->getRecaptchaDefaults() ;
+    } 
     
     public function getFieldsConfig () {
         return $this->objectToArray($this->getConfig()->form->fields);

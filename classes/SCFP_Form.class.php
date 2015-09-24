@@ -23,6 +23,8 @@ class SCFP_Form extends Agp_Module {
     
     private $captcha;
     
+    private $recaptcha;
+    
     public function __construct($id) {
         parent::__construct(SCFP()->getBaseDir());        
         $this->id = $id;
@@ -34,9 +36,12 @@ class SCFP_Form extends Agp_Module {
         $this->captcha->imageFormat = 'png';
         $this->captcha->scale = 3; 
         $this->captcha->blur = true;
+        
+        $this->recaptcha = new SCFP_Recaptcha();
     }
 
     public function submit($postData) {
+        
         if (!empty($postData['form_id']) && $postData['form_id'] == $this->id ) {        
             
             foreach(SCFP()->getSettings()->getFieldsSettings() as $key => $field) {
@@ -56,7 +61,7 @@ class SCFP_Form extends Agp_Module {
             
             if ($this->validation()) {
                 if ($this->saveForm()) {
-                    if ($this->notifiction()) {
+                    if ($this->notification()) {
                         $this->data = array();
                         if (!$this->redirect()) {
                             $this->submitConfirmation();
@@ -89,19 +94,48 @@ class SCFP_Form extends Agp_Module {
                continue;
            }
            
-           
            //number_error
            if (!empty($value) && $fields[$key]['field_type'] == 'number' && (!is_numeric($value) || is_numeric($value) && !is_int($value * 1))) {
                $this->error[$key] = 'number_error';
                continue;
            }           
 
+           //captcha error
+           
            if ($fields[$key]['field_type'] == 'captcha'  &&  ( empty( $_SESSION['captcha-'.$this->id][$key] ) || strtolower( trim($value ) ) != strtolower( trim($_SESSION['captcha-'.$this->id][$key] ))) ) {
+               
+//               var_dump($_SESSION['captcha-'.$this->id][$key]);
+//               var_dump(strtolower( trim($value ) ));
+               
                $this->error[$key] = 'captcha_error';
                continue;
            }
+           
+           //recaptcha error
+           if (!empty($value) && $fields[$key]['field_type'] == 'captcha-recaptcha' && !$this->recaptchaValidation($value)) {
+               $this->error[$key] = 'captcha_error';
+               continue;
+           }           
         }
         return empty($this->error);
+    }
+    
+    public function recaptchaValidation ($value) {
+        $result = FALSE;
+        $recaptcha = SCFP()->getSettings()->getRecaptchaSettings();
+        if (!empty($recaptcha['rc_secret_key'])) {
+            $secret = $recaptcha['rc_secret_key'];    
+
+            $this->getRecaptcha()->addRequestParam('secret', $secret);
+            $this->getRecaptcha()->addRequestParam('response', $value);
+
+            $json = $this->getRecaptcha()->post();
+            if (!empty($json)) {
+                $res = json_decode($json);
+                $result = !empty($res->success);
+            }
+        }
+        return $result;
     }
     
     private function saveForm() {
@@ -138,7 +172,7 @@ class SCFP_Form extends Agp_Module {
         return FALSE;
     }    
     
-    private function getEntriesCount() {
+    public function getEntriesCount() {
         $query = new WP_Query( 
             array( 'post_status' => array('trash', 'read', 'unread'), 'post_type' => 'form-entries', 'posts_per_page' => -1 ) 
         );
@@ -147,9 +181,18 @@ class SCFP_Form extends Agp_Module {
         return $num_result;
     }
     
-    public function notifiction() {
+    public static function getUnreadEntriesCount() {
+        $query = new WP_Query( 
+            array( 'post_status' => array('unread'), 'post_type' => 'form-entries', 'posts_per_page' => -1 ) 
+        );
+        $num_result = count($query->posts);
+        wp_reset_query();
+        return $num_result;
+    }    
+    
+    public function notification() {
         $result = TRUE;
-        $settings = SCFP()->getSettings()->getNotifictionSettings();
+        $settings = SCFP()->getSettings()->getNotificationSettings();
         
         if (empty($settings['disable'])) {
             $to = !empty($settings['another_email']) ? $settings['another_email'] : get_option('admin_email');
@@ -190,7 +233,7 @@ class SCFP_Form extends Agp_Module {
     }
     
     private function getUserName(){
-        $settings = SCFP()->getSettings()->getNotifictionSettings();
+        $settings = SCFP()->getSettings()->getNotificationSettings();
         $user_name_field = !empty($settings['user_name']) ? $settings['user_name'] : 'name';
         
         if( get_post_meta( $this->postId , "scfp_{$user_name_field}", true ) ){
@@ -202,7 +245,7 @@ class SCFP_Form extends Agp_Module {
     }
     
     private function getUserEmail(){
-        $settings = SCFP()->getSettings()->getNotifictionSettings();
+        $settings = SCFP()->getSettings()->getNotificationSettings();
         $user_email_field = !empty($settings['user_email']) ? $settings['user_email'] : 'email';
         
         if( get_post_meta( $this->postId , "scfp_{$user_email_field}", true ) ){
@@ -288,6 +331,10 @@ class SCFP_Form extends Agp_Module {
 
     public function getNotifications() {
         return $this->notifications;
+    }
+
+    public function getRecaptcha() {
+        return $this->recaptcha;
     }
 
 }

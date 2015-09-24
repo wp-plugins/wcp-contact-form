@@ -38,22 +38,14 @@ class SCFP_Ajax extends Agp_AjaxAbstract {
      * Refresh Captcha Action
      */
     public function recreateCaptcha($data) {
+        $result = array();
+        
         $id = $data['id'];
         $key = $data['key'];        
         
         $form = new SCFP_Form($id);
-        $fieldsSettings = SCFP()->getSettings()->getFieldsSettings();
-        $field = $fieldsSettings[$key];
-        $formSettings = SCFP()->getSettings()->getFormSettings();
-        $formData = $form->getData();    
         
-        $atts['id'] = $id;
-        $atts['form'] = $form;
-        $atts['key'] = $key;
-        $atts['field'] = $field;
-        $atts['formSettings'] = $formSettings;
-        $atts['formData'] = $formData;
-        
-        return SCFP()->getTemplate('form/captcha', $atts);                
+        $result['img'] = 'data:image/png;base64,'.$form->getCaptcha()->CreateImage($key);
+        return $result;
     }
 }

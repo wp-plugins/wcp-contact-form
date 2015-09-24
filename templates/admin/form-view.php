@@ -12,7 +12,7 @@
                 <div id="wp-content-editor-container" class="wp-editor-container">
                     <table class="view-entry-table widefat scfp-view-table">
                         <?php foreach( $data as $datakey => $datavalue ): ?>
-                            <?php if ( !empty( $datavalue['visibility'] ) && $datavalue['field_type'] !== 'captcha') : ?>
+                            <?php if ( !empty( $datavalue['visibility'] ) && $datavalue['field_type'] !== 'captcha' && $datavalue['field_type'] !== 'captcha-recaptcha') : ?>
                                 <tr class="view-entry-header alternate">
                                     <td><strong><?php echo $datavalue['name']; ?></strong></td>
                                 </tr>

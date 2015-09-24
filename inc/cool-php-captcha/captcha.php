@@ -134,26 +134,27 @@ class SimpleCaptcha {
 
 
 
-    public function CreateImage($id = NULL) {
+    public function CreateImage($id = NULL, $blank = FALSE) {
         $ini = microtime(true);
 
         /** Initialization */
         $this->ImageAllocate();
         
         /** Text insertion */
-        $text = $this->GetCaptchaText();
+        $text = !$blank ? $this->GetCaptchaText() : '';
         $fontcfg  = $this->fonts[array_rand($this->fonts)];
         $this->WriteText($text, $fontcfg);
 
-        if (isset($id)) {
-            if (isset($_SESSION[$this->session_var]) && !is_array($_SESSION[$this->session_var])) {
-                unset($_SESSION[$this->session_var]);
-            }
-            $_SESSION[$this->session_var][$id] = $text;    
-        } else {
-            $_SESSION[$this->session_var] = $text;    
+        if (!$blank) {
+            if (isset($id)) {
+                if (isset($_SESSION[$this->session_var]) && !is_array($_SESSION[$this->session_var])) {
+                    unset($_SESSION[$this->session_var]);
+                }
+                $_SESSION[$this->session_var][$id] = $text;    
+            } else {
+                $_SESSION[$this->session_var] = $text;    
+            }            
         }
-        
 
         /** Transformations */
         if (!empty($this->lineWidth)) {

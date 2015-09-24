@@ -2,15 +2,22 @@
 namespace Webcodin\WCPContactForm\Core;
 
 class Agp_Autoloader {
-
+    
+    private $_included = array ();
+    
     /**
      * Class map
      * 
      * @var array 
      */
-    private $classMap = array(
-        __DIR__ => array(''),
-    );
+    private $classMap = array();
+    
+    /**
+     * Classes
+     * 
+     * @var array
+     */
+    private $classes;
     
     /**
      * The single instance of the class 
@@ -56,58 +63,51 @@ class Agp_Autoloader {
      * @param string $class
      */
     private function autoload($class) {
-        if (!class_exists($class) && !empty($this->classMap)) {
+        if (!empty($this->classMap)) {
+            
+            if (array_key_exists('classmaps', $this->classMap)) {
+                
+                foreach ($this->classMap['classmaps'] as $path => $file) {
+                    if (!in_array($path, $this->_included)) {
+                        
+                        $filename = $path . '/' . $file;
+                        
+                        if (file_exists($filename) && is_file($filename)) {
+                            $fp = fopen($filename, 'r');
+                            $data = fread($fp, filesize($filename));
+                            fclose($fp);                                        
+                            $classes = json_decode($data, TRUE);
 
-            if (array_key_exists('namespaces', $this->classMap)) {
-                $parts = explode('\\', $class);
-                $className = array_pop($parts);
-
-                if (!empty($parts)) {
-                    $namespace = implode('\\', $parts);
-                    if (!empty($this->classMap['namespaces'][$namespace])) {
-                        foreach ($this->classMap['namespaces'][$namespace] as $path => $value) {
-                            $maps = array();
-                            if (is_array($value)) {
-                                $maps = $value;
-                            } else {
-                                $maps[] = $value;
-                            }
-                            
-                            foreach ($maps as $map) {
-                                if (!is_array($map)) {
-                                    $file = $path . '/' . $map .'/' . $className . '.class.php';
-                                    $file = str_replace('//', '/', $file);
-                                    $files = $this->rglob($file) ;
-                                    if (!empty($files) && is_array($files) && file_exists($files[0]) && is_file($files[0])) {
-                                        require_once $files[0];
-                                        return;
-                                    }                                                            
+                            if (!empty($classes) && is_array($classes)) {
+                                foreach ($classes as $class_key => $class_file) {
+                                    $this->classes[$class_key] = $path . $class_file;     
                                 }
                             }
                         }
+
+                        $this->_included[] = $path;                        
                     }
+                }
+                
+            }
+
+//            print_r('<pre>');
+//            print_r($this->classes);
+//            print_r('</pre>');                
+                
+            if (empty($this->classes)) {
+                $this->classes = $this->generateClassMap(NULL, FALSE);
+            }            
+            
+            if (!empty($this->classes)) {
+                if ( array_key_exists($class, $this->classes) ) {
+                    $file = $this->classes[$class];
+                    if ( file_exists($file) && is_file($file) ) {
+                        require_once $file;
+                        return;    
+                    }                    
                 }
             }
-            
-            foreach ($this->classMap as $path => $value) {
-                $maps = array();
-                if (is_array($value)) {
-                    $maps = $value;
-                } else {
-                    $maps[] = $value;
-                }
-                foreach ($maps as $map) {
-                    if (!is_array($map)) {
-                        $file = $path . '/' . $map .'/' . $class . '.class.php';
-                        $file = str_replace('//', '/', $file);
-                        $files = $this->rglob($file) ;
-                        if (!empty($files) && is_array($files) && file_exists($files[0]) && is_file($files[0])) {
-                            require_once $files[0];
-                            return;
-                        }                                    
-                    }
-                }
-            }        
         }
     }
     
@@ -133,6 +133,92 @@ class Agp_Autoloader {
         }
         return $files;
     }      
+    
+    public function generateClassMap($baseDir = NULL, $save = TRUE) {
+        $result = array();
+                    
+        if (array_key_exists('namespaces', $this->classMap)) {
+            foreach ($this->classMap['namespaces'] as $namespace => $data) {
+                foreach ($data as $path => $value) {
+                    $maps = array();
+                    if (is_array($value)) {
+                        $maps = $value;
+                    } else {
+                        $maps[] = $value;
+                    }
+
+                    foreach ($maps as $map) {
+                        if (!is_array($map) && ($path == $baseDir || empty($baseDir)) ) {
+                            $file = $path . '/' . $map .'/*.class.php';
+                            $file = str_replace('//', '/', $file);
+                            $files = $this->rglob($file) ;
+                            if (!empty($files) && is_array($files)) {
+                                foreach ($files as $file) {
+                                    $value = str_replace($path, '', $file);
+                                    $path_arr = explode('/', $value);
+                                    if (is_array($path_arr) && count($path_arr) > 0) {
+                                        $class_file = array_pop($path_arr);
+                                        $class_name = str_replace('.class.php', '', $class_file);
+                                        
+                                        if (!$save) {
+                                            $value = $path . $value;
+                                        }
+                                        
+                                        $result["$namespace\\$class_name"] = $value;
+                                    }
+                                }
+                            }                                                            
+                        }
+                    }
+                }                                    
+            }
+        }
+        
+        if (array_key_exists('paths', $this->classMap)) {
+            foreach ($this->classMap['paths'] as $path => $value) {
+                $maps = array();
+                if (is_array($value)) {
+                    $maps = $value;
+                } else {
+                    $maps[] = $value;
+                }
+                foreach ($maps as $map) {
+                    if (!is_array($map) && ($path == $baseDir || empty($baseDir))) {
+                        $file = $path . '/' . $map .'/*.class.php';
+                        $file = str_replace('//', '/', $file);
+                        $files = $this->rglob($file) ;
+                        if (!empty($files) && is_array($files)) {
+                            foreach ($files as $file) {
+                                $value = str_replace($path, '', $file);
+                                $path_arr = explode('/', $value);
+                                if (is_array($path_arr) && count($path_arr) > 0) {
+                                    $class_file = array_pop($path_arr);
+                                    $class_name = str_replace('.class.php', '', $class_file);
+                                    if (!$save) {
+                                        $value = $path . $value;
+                                    }
+                                    $result["$class_name"] = $value;
+                                }
+                            }
+                        }                                    
+                    }
+                }
+            }                    
+        }
+        
+        if (!empty($result) && $save) {
+            $filename = $baseDir . '/classmap.json';
+            if(!file_exists($filename)){
+                touch($filename);
+            }
+            $fp = fopen($filename, 'w+');
+            fwrite($fp, json_encode($result));
+            fclose($fp);                    
+        }
+        
+        return $result;
+    }
+
 
     public function getClassMap() {
         return $this->classMap;
@@ -146,7 +232,14 @@ class Agp_Autoloader {
         return $this;
     }
 
+    public function getClasses() {
+        return $this->classes;
+    }
 
+    public function setClasses($classes) {
+        $this->classes = $classes;
+        return $this;
+    }
 }
 
 Agp_Autoloader::instance();
