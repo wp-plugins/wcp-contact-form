@@ -137,9 +137,7 @@ class SCFP extends Agp_Module {
             wp_enqueue_script( 'scfp-recaptcha-api' );         
         }
         
-        if ( is_super_admin() && is_admin_bar_showing() ) {
-            wp_enqueue_style( 'scfp-css' );                         
-        }
+        wp_enqueue_style( 'scfp-css' );                         
     }        
     
     public function enqueueAdminScripts () {

@@ -301,6 +301,9 @@ Path to the templates folder inside the active theme:
 
 == Changelog ==
 
+= 2.3.3 =
+* minor bugfixing
+
 = 2.3.2 =
 * minor bugfixing
 
