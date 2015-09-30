@@ -12,8 +12,8 @@ $recaptchaId = str_replace('-','_',$id) . '_' .str_replace('-','_',$key);
 $atts = !empty($field['atts']) ? $field['atts'] : NULL;
 if (!empty($atts) && is_array($atts)) {
     $atts_s = '';
-    foreach ($atts as $key => $value) {
-        $atts_s .= $key . '="' . $value . '"';
+    foreach ($atts as $k => $value) {
+        $atts_s .= $k . '="' . $value . '"';
     }
     $atts = $atts_s;
 }

@@ -9,8 +9,8 @@ $formData = !empty($params['formData']) ? $params['formData'] : NULL;
 $atts = !empty($field['atts']) ? $field['atts'] : NULL;
 if (!empty($atts) && is_array($atts)) {
     $atts_s = '';
-    foreach ($atts as $key => $value) {
-        $atts_s .= $key . '="' . $value . '"';
+    foreach ($atts as $k => $value) {
+        $atts_s .= $k . '="' . $value . '"';
     }
     $atts = $atts_s;
 }

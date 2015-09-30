@@ -300,6 +300,8 @@ Path to the templates folder inside the active theme:
 14. Admin Panel :: Settings :: reCAPTCHA 
 
 == Changelog ==
+= 2.3.4 =
+* minor bugfixing
 
 = 2.3.3 =
 * minor bugfixing
