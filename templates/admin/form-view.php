@@ -64,6 +64,9 @@
                                         }
                                     ?>
                                 </div>
+                                <div id="publishing-action">
+                                    <?php echo $entry->getReplyButton($post->ID, 'Quick Reply', array('class' => 'scfp-quick-reply-btn wcp-quick-reply-button button button-primary button-large')); ?>     
+                                </div>    
                                 <div class="clear"></div>
                             </div>
                         </div>

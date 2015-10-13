@@ -166,7 +166,7 @@ abstract class Agp_Module {
     public function toUrl($file = '') {
         
         // Get correct URL and path to wp-content
-        $content_url = untrailingslashit( dirname( dirname( get_stylesheet_directory_uri() ) ) );
+        $content_url = content_url();
         $content_dir = untrailingslashit( dirname( dirname( get_stylesheet_directory() ) ) );    
 
         // Fix path on Windows

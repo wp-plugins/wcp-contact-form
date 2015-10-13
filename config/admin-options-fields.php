@@ -335,6 +335,9 @@ return array(
             'render_recaptcha_settings' => array(
                 'label' => 'Render Settings',
             ),                                    
+            'lang_recaptcha_settings' => array(
+                'label' => 'Language Settings',
+            ),                                                
             
         ),
         'fields' => array(
@@ -390,7 +393,16 @@ return array(
                 'note' => 'allows to set reCAPTCHA size',
                 'atts' => array(
                 ),                
-            ),                                                                                    
+            ),          
+            'rc_wp_lang' => array(
+                'type' => 'checkbox',
+                'label' => 'Use current WordPress language',
+                'default' => 0,
+                'section' => 'lang_recaptcha_settings',
+                'class' => '',
+                'note' => "option allows to change default reCAPTCHA language (if it's possible)",
+            ),                                                  
+            
         ),
     ),
 );

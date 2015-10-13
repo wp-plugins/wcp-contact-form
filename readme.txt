@@ -37,9 +37,11 @@ If you find issues or have any questions about the plugin, please feel free to a
 * Custom styles for contact form;
 * Drag&Drop re-order of the form fields for configurator;
 * Success notification message after the form submission for form without "Thank You" page. 
-* **NEW!** reCAPTCHA field support;
-* **NEW!** Visual indicator for the new messages at the admin toolbar.
-* **NEW!** Optional ability to enqueue scripts and styles only for the pages with contact form
+* reCAPTCHA field support;
+* Visual indicator for the new messages at the admin toolbar.
+* Optional ability to enqueue scripts and styles only for the pages with contact form
+* **NEW!** "Quick Reply" button to the Inbox (message list) and form details page that allows to open standard mail client and send quick reply to sender.
+* **NEW!** Option for reCAPTCHA translation that based on default WordPress language that defined in the admin panel
 
 = Ready-to-Use Fields Preset =
 
@@ -300,6 +302,11 @@ Path to the templates folder inside the active theme:
 14. Admin Panel :: Settings :: reCAPTCHA 
 
 == Changelog ==
+= 2.3.5 =
+* added: "Quick Reply" button to the Inbox (message list) and form details page that allows to open standard mail client and send quick reply to sender.
+* added: Option for reCAPTCHA translation that based on default WordPress language that defined in the admin panel
+* minor changes in plugin core
+
 = 2.3.4 =
 * minor bugfixing
 

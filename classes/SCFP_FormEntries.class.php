@@ -552,6 +552,8 @@ class SCFP_FormEntries extends Agp_Module {
         endforeach;
 
         $results['date'] = $columns['date']; 
+        $results['reply'] = 'Reply'; 
+        
 
         return $results;
     }
@@ -563,6 +565,9 @@ class SCFP_FormEntries extends Agp_Module {
             case 'title' :
                 echo get_post_meta( $post->ID, 'entry_id', true );
                 break;
+            case 'reply' :
+                echo $this->getReplyButton($post->ID,'',array('class'=>'scfp-reply-icon')); 
+                break;            
             default :
                 $fields = SCFP()->getSettings()->getFieldsSettings();        
                 foreach( $fields as $key => $value ):
@@ -639,6 +644,26 @@ class SCFP_FormEntries extends Agp_Module {
                 );                            
             }    
         }
+    }
+    
+    public function getReplyButton ($postId, $title = '', $atts = array()) {
+        $result = '';
+        $settings = SCFP()->getSettings()->getNotificationSettings();
+        $key = !empty($settings['user_email']) ? $settings['user_email'] : 'email';
+        
+        $atts_s = '';
+        if (is_array($atts) && !empty($atts)) {
+            foreach ($atts as $k => $value) {
+                $atts_s .= $k . '="' . $value . '"';
+            }
+        }
+        
+        $mail = get_post_meta( $postId, "scfp_{$key}", true ); 
+        if (!empty($mail)) {
+            $result = sprintf('<a href="mailto:%s" %s><span class="dashicons dashicons-email-alt"></span>%s</a>', $mail, $atts_s, $title);
+        }
+        
+        return $result;
     }
 }
 

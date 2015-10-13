@@ -126,8 +126,11 @@ class SCFP extends Agp_Module {
             'ajax_nonce' => wp_create_nonce('ajax_atf_nonce'),        
         ));  
         
+        $recaptcha = SCFP()->getSettings()->getRecaptchaSettings();
+        $hl = !empty($recaptcha['rc_wp_lang']) ? '&hl=' . get_locale() : '';
+        
         wp_register_script( 'scfp-recaptcha', $this->getAssetUrl('js/recaptcha.js'), array('jquery', 'scfp') );         
-        wp_register_script( 'scfp-recaptcha-api', 'https://www.google.com/recaptcha/api.js?onload=scfpOnLoadCallback&render=explicit', array('jquery', 'scfp-recaptcha') );         
+        wp_register_script( 'scfp-recaptcha-api', 'https://www.google.com/recaptcha/api.js?onload=scfpOnLoadCallback&render=explicit'.$hl, array('jquery', 'scfp-recaptcha') );         
         wp_register_style( 'scfp-css', $this->getAssetUrl('css/style.css') );         
         
         $form_settings = $this->settings->getFormSettings();

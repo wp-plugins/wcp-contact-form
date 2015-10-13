@@ -54,8 +54,8 @@
 .scfp-form-content .scfp-form-row-checkbox .scfp-form-label { vertical-align: bottom; max-width: 93%; padding: 0 0 0 5px; }
 /*-----------------------------------------------------------------*/
 .scfp-form-content .scfp-form-row .scfp-recaptcha iframe { border: 0 !important; outline: none !important; margin: 0 !important; padding: 0 !important; max-width: 100%; }
-.scfp-form-content .scfp-form-row .scfp-recaptcha.scfp-size-normal .scfp-recaptcha-container { max-height: 76px; max-width: 302px; overflow: hidden; border-radius: 3px; }
-.scfp-form-content .scfp-form-row .scfp-recaptcha.scfp-size-compact .scfp-recaptcha-container { border-radius: 3px; height: 138px; overflow: hidden; width: 158px; }
+.scfp-form-content .scfp-form-row .scfp-recaptcha.scfp-size-normal .scfp-recaptcha-container { border-radius: 3px; }
+.scfp-form-content .scfp-form-row .scfp-recaptcha.scfp-size-compact .scfp-recaptcha-container { border-radius: 3px; }
 /*-----------------------------------------------------------------*/
 .scfp-form-content .scfp-form-action { padding-top: 10px; text-align: left !important; }
 .scfp-form-content .scfp-form-action.scfp-form-button-position-right { text-align: right !important; }
@@ -74,10 +74,9 @@
 .scfp-form-content.scfp-form-widget .scfp-captcha .scfp-captcha-refresh { width: 25px; background-size: 50px 27px; background-position: 0 center; }
 .scfp-form-content.scfp-form-widget .scfp-captcha .scfp-captcha-refresh:hover { background-size: 50px 27px; background-position: -25px center; }
 .scfp-form-content.scfp-form-widget .scfp-form-row-checkbox .scfp-form-label { max-width: 85%; } 
-.scfp-form-content.scfp-form-widget .scfp-form-row .scfp-recaptcha.scfp-size-normal { max-height: 68px; overflow: hidden; }
-.scfp-form-content.scfp-form-widget .scfp-form-row .scfp-recaptcha.scfp-size-normal .scfp-recaptcha-container > div > div { max-width: 99% !important; border-right: 1px solid #d3d3d3; }
-.scfp-form-content.scfp-form-widget .scfp-form-row .scfp-recaptcha.scfp-size-normal.scfp-theme-dark .scfp-recaptcha-container > div > div { border-right: 1px solid #525252; border-radius: 3px; }
-.scfp-form-content.scfp-form-widget .scfp-form-row .scfp-recaptcha.scfp-size-normal .scfp-recaptcha-container { transform: scale(0.9); -webkit-transform: scale(0.9); transform-origin: 0 0; -webkit-transform-origin: 0 0; border-radius: 3px; float: left; max-height: 77px; max-width: 107.87%; overflow: hidden; }
+/*-----------------------------------------------------------------*/
+.scfp-form-content.scfp-form-widget .scfp-form-row .scfp-recaptcha.scfp-size-normal .scfp-recaptcha-container > div > div:first-child { max-width: 99% !important; }
+.scfp-form-content.scfp-form-widget .scfp-form-row .scfp-recaptcha.scfp-size-normal .scfp-recaptcha-container { transform: scale(0.9); -webkit-transform: scale(0.9); transform-origin: 0 0; -webkit-transform-origin: 0 0; max-width: 107.87%; margin-bottom: -10px; }
 /*-----------------------------------------------------------------*/
 .scfp-form-content.scfp-form-noborder .scfp-form-row input, .scfp-form-content.scfp-form-noborder .scfp-form-row textarea, .scfp-form-content.scfp-form-noborder .scfp-form-row .scfp-captcha-image-wrapper { border-color: transparent !important; }
 .scfp-form-content.scfp-form-nobackground .scfp-form-row input, .scfp-form-content.scfp-form-nobackground .scfp-form-row textarea, .scfp-form-content.scfp-form-nobackground .scfp-form-row .scfp-captcha-image-wrapper { background-color: transparent !important; }
@@ -112,7 +111,6 @@
 /*---------- Styles for tablet 0 - 375px --------*/
 /*-----------------------------------------------------------------*/  
 @media only screen and (min-width: 0) and (max-width: 375px) {
-    .scfp-form-content .scfp-form-row .scfp-recaptcha.scfp-size-normal { max-height: 68px; }
-    .scfp-form-content .scfp-form-row .scfp-recaptcha.scfp-size-normal .scfp-recaptcha-container { transform: scale(0.9); -webkit-transform: scale(0.9); transform-origin: 0 0; -webkit-transform-origin: 0 0; max-height: 76px; max-width: 302px; float: left; }     
-    .scfp-form-content.scfp-form-widget .scfp-form-row .scfp-recaptcha.scfp-size-normal .scfp-recaptcha-container { transform: scale(0.9); -webkit-transform: scale(0.9); max-width: 300px; }
+    .scfp-form-content .scfp-form-row .scfp-recaptcha.scfp-size-normal .scfp-recaptcha-container { transform: scale(0.9); -webkit-transform: scale(0.9); transform-origin: 0 0; -webkit-transform-origin: 0 0; }     
+    .scfp-form-content.scfp-form-widget .scfp-form-row .scfp-recaptcha.scfp-size-normal .scfp-recaptcha-container { transform: scale(0.9); -webkit-transform: scale(0.9); }
 } 

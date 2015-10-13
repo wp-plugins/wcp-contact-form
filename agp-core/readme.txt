@@ -2,6 +2,9 @@ Collection of a base classes for a custom WordPress plugins
 
 == Changelog == 
 
+= 1.0.5 =
+* Changed : Minor bugfixing
+
 = 1.0.4 =
 * Changed: Optimized autoloader class
 
