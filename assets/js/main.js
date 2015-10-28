@@ -51,6 +51,15 @@
             $('html, body').stop().animate({scrollTop: $('.scfp-notifications').eq(0).position().top} , 0);    
         }
 
+        $(document).on('submit', '.scfp-form', function(event) {
+            if ( $(this).find('.scfp-form-submit').attr("disabled") != 'disabled' ) {
+                $(this).find('.scfp-form-submit').attr("disabled", true);    
+                $(this).find('.scfp-form-submit').addClass('scfp-form-submit-disabled');    
+            } else {
+                return false;    
+            }
+        }); 
+
     });
     
     $('.scfp-rcwidget-response').val('');

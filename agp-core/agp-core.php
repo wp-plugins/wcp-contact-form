@@ -6,7 +6,7 @@
  * @license GPLv2
  * @link https://github.com/AGolubnichenko/agp-core
  * @package AGPCore
- * @version 1.0.5
+ * @version 1.0.6
  */
 
 /*  Copyright 2015  Alexey Golubnichenko  (email : profosbox@gmail.com)

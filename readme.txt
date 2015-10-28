@@ -302,6 +302,10 @@ Path to the templates folder inside the active theme:
 14. Admin Panel :: Settings :: reCAPTCHA 
 
 == Changelog ==
+= 2.3.6 = 
+* added: Check of the minimum required PHP version on a server
+* added: Lock of the "Submit" button during form submission
+
 = 2.3.5 =
 * added: "Quick Reply" button to the Inbox (message list) and form details page that allows to open standard mail client and send quick reply to sender.
 * added: Option for reCAPTCHA translation that based on default WordPress language that defined in the admin panel

@@ -3,7 +3,7 @@
  * Plugin Name: WCP Contact Form
  * Plugin URI: https://wordpress.org/plugins/wcp-contact-form/ 
  * Description: The contact form plugin with dynamic fields, CAPTCHA and other features that makes it easy to add custom contact form on your site in a few clicks
- * Version: 2.3.5
+ * Version: 2.3.6
  * Author: Webcodin
  * Author URI: https://profiles.wordpress.org/webcodin/
  * License: GPL2
@@ -27,47 +27,39 @@
     along with this program; if not, write to the Free Software
     Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 */
-use Webcodin\WCPContactForm\Core\Agp_Autoloader;
 
-if (!defined('ABSPATH')) {
-    exit;
+/**
+ * Check for minimum required PHP version
+ */
+include_once (dirname(__FILE__) . '/agp-core/agp-core-functions.php' );    
+
+
+/**
+ * Check for minimum required PHP version
+ */
+if ( Agp_GetCurrentPHPVersionId() < AGP_PHP_VERSION ) {
+    if ( is_admin()) {
+        add_action( 'admin_notices', SCFP_PHPVersion_AdminNotice , 0 );
+    }    
+/**
+ * Initialize
+ */    
+} else {
+    include_once (dirname(__FILE__) . '/wcp-contact-form-init.php' );    
 }
 
-add_action('init', 'scfp_output_buffer');
-function scfp_output_buffer() {
-    ob_start();
+function SCFP_PHPVersion_AdminNotice() {
+    $name = get_file_data( __FILE__, array ( 'Plugin Name' ), 'plugin' );
+    $currentPHPVersion = Agp_GetPHPVersionById( Agp_GetCurrentPHPVersionId() );
+    $requiredtPHPVersion = Agp_GetPHPVersionById( AGP_PHP_VERSION );
+
+    printf(
+        '<div class="error">
+            <p><strong>%s</strong> plugin can\'t work properly. Your current PHP version is <strong>%s</strong>. Minimum required PHP version is <strong>%s</strong>.</p>
+        </div>',
+        $name[0],
+        $currentPHPVersion,
+        $requiredtPHPVersion
+    );
 }
 
-if (file_exists(dirname(__FILE__) . '/agp-core/agp-core.php' )) {
-    include_once (dirname(__FILE__) . '/agp-core/agp-core.php' );
-} 
-
-add_action( 'plugins_loaded', 'scfp_activate_plugin' );
-function scfp_activate_plugin() {
-    if (class_exists('Webcodin\WCPContactForm\Core\Agp_Autoloader') && !function_exists('SCFP')) {
-        $autoloader = Agp_Autoloader::instance();
-        $autoloader->setClassMap(array(
-            'paths' => array(
-                __DIR__ => array('classes'),
-            ),
-            'namespaces' => array(
-                'Webcodin\WCPContactForm\Core' => array(
-                    __DIR__ => array('agp-core'),
-                ),
-            ),
-            'classmaps' => array (
-                __DIR__ => 'classmap.json',
-            ),            
-        ));
-        //$autoloader->generateClassMap(__DIR__);
-            
-        function SCFP() {
-            return SCFP::instance();
-            
-        }    
-
-        SCFP();                
-    }
-}
-
-scfp_activate_plugin();
