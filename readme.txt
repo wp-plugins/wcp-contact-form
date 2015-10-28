@@ -302,6 +302,9 @@ Path to the templates folder inside the active theme:
 14. Admin Panel :: Settings :: reCAPTCHA 
 
 == Changelog ==
+= 2.3.7 = 
+* minor changes
+
 = 2.3.6 = 
 * added: Check of the minimum required PHP version on a server
 * added: Lock of the "Submit" button during form submission
