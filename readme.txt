@@ -302,6 +302,10 @@ Path to the templates folder inside the active theme:
 14. Admin Panel :: Settings :: reCAPTCHA 
 
 == Changelog ==
+= 2.3.8 = 
+* fixed: Fixed issue with multiple form submit for some site configurations
+* added: Added ability to change background / text colors on hover for "Submit" button via plugin settings
+
 = 2.3.7 = 
 * minor changes
 
