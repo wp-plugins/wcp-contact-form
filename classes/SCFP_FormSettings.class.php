@@ -39,9 +39,23 @@ class SCFP_FormSettings extends Agp_RepeaterAbstract {
 
         $this->init('scfp_form_settings', 'Fields Settings', 'scfp_plugin_options', 'normal');
 
-        $this->setHeaderTemplateAdminName("admin/form/header");
+
+        add_action( 'init', array($this, 'initRtl' ) );                
+    }
+    
+    public function initRtl () {
         $this->setLayoutTemplateAdminName("admin/form/layout");
-        $this->setRowTemplateAdminName("admin/form/row"); 
+
+        $this->setHeaderTemplateAdminName("admin/form/header");
+        $this->setRowTemplateAdminName("admin/form/row");             
+            
+//        if ( !is_rtl() ) {
+//            $this->setHeaderTemplateAdminName("admin/form/header");
+//            $this->setRowTemplateAdminName("admin/form/row");             
+//        } else {
+//            $this->setHeaderTemplateAdminName("admin/form/rtl/header");
+//            $this->setRowTemplateAdminName("admin/form/rtl/row"); 
+//        }        
     }
     
     public function enqueueScripts () {

@@ -19,7 +19,10 @@ if (!empty($atts) && is_array($atts)) {
 }
 if (!empty($key)) :
 ?>
-<?php if (!empty($recaptcha['rc_key'])) :?>
+<?php if (!empty($recaptcha['rc_key'])) :
+    wp_enqueue_script( 'scfp-recaptcha' );         
+    wp_enqueue_script( 'scfp-recaptcha-api' );             
+?>
     <script type="text/javascript">
         if (typeof scfp_rcwidget == 'undefined') {
             var scfp_rcwidget = {};

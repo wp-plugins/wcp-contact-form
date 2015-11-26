@@ -2,7 +2,7 @@
 Contributors: webcodin
 Tags: contact, contact form, form, contact me, contact us, contactus, contact form plugin, email, email message, notifications, admin notifications, customer notifications, customer, form to email, wordpress contact form, subscribe, CSV, CSV export, form builder, builder, captcha, validation, dynamic fields, LESS, dynamic CSS, reCAPTCHA, indicator
 Requires at least: 3.5.0
-Tested up to: 4.3
+Tested up to: 4.4
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 Stable tag: trunk
@@ -302,6 +302,12 @@ Path to the templates folder inside the active theme:
 14. Admin Panel :: Settings :: reCAPTCHA 
 
 == Changelog ==
+= 2.4.1 = 
+* changed: Form entries excluded from search result
+* changed: Rules for enqueue of the reCaptcha JS
+* Changed: Method of checking for minimum required PHP version on a server
+* Minor changes for compatibility with WordPress 4.4
+
 = 2.4.0 = 
 * fixed: Removed strip slashes from submited form fields
 * added: Added ability to change color for "Required" marker via plugin settings

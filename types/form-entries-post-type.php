@@ -30,6 +30,7 @@ function scfp_form_entries_init() {
     'has_archive'        => true,
     'hierarchical'       => false,
     'menu_position'      => 2,
+    'exclude_from_search' => true,
     'supports'           => array( 
         'title', 
         'editor',

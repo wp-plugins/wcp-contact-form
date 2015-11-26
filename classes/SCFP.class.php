@@ -136,8 +136,8 @@ class SCFP extends Agp_Module {
         $form_settings = $this->settings->getFormSettings();
         if (empty($form_settings['scripts_in_footer'])) {
             wp_enqueue_script( 'scfp' );         
-            wp_enqueue_script( 'scfp-recaptcha' );         
-            wp_enqueue_script( 'scfp-recaptcha-api' );         
+//            wp_enqueue_script( 'scfp-recaptcha' );         
+//            wp_enqueue_script( 'scfp-recaptcha-api' );         
         }
         
         wp_enqueue_style( 'scfp-css' );                         
@@ -209,8 +209,8 @@ class SCFP extends Agp_Module {
         $form_settings = $this->settings->getFormSettings();
         if (!empty($form_settings['scripts_in_footer'])) {
             wp_enqueue_script( 'scfp' );         
-            wp_enqueue_script( 'scfp-recaptcha' );         
-            wp_enqueue_script( 'scfp-recaptcha-api' ); 
+//            wp_enqueue_script( 'scfp-recaptcha' );         
+//            wp_enqueue_script( 'scfp-recaptcha-api' ); 
             wp_enqueue_style( 'scfp-css' );                         
         }
         
@@ -240,8 +240,8 @@ class SCFP extends Agp_Module {
         $form_settings = $this->settings->getFormSettings();
         if (!empty($form_settings['scripts_in_footer'])) {
             wp_enqueue_script( 'scfp' );         
-            wp_enqueue_script( 'scfp-recaptcha' );         
-            wp_enqueue_script( 'scfp-recaptcha-api' );    
+//            wp_enqueue_script( 'scfp-recaptcha' );         
+//            wp_enqueue_script( 'scfp-recaptcha-api' );    
             wp_enqueue_style( 'scfp-css' );                         
         }
         
