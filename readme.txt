@@ -305,7 +305,7 @@ Path to the templates folder inside the active theme:
 = 2.4.1 = 
 * changed: Form entries excluded from search result
 * changed: Rules for enqueue of the reCaptcha JS
-* Changed: Method of checking for minimum required PHP version on a server
+* changed: Method of checking for minimum required PHP version on a server
 * Minor changes for compatibility with WordPress 4.4
 
 = 2.4.0 = 
